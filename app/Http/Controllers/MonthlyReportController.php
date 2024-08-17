@@ -23,7 +23,7 @@ class MonthlyReportController extends Controller
     public function create()
     {
         $products = Product::all();
-        return view('dashboard.laporan.create', compact('products', 'users'));
+        return view('dashboard.laporan.create', compact('products'));
     }
 
     public function store(Request $request)
