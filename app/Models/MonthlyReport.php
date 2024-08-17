@@ -17,8 +17,13 @@ class MonthlyReport extends Model
         'report_date',
         'revenue',
         'spending',
+        'user_id', // Add user_id here
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
     protected $dates = ['report_date'];
     public function product()
     {

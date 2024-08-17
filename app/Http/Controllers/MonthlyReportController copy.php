@@ -23,6 +23,7 @@ class MonthlyReportController extends Controller
     public function create()
     {
         $products = Product::all();
+        $users = Siswa::all();
         return view('dashboard.laporan.create', compact('products', 'users'));
     }
 
@@ -59,38 +60,55 @@ return redirect()->route('dashboard.laporan.index')->with('success', 'Laporan be
 
     public function edit($id)
     {
-        $report = MonthlyReport::findOrFail($id);
-        $products = Product::all();
-        return view('dashboard.laporan.edit', compact('report', 'products'));
+        $user_id = Session::get('user_id');
+
+        // Fetch the report for the logged-in user
+        $report = MonthlyReport::where('id', $id)
+            ->where('user_id', $user_id)
+            ->firstOrFail();
+
+        return view('dashboard.laporan.edit', compact('report'));
     }
 
     public function update(Request $request, $id)
-{
-    // Validate the request data
-    $validated = $request->validate([
-        'total_sales' => 'required|integer',
-        'revenue' => 'required|numeric',
-        'report_date' => 'required|date',
-    ]);
+    {
+        $request->validate([
+            'product_id' => 'required|exists:products,id',
+            'total_sales' => 'required|numeric',
+            'revenue' => 'required|numeric',
+            'spending' => 'required|numeric',
+            'report_date' => 'required|date',
+        ]);
 
-    // Find the report by ID
-    $report = MonthlyReport::findOrFail($id);
+        $user_id = Session::get('user_id');
 
-    // Update the report data
-    $report->update([
-        'total_sales' => $validated['total_sales'],
-        'revenue' => $validated['revenue'],
-        'report_date' => $validated['report_date'],
-    ]);
+        // Fetch the report for the logged-in user
+        $report = MonthlyReport::where('id', $id)
+            ->where('user_id', $user_id)
+            ->firstOrFail();
 
-    // Redirect to the reports index page with a success message
-    return redirect()->route('dashboard.laporan.index')->with('success', 'Laporan Bulanan Berhasil di Edit.');
-}
-public function destroy($id)
-{
-    $report = MonthlyReport::findOrFail($id);
-    $report->delete();
+        $report->update([
+            'product_id' => $request->product_id,
+            'total_sales' => $request->total_sales,
+            'revenue' => $request->revenue,
+            'spending' => $request->spending,
+            'report_date' => $request->report_date,
+        ]);
 
-    return redirect()->route('dashboard.laporan.index')->with('success', 'Laporan Bulanan Berhasil di Hapus');
-}
+        return redirect()->route('dashboard.laporan.index')->with('success', 'Laporan berhasil diperbarui.');
+    }
+
+    public function destroy($id)
+    {
+        $user_id = Session::get('user_id');
+
+        // Fetch the report for the logged-in user
+        $report = MonthlyReport::where('id', $id)
+            ->where('user_id', $user_id)
+            ->firstOrFail();
+
+        $report->delete();
+
+        return redirect()->route('dashboard.laporan.index')->with('success', 'Laporan berhasil dihapus.');
+    }
 }

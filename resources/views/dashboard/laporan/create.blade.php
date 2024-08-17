@@ -6,6 +6,7 @@
 <div class="container">
     <h3>Buat Laporan Bulanan</h3>
     <hr>
+
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
