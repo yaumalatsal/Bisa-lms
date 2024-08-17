@@ -127,22 +127,21 @@
 <section  id="cover-page">
     <div class="row">
         <div class="col-lg-12 logo-area">
-            <img src="{{asset('assets/images/logo_bisma.png')}}" alt="">
+            <img src="{{asset('assets/images/logo_bisa.png')}}" alt="">
             <img src="{{asset('assets/images/logo_um.png')}}" alt="">
         </div>
-        <a href="{{url('/mentor/login')}}" class="btn bt-linear nunito">Admin?</a>
     </div>    
         <div class="row">
             <div class="col-lg-6 col-12 hidden-xs desc"  data-aos="fade-up" data-aos-duration="1500">
                 <h1 class="nunito">
-                    <img src="{{asset('assets/images/logo_bisma.png')}}" class="logo-incube">
+                    <img src="{{asset('assets/images/logo_bisa.png')}}" class="logo-incube">
                 </h1>
                 <p class="text-white nunito">
                 BisMA adalah platform untuk memonitoring bisnis Mahasiswa di Universitas Negeri Malang
                 </p>
                 <a href="{{url('/register_siswa')}}" class="btn bt-linear nunito">Pendaftaran Mahasiswa</a>
                 <a href="{{url('/mentor/login')}}" class="btn bt-white nunito">Login Mentor</a>
-                
+  
             </div>
             <div class="col-lg-4 col-12">
                 <div class="login-box">
@@ -166,7 +165,6 @@
                     <button class="btn bt-main w-100" type="submit">Login</button>
                     <br><br>
                     </form>
-
                 </div>
             </div>
         </div>   

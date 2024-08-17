@@ -29,7 +29,7 @@ class SiswaController extends Controller
             if($sql){
                 $status = "Pendaftaran Berhasil, Silahkan Login";                
                 // return redirect(url('/register_siswa'),compact('status'));
-                return view('page/register_siswa')->with('status','Pendaftaran berhasil, silahkan melakukan login');
+                return view('page/login')->with('status','Pendaftaran berhasil, silahkan melakukan login');
                 
             } 
         }else{

@@ -15,11 +15,12 @@ return new class extends Migration
 {
     Schema::create('monitorings', function (Blueprint $table) {
         $table->id();
-        $table->string('business_process');
-        $table->float('value');
-        $table->string('product');
-        $table->integer('quantity');
-        $table->float('price');
+        $table->string('product')->nullable();
+        $table->integer('profit')->nullable();
+        $table->string ('income')->nullable();
+        $table->string ('expenses')->nullable();
+        $table->integer('quantity')->nullable();
+        $table->string('order')->nullable();
         $table->date('date');
         $table->timestamps();
     });

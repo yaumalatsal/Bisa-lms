@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MonitoringController;
+use App\Http\Controllers\RankingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,12 +35,13 @@ Route::post('/konfirmFeed', 'FeedbackController@konfirmFeed');
 // penilaian
 Route::get('/penilaian', 'PenilaianController@siswaPenilaian');
 
-use App\Http\Controllers\MonitoringController;
-
+//monitoring
 Route::get('/monitoring', [MonitoringController::class, 'index'])->name('monitoring.index');
 Route::post('/monitoringstore', [MonitoringController::class, 'store'])->name('monitoring.store');
 
-
+//ranking
+Route::get('/ranking', [RankingController::class, 'index'])->name('ranking.index');
+Route::post('/rankingstore', [RankingController::class, 'store'])->name('ranking.store');
 
 // produk
 Route::post('/register_produk', 'ProdukController@registerProduk');
