@@ -5,14 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Ranking extends Model
+class Mentor extends Model
 {
     use HasFactory;
 
-    protected $table = 'rankings';
+    protected $table = 'mentor';
 
     protected $fillable = [
-        'name',
-        'score',
+        'nama',
+        'email',
+        'password',
+        'nomor_telepon',
+        'umur',
+        'instansi',
     ];
 }

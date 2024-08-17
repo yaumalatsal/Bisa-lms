@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Ranking extends Model
+class Position extends Model
 {
     use HasFactory;
 
-    protected $table = 'rankings';
+    protected $table = 'position';
 
     protected $fillable = [
-        'name',
-        'score',
+        'posisi',
     ];
 }
