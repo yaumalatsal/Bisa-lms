@@ -97,22 +97,8 @@
             </tr>
             </thead>
             <tbody>
-                @php $no = 1; @endphp
-                @foreach($nilai as $datanilai)
-                <tr>
-                    <td>{{$no++}}</td>
-                    <td>{{$datanilai->nama_step}}</td>
-                    <td>
-                        <a href="{{$datanilai->file_nilai}}" target="_blank">
-                            {{$datanilai->file_nilai}}
-                        </a>
-                    </td>
-                    <td>
-                        <button class="btn btn-warning editNilai" data-bs-toggle="modal" data-bs-target="#modalEditNilai" data-file="{{$datanilai->file_nilai}}" data-langkah="{{$datanilai->nama_step}}" data-idpenilaian="{{$datanilai->penilaian_id}}" data-idstep="{{$datanilai->id_step}}"> <i class="fas fa-edit"> </i></button>
-                    </td>
-                </tr>
-                @endforeach
-
+               
+                    
             </tbody>
         </table> 
     </div>
