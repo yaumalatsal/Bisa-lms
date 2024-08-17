@@ -19,10 +19,8 @@ use App\Http\Controllers\DashboardController;
 // Route::get('/', [DashboardController::class,'index']);
 // Route::get('/', 'DashboardController@index');
 // routes/web.php
-Route::get('/', function () {
-    return view('dashboard.dashboard');
-});
-    
+Route::get('/', [DashboardController::class, 'penilaian_siswa'])->name('dashboard.dashboard');
+
 Route::get('/artikel/bmc', function () {
     return view('artikel.bmc');
 });

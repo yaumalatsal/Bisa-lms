@@ -13,26 +13,18 @@ class DashboardController extends Controller
 
     }
 
-    public function penilaian_siswa($id){
-        $id_mentor = Session::get('id_mentor');
-        $produk = DB::table('product')
-        ->select('product.*','mentor.*','siswa.*','product.id as product_id','logo_produk.logo_produk','mentor.nama as nama_mentor', 'siswa.nama as  nama_siswa')
-        ->leftJoin('logo_produk', 'logo_produk.id_produk','product.id')
-        ->join('mentor', 'product.id_mentor','mentor.id')
-        ->join('siswa', 'product.id_ceo','siswa.id')
-        ->where('product.id_mentor',$id_mentor)
-        ->where('product.id',$id)
-        ->get();
-
+    public function penilaian_siswa(){
+        $id_produk = Session::get('id_produk');
         $masterstep = DB::table('master_step')->get();
 
 
         $nilai = DB::table('penilaian')
                 ->select('master_step.*','master_step.id as id_step', 'penilaian.*', 'penilaian.id as penilaian_id')
                 ->join('master_step', 'penilaian.id_step', 'master_step.id')
+                ->where('penilaian.id_produk', $id_produk)
                 ->get();
 
-        return view('mentor/page/detail_penilaian')->with(compact('produk','masterstep','nilai'));
+        return view('dashboard.dashboard')->with(compact('masterstep','nilai'));
     }
 
    
@@ -106,6 +98,8 @@ class DashboardController extends Controller
 
                 $track = Session::get('track');
                 $track_status = Session::get('track_status');
+
+                
                 if($track == 1 && $track_status == 0){
                     return redirect('/product_abstract');  
                 }else{
