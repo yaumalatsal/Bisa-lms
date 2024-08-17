@@ -27,6 +27,9 @@ class DashboardController extends Controller
         return view('dashboard.dashboard')->with(compact('masterstep','nilai'));
     }
 
+    function laporan(){
+        return view('dashboard.laporan');
+    }
    
     function inkubasi(){
         $track = Session::get('track');

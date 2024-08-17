@@ -14,6 +14,9 @@
                 <li class="sidebar-item {{ (request()->is('inkubasi')) ? 'selected' : '' }}"> <a data-locs="{{url('/inkubasi')}}" class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"><i class="mdi mdi-comment-check"></i>
                   <span
                 class="hide-menu">Inkubasi</span></a></li> 
+                <li class="sidebar-item {{ (request()->is('laporan')) ? 'selected' : '' }}"> <a data-locs="{{url('/laporan')}}" class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"><i class="mdi mdi-comment-check"></i>
+                  <span
+                class="hide-menu">Laporan</span></a></li> 
                 <li class="sidebar-item {{ (request()->is('feedback')) ? 'selected' : '' }}"> <a data-locs="{{url('/feedback')}}" class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"><i class="mdi mdi-comment-check"></i>
                   <span
                 class="hide-menu">Feedback Mentor</span></a></li>                             

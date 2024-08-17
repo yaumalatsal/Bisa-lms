@@ -27,6 +27,7 @@ Route::get('/artikel/bmc', function () {
 
 // Route::get('/inkubasi', 'DashboardController@inkubasi');
 Route::get('/inkubasi', [DashboardController::class, 'inkubasi'])->name('dashboard.inkubasi');
+Route::get('/laporan', [DashboardController::class, 'laporan'])->name('dashboard.laporan');
 
 
 // // Autentifikasi
