@@ -13,10 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('monitorings', function (Blueprint $table) {
-            $table->string('file_path')->nullable()->after('date'); // Add file_path column
+        Schema::table('logo_produk', function (Blueprint $table) {
+            if (!Schema::hasColumn('logo_produk','deskripsi')) {
+                $table->text('deskripsi',100)->after('id_produk');
+            } 
         });
     }
+
     /**
      * Reverse the migrations.
      *
@@ -24,8 +27,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('monitorings', function (Blueprint $table) {
-            $table->dropColumn('file_path'); // Drop file_path column
+        Schema::table('logo_produk', function (Blueprint $table) {
+            $table->dropColumn('deskripsi');
         });
     }
 };
