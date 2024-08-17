@@ -45,11 +45,11 @@ class MonthlyReport extends Model
         $profit = $this->profit;
         if ($profit > 0) {
             return '<span class="text-success">
-                    <i class="fas fa-arrow-up"></i> ' . number_format($profit, 2) . 
+                    <i class="fas fa-arrow-up"></i> Rp.  ' . number_format($profit, 2) . 
                 '</span>';
         } elseif ($profit < 0) {
             return '<span class="text-danger">
-                    <i class="fas fa-arrow-down"></i> ' . number_format($profit, 2) . 
+                    <i class="fas fa-arrow-down"></i> Rp.  ' . number_format($profit, 2) . 
                 '</span>';
         } else {
             return number_format($profit, 2);

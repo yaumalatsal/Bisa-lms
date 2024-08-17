@@ -31,7 +31,7 @@ class MonthlyReportController extends Controller
         ]);
 
         MonthlyReport::create($request->all());
-        return redirect()->route('dashboard.laporan.index')->with('success', 'Report created successfully');
+        return redirect()->route('dashboard.laporan.index')->with('success', 'Laporan Bulanan Berhasil di Buat');
     }
 
     public function edit($id)
@@ -61,7 +61,7 @@ class MonthlyReportController extends Controller
     ]);
 
     // Redirect to the reports index page with a success message
-    return redirect()->route('dashboard.laporan.index')->with('success', 'Report updated successfully.');
+    return redirect()->route('dashboard.laporan.index')->with('success', 'Laporan Bulanan Berhasil di Edit.');
 }
 
 
@@ -70,6 +70,6 @@ class MonthlyReportController extends Controller
         $report = MonthlyReport::findOrFail($id);
         $report->delete();
 
-        return redirect()->route('monthly_reports.index')->with('success', 'Report deleted successfully');
+        return redirect()->route('dashboard.laporan.index')->with('success', 'Laporan Bulanan Berhasil di Hapus');
     }
 }

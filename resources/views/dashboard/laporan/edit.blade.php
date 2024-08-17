@@ -1,11 +1,11 @@
 @extends('dashboard_template.index')
 
-@section('title-page', 'Edit Monthly Report')
+
 
 @section('content')
 <div class="container-fluid">
     <h2>Edit Monthly Report</h2>
-
+    <br>
     <!-- Display validation errors if any -->
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -42,7 +42,7 @@
             <input type="date" name="report_date" id="report_date" class="form-control" value="{{ old('report_date', $report->report_date->format('Y-m-d')) }}" required>
         </div>
 
-        <button type="submit" class="btn btn-primary">Update Report</button>
+        <button type="submit" class="btn btn-primary">Perbarui Laporan</button>
     </form>
 </div>
 @endsection

@@ -7,7 +7,16 @@
 @section('content')
 <div class="container-fluid">
     <a href="{{ url('laporan/create') }}" class="btn btn-primary mb-3">Tambah Laporan Bulanan</a>
-
+    <!-- Display success or error messages -->
+    @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @elseif(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+    @endif
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -27,7 +36,7 @@
                     <td>{{ $report->total_sales }}</td>
                     <td>{{ $report->report_date->format('d-m-Y') }}</td>
                     <td>{{ $report->formatted_revenue }}</td>
-                    <td>{{ $report->spending }}</td>
+                    <td>{{ $report->formatted_spending }}</td>
                     <td>{!! $report->formatted_profit !!}</td>
                     <td>
                         <a href="{{ route('dashboard.laporan.edit', $report->id) }}" class="btn btn-warning">Edit</a>
@@ -36,6 +45,7 @@
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Hapus</button>
                         </form>
+                        
                     </td>
                 </tr>
             @endforeach

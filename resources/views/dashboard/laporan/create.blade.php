@@ -1,12 +1,11 @@
 @extends('dashboard_template.index')
 
-@section('title-page')
-    Create Monthly Report
-@endsection
+<title>Buat Laporan Bulanan</title>
 
 @section('content')
 <div class="container">
-
+    <h3>Buat Laporan Bulanan</h3>
+    <hr>
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>

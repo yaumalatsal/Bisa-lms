@@ -32,21 +32,14 @@ Route::get('/inkubasi', [DashboardController::class, 'inkubasi'])->name('dashboa
 Route::get('/laporan', [DashboardController::class, 'laporan'])->name('dashboard.laporan');
 // Display the list of reports
 Route::get('/laporan', [MonthlyReportController::class, 'index'])->name('dashboard.laporan.index');
-
-// Show the form to create a new report
 Route::get('/laporan/create', [MonthlyReportController::class, 'create'])->name('dashboard.laporan.create');
-
-// Handle the submission of the form to store a new report
 Route::post('/laporan', [MonthlyReportController::class, 'store'])->name('dashboard.laporan.store');
-
-// Route to show the form to edit a report
-// Show the form to edit a report
 Route::get('/laporan/edit/{id}', [MonthlyReportController::class, 'edit'])->name('dashboard.laporan.edit');
-
-// Handle the form submission to update the report
 Route::put('/laporan/update/{id}', [MonthlyReportController::class, 'update'])->name('dashboard.laporan.update');
 
-Route::post('/laporan/destroy', [MonthlyReportController::class, 'destroy'])->name('dashboard.laporan.destroy');
+
+Route::delete('/laporan/{id}', [MonthlyReportController::class, 'destroy'])->name('dashboard.laporan.destroy');
+
 
 // // Autentifikasi
 Route::get('/register_mentor', 'DashboardController@register_mentor');
