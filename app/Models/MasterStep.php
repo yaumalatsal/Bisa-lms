@@ -5,14 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Ranking extends Model
+class MasterStep extends Model
 {
     use HasFactory;
 
-    protected $table = 'rankings';
+    protected $table = 'master_step';
 
     protected $fillable = [
-        'name',
-        'score',
+        'nama_step',
+        'deskripsi',
+        'route',
+        'gambar',
+        'step_number',
     ];
 }

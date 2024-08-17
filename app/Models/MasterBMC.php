@@ -5,14 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Ranking extends Model
+class MasterBMC extends Model
 {
     use HasFactory;
-
-    protected $table = 'rankings';
+    protected $table = 'master_bmc';
 
     protected $fillable = [
-        'name',
-        'score',
+        'judul',
+        'deskripsi',
+        'route',
+        'icon',
+        'video',
     ];
 }

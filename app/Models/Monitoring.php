@@ -9,12 +9,15 @@ class Monitoring extends Model
 {
     use HasFactory;
 
+    protected $table = 'monitorings';
+
     protected $fillable = [
-        'business_process', 
-        'value',
         'product',
+        'profit',
+        'income',
+        'expenses',
         'quantity',
-        'price',
+        'order',
         'date',
         'file_path',
     ];
