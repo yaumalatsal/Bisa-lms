@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\RankingController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,18 @@ use App\Http\Controllers\RankingController;
 */
 
 // Route::get('/', [DashboardController::class,'index']);
-Route::get('/', 'DashboardController@index');
+// Route::get('/', 'DashboardController@index');
+// routes/web.php
+Route::get('/', function () {
+    return view('dashboard.dashboard');
+});
+    
+Route::get('/artikel/bmc', function () {
+    return view('artikel.bmc');
+});
+
+// Route::get('/inkubasi', 'DashboardController@inkubasi');
+Route::get('/inkubasi', [DashboardController::class, 'inkubasi'])->name('dashboard.inkubasi');
 
 
 // // Autentifikasi
@@ -31,6 +43,7 @@ Route::get('/login', 'DashboardController@login');
 // feedback
 Route::get('/feedback', 'FeedbackController@siswaFeedBack');
 Route::post('/konfirmFeed', 'FeedbackController@konfirmFeed');
+
 
 // penilaian
 Route::get('/penilaian', 'PenilaianController@siswaPenilaian');

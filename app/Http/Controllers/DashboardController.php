@@ -13,8 +13,30 @@ class DashboardController extends Controller
 
     }
 
+    public function penilaian_siswa($id){
+        $id_mentor = Session::get('id_mentor');
+        $produk = DB::table('product')
+        ->select('product.*','mentor.*','siswa.*','product.id as product_id','logo_produk.logo_produk','mentor.nama as nama_mentor', 'siswa.nama as  nama_siswa')
+        ->leftJoin('logo_produk', 'logo_produk.id_produk','product.id')
+        ->join('mentor', 'product.id_mentor','mentor.id')
+        ->join('siswa', 'product.id_ceo','siswa.id')
+        ->where('product.id_mentor',$id_mentor)
+        ->where('product.id',$id)
+        ->get();
 
-    function index(){
+        $masterstep = DB::table('master_step')->get();
+
+
+        $nilai = DB::table('penilaian')
+                ->select('master_step.*','master_step.id as id_step', 'penilaian.*', 'penilaian.id as penilaian_id')
+                ->join('master_step', 'penilaian.id_step', 'master_step.id')
+                ->get();
+
+        return view('mentor/page/detail_penilaian')->with(compact('produk','masterstep','nilai'));
+    }
+
+   
+    function inkubasi(){
         $track = Session::get('track');
         $track_status = Session::get('track_status');
         $id_siswa = Session::get('id_siswa');
@@ -87,7 +109,7 @@ class DashboardController extends Controller
                 if($track == 1 && $track_status == 0){
                     return redirect('/product_abstract');  
                 }else{
-                    return view('dashboard/dashboard')
+                    return view('dashboard/inkubasi')
                     ->with(compact('tampilan_tahap','tim'));
                 }
             }
