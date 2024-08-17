@@ -1,0 +1,216 @@
+/* NAVBAR CONFIGURATION */
+/* #lightNavbar */
+#lightNavbar .brand{
+    width: 100px;
+}
+  #lightNavbar .navbar {
+    position: fixed;
+    right:0;
+    left: 0;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    align-items: center;
+    min-height: 50px;
+    overflow: hidden;
+    padding:20px;
+    z-index: 1001;
+    background-color: #ffffff;
+  }
+  
+  #lightNavbar .navbar img {
+    height: 18px;
+    width: auto;
+    justify-self: start;
+    margin-left: 71px;
+  }
+  
+  #lightNavbar .navbar ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    justify-self: end;
+    margin-right:6%;
+    
+  }
+  #lightNavbar .nav-item{
+      text-align:center;
+      padding:20px 10px;
+  }
+  #lightNavbar .nav-item a {
+    color:var(--blue);
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: nunito;
+    text-decoration: none;
+    transition: color 0.3s ease-out;
+  }
+  
+  #lightNavbar.nav-item a:hover {
+    color: #3498db;
+  }
+ 
+  #lightNavbar .menu-toggle .bar{
+    width: 25px;
+    height: 3px;
+    background-color: #03192E;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  #lightNavbar .menu-toggle {
+    justify-self: end;
+    margin-right: 25px;
+    display: none;
+  }
+  
+  #lightNavbar .menu-toggle:hover{
+    cursor: pointer;
+  }
+
+
+  
+  #mobile-menu.is-active .bar:nth-child(2){
+    opacity: 0;
+  }
+  
+  #mobile-menu.is-active .bar:nth-child(1){
+    -webkit-transform: translateY(8px) rotate(45deg);
+    -ms-transform: translateY(8px) rotate(45deg);
+    -o-transform: translateY(8px) rotate(45deg);
+    transform: translateY(8px) rotate(45deg);
+  }
+  
+  #mobile-menu.is-active .bar:nth-child(3){
+    -webkit-transform: translateY(-8px) rotate(-45deg);
+    -ms-transform: translateY(-8px) rotate(-45deg);
+    -o-transform: translateY(-8px) rotate(-45deg);
+    transform: translateY(-8px) rotate(-45deg);
+  }
+  
+
+  
+    /* Mobile Devices - Phones/Tablets */
+  
+  @media only screen and (max-width: 720px) {     
+    
+    /* MOBILE NAVIGATION */ 
+    #lightNavbar .navbar{
+        background-color:#ffffff;
+    }      
+
+    #myDarkNavbar .navbar{
+        background-color: #ffffff;
+    }  
+    .menu-toggle .bar{
+        background-color: #03192E;
+    }
+    #lightNavbar .nav-item a{
+        color: #03192E;
+    }
+    
+    #myDarkNavbar .nav-item a{
+        color: #03192E;
+    }
+
+    #lightNavbar .navbar ul {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        justify-content: start;
+        top: 50px;
+        left: 0;        
+        width: 100%;
+        height: calc(100vh - 55px);
+        transform: translate(-101%);
+        text-align: center;
+        overflow: hidden;  
+        background-color: #ffff;      
+    }
+    #myDarkNavbar .navbar ul {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        justify-content: start;
+        top: 50px;
+        left: 0;        
+        width: 100%;
+        height: calc(100vh - 55px);
+        transform: translate(-101%);
+        text-align: center;
+        overflow: hidden;  
+        background-color: #ffff;      
+    }    
+    
+    #lightNavbar .navbar li {
+      padding: 15px;
+    }
+
+    #myDarkNavbar .navbar li {
+        padding: 15px;
+      }
+    
+    #lightNavbar .navbar li:first-child {
+      margin-top: 50px;
+    }
+
+    #myDarkNavbar .navbar li:first-child {
+        margin-top: 50px;
+      }    
+    
+    #lightNavbar .navbar li a {
+      font-size: 1rem;      
+    }
+
+    #myDarkNavbar .navbar li a {
+        font-size: 1rem;      
+      }    
+     
+    #lightNavbar .menu-toggle, .bar {
+      display: block;
+      cursor: pointer;
+    }
+
+    #myDarkNavbar .menu-toggle, .bar {
+        display: block;
+        cursor: pointer;
+      }    
+
+    #myFooter{
+      text-align: center;
+    }
+    
+    .mobile-nav {
+    transform: translate(0%)!important;
+  }
+    
+    /* SECTIONS */
+    
+    .headline {
+      height: 20vh;
+    }
+      
+    .feature-container p {
+      margin-bottom: 25px;
+    }
+    
+    .feature-container {
+      margin-top: 20px;
+    }
+    
+    .feature-container:nth-child(2) {
+      order: -1;
+    }
+    
+    /* SEARCH DISABLED ON MOBILE */
+    
+    #search-icon {
+      display: none;
+    }
+    
+    .search-input {
+    display: none;
+   }
+    
+  }
