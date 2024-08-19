@@ -5,6 +5,7 @@ use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\RankingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MonthlyReportController;
+use App\Http\Controllers\MentorController;
 use App\Models\MonthlyReport;
 use App\Http\Controllers\InvestorController;
 
@@ -114,6 +115,15 @@ Route::get('/mentor', 'MentorController@index');
 Route::get('/mentor/login', 'MentorController@login');
 Route::get('/mentor/logout', 'MentorController@logout');
 Route::post('/mentor/signin', 'MentorController@signin');
+Route::get('/mentor/laporan-produk', 'MentorController@laporanNilai');
+Route::post('mentor/laporan_produk/approve/{id}', 'MentorController@approveReport');
+Route::post('mentor/laporan_produk/approve/{id}', 'MentorController@rejectReport');
+
+
+Route::post('mentor/laporan_produk/approve/{id}', [MentorController::class, 'approveReport'])->name('mentor.page.laporan_produk.approve');
+Route::post('mentor/laporan_produk/reject/{id}', [MentorController::class, 'rejectReport'])->name('mentor.page.laporan_produk.reject');
+
+
 Route::get('/mentor/penilaian', 'PenilaianController@index_mentor');
 Route::get('/mentor/produk', 'ProdukController@getProduk');
 Route::get('/mentor/detail_penilaian/{id}', 'PenilaianController@detail_penilaian');
