@@ -22,7 +22,8 @@ class MonthlyReportController extends Controller
 
     public function create()
     {
-        $products = Product::all();
+        $user_id = Session::get('id_siswa');
+        $products = Product::where('id_ceo', $user_id)->get();
         return view('dashboard.laporan.create', compact('products'));
     }
 
@@ -47,20 +48,20 @@ class MonthlyReportController extends Controller
         $filePath = $request->file('file')->store('uploads', 'public');
 
 // Proses penyimpanan laporan
-MonthlyReport::create([
-    'product_id' => $request->product_id,
-    'total_sales' => $request->total_sales,
-    'revenue' => $request->revenue,
-    'spending' => $request->spending,
-    'report_date' => $request->report_date,
-    'user_id' => $user_id,
-    'file_path' => $filePath,
-    'status' => 'pending', // Set status sebagai 'pending'
-]);
+        MonthlyReport::create([
+            'product_id' => $request->product_id,
+            'total_sales' => $request->total_sales,
+            'revenue' => $request->revenue,
+            'spending' => $request->spending,
+            'report_date' => $request->report_date,
+            'user_id' => $user_id,
+            'file_path' => $filePath,
+            'status' => 'pending', // Set status sebagai 'pending'
+        ]);
 
-return redirect()->route('dashboard.laporan.index')->with('success', 'Laporan berhasil dibuat.');
+        return redirect()->route('dashboard.laporan.index')->with('success', 'Laporan berhasil dibuat.');
 
-    }
+      }
 
     public function edit($id)
     {
