@@ -141,6 +141,7 @@
                 </p>
                 <a href="{{url('/register_siswa')}}" class="btn bt-linear nunito">Pendaftaran Mahasiswa</a>
                 <a href="{{url('/mentor/login')}}" class="btn bt-white nunito">Login Mentor</a>
+                <a href="{{ route('investor.login') }}" class="btn btn-danger nunito">Login Investor</a>
   
             </div>
             <div class="col-lg-4 col-12">

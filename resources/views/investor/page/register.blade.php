@@ -1,10 +1,10 @@
 
-@extends('mentor/template/blankindex')
-@if(Session::has('id_mentor'))
+@extends('investor/template/blankindex')
+{{-- @if(Session::has('id_mentor'))
     <script>
-        window.location.href = "{{url('/mentor')}}"
+        window.location.href = "{{url('/investor')}}"
     </script>
-@endif
+@endif --}}
 @section('css')
     <style>
         #cover-page{
@@ -139,34 +139,39 @@
             <p class="text-white nunito">
             BISa adalah platform untuk memonitoring bisnis Mahasiswa di Universitas Negeri Malang
             </p>
-            <a href="{{url('/register_siswa')}}" class="btn bt-linear nunito">Pendaftaran Siswa</a>
-            <a href="{{url('/login')}}" class="btn btn-success nunito">Login Siswa</a>
-            <a href="{{ route('investor.login') }}" class="btn btn-danger nunito">Login Investor</a>
+            {{-- <a href="{{url('/register_siswa')}}" class="btn bt-linear nunito">Pendaftaran Siswa</a> --}}
+            <a href="{{url('/mentor/login')}}" class="btn btn-success nunito">Login Mentor</a>
+            <a href="{{ route('investor.login')}}" class="btn btn-danger nunito">Login Investor</a>
             
         </div>
         <div class="col-lg-4 col-12">
             <div class="login-box">
-                <div class="label-box">Login Mentor</div>
-                @if(isset($login_error))
-                <div class="alert alert-danger">
-                    Maaf Email  atau Password Salah
-                </div>
-                @endif
+                <div class="label-box">Pendaftaran Investor</div>
                 <br>
-                <form action="{{url('/mentor/signin')}}" method="post">
-                {{csrf_field()}}
+                <form action="{{ route('investor.register-process') }}" method="post">
+                @csrf    
                 <div class="form-group">
-                    <label class="nunito">Email Mentor</label>
-                    <input type="email" name="email" class="form-control" required>
+                    <label class="nunito">Nama Investor</label>
+                    <input required="required" type="text" name="nama" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="nunito">Email</label>
+                    <input required="required" type="email" name="email" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="nunito">Nomor Telepon</label>
+                    <input required="required" type="text" name="nomor_telepon" class="form-control">
                 </div>
                 <div class="form-group">
                     <label class="nunito">Password</label>
-                    <input type="password" name="password" class="form-control" required> 
+                    <input required="required" type="password" name="password" class="form-control">
                 </div>                    
-                <button class="btn bt-main w-100" type="submit">Login</button>
-                <br><br>
+                <button type="submit" class="btn bt-main w-100">Daftar Sekarang</button>
                 </form>
-
+                <br><br>
+                <center>
+                <small>Lupa Kata Sandi ? <a class="text-primary">Klik Disini</a></small>
+                </center>
             </div>
         </div>
     </div>   
