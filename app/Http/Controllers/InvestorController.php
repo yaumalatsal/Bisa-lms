@@ -33,10 +33,7 @@ class InvestorController extends Controller
         
         if (Auth::guard('investor')->attempt($credentials)) {
             return redirect()->route('investor.index');
-        }else {
-            Log::info('fail');
         }
-
         throw ValidationException::withMessages([
             'email' => ['The provided credentials do not match our records.'],
         ]);

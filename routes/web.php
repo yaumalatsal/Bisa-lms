@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\RankingController;
@@ -140,7 +141,6 @@ Route::get('/mentor/feedback', 'FeedbackController@getFeedback');
 Route::prefix('investor')->name('investor.')->group(function () {
     Route::get('login', [InvestorController::class,'showLoginForm'])->name('login');
     Route::post('login', [InvestorController::class,'login'])->name('login-process');
-    Route::post('login', [InvestorController::class,'login'])->name('login-process');
     Route::get('register', [InvestorController::class,'showRegisterForm'])->name('register');
     Route::post('register', [InvestorController::class,'register'])->name('register-process');
     Route::get('logout', [InvestorController::class,'logout'])->name('logout');
@@ -150,5 +150,15 @@ Route::prefix('investor')->name('investor.')->group(function () {
         Route::get('/produk', [InvestorProdukController::class,'index'])->name('produk');
         Route::get('/produk/{id}', [InvestorProdukController::class,'detail'])->name('produk.detail');
         Route::get('/produk/{id_bmc}/{id_produk}', [InvestorProdukController::class,'result_bmc'])->name('produk.result_bmc');
+    });
+});
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('login', [AdminController::class,'showLoginForm'])->name('login');
+    Route::post('login', [AdminController::class,'login'])->name('login-process');
+    Route::get('logout', [AdminController::class,'logout'])->name('logout');
+
+    Route::middleware(['auth:admin'])->group(function () {
+        Route::get('/', [AdminController::class,'index'])->name('index');
     });
 });
