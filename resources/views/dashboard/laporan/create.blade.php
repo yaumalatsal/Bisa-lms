@@ -17,12 +17,11 @@
         </div>
     @endif
 
-    <form action="{{ route('dashboard.laporan.store') }}" method="POST">
+    <form action="{{ route('dashboard.laporan.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
-            <label for="product_id">Product</label>
-            <select name="product_id" id="product_id" class="form-control">
-                <option value="">Pilih Produk</option>
+            <label for="product_id" class="form-label">Pilih Produk</label>
+            <select name="product_id" id="product_id" class="form-control" required>
                 @foreach($products as $product)
                     <option value="{{ $product->id }}">{{ $product->nama_produk }}</option>
                 @endforeach
@@ -47,6 +46,11 @@
         <div class="form-group">
             <label for="spending">Pengeluaran (Dalam Rupiah)</label>
             <input type="text" name="spending" id="spending" class="form-control" value="{{ old('spending') }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="file" class="form-label">Unggah Laporan (PDF)</label>
+            <input type="file" name="file" id="file" class="form-control" required>
         </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>

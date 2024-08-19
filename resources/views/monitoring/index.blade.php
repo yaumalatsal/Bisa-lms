@@ -127,7 +127,7 @@
                           <i class="bx bx-down-arrow-alt"></i> {{ number_format($profitPercentageChange, 2) }}%
                       </small>
                   @else
-                      <small class="text-muted fw-semibold">No change</small>
+                      <small class="text-muted fw-semibold">Tidak Ada Perubahan</small>
                   @endif
                 </div>
               </div>
@@ -161,7 +161,7 @@
                     </div>
                   </div>
                   <span class="fw-semibold d-block mb-1">Total Penjualan</span>
-                  <h6 class="card-title mb-2">Rp. {{ number_format($totalSales, 0, ',', '.') }} Produk </h3>
+                  <h6 class="card-title mb-2"> {{ number_format($totalSales, 0, ',', '.') }} Produk </h3>
                   @if($salesPercentageChange > 0)
                       <small class="text-success fw-semibold">
                           <i class="bx bx-up-arrow-alt"></i> +{{ number_format($salesPercentageChange, 2) }}%
@@ -171,7 +171,7 @@
                           <i class="bx bx-down-arrow-alt"></i> {{ number_format($salesPercentageChange, 2) }}%
                       </small>
                   @else
-                      <small class="text-muted fw-semibold">No change</small>
+                      <small class="text-muted fw-semibold">Tidak Ada Perubahan</small>
                   @endif
                 </div>
               </div>
@@ -263,7 +263,7 @@
                     </div>
                   </div>
                  
-                    <span class="fw-semibold d-block mb-1">Toral Pemasukan</span>
+                    <span class="fw-semibold d-block mb-1">Total Pemasukan</span>
                     <h6 class="card-title mb-2">Rp.{{ number_format($totalRevenue, 0, ',', '.') }}</h3>
                     @if($revenuePercentageChange > 0)
                         <small class="text-success fw-semibold">
@@ -274,7 +274,7 @@
                             <i class="bx bx-down-arrow-alt"></i> {{ number_format($revenuePercentageChange, 2) }}%
                         </small>
                     @else
-                        <small class="text-muted fw-semibold">No change</small>
+                        <small class="text-muted fw-semibold">Tidak Ada Perubahan</small>
                     @endif
                 
                 </div>
@@ -315,7 +315,7 @@
                           <i class="bx bx-down-arrow-alt"></i> {{ number_format($spendingPercentageChange, 2) }}%
                       </small>
                   @else
-                      <small class="text-muted fw-semibold">No change</small>
+                      <small class="text-muted fw-semibold">Tidak Ada Perubahan</small>
                   @endif
                 </div>
               </div>

@@ -17,7 +17,9 @@ class MonthlyReport extends Model
         'report_date',
         'revenue',
         'spending',
-        'user_id', // Add user_id here
+        'user_id',
+        'file_path', // Kolom baru untuk file PDF
+        'status', // Add user_id here
     ];
 
     public function user()

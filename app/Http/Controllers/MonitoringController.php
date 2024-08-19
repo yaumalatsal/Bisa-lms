@@ -19,8 +19,10 @@ class MonitoringController extends Controller
     // Ambil data siswa berdasarkan id_siswa
     $siswa = Siswa::find($user_id);
 
-    // Ambil semua laporan bulanan yang sesuai dengan user_id
-    $monthlyReports = MonthlyReport::where('user_id', $user_id)->get();
+    // Ambil semua laporan bulanan yang telah disetujui dan sesuai dengan user_id
+    $monthlyReports = MonthlyReport::where('user_id', $user_id)
+        ->where('status', 'disetujui') // Tambahkan kondisi untuk hanya menampilkan laporan yang disetujui
+        ->get();
 
     // Hitung total profit, total penjualan, total pemasukan, total pengeluaran
     $totalSales = $monthlyReports->sum('total_sales');
@@ -30,8 +32,9 @@ class MonitoringController extends Controller
         return $report->revenue - $report->spending;
     });
 
-    // Ambil data bulan sebelumnya
+    // Ambil data bulan sebelumnya yang telah disetujui
     $previousMonthReports = MonthlyReport::where('user_id', $user_id)
+        ->where('status', 'disetujui') // Tambahkan kondisi untuk hanya menampilkan laporan yang disetujui
         ->whereMonth('report_date', '=', now()->subMonth()->month)
         ->whereYear('report_date', '=', now()->subMonth()->year)
         ->get();
@@ -77,6 +80,7 @@ class MonitoringController extends Controller
         'spendingPercentageChange'
     ));
 }
+
 
 
 
