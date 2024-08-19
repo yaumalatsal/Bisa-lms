@@ -21,7 +21,7 @@
                 <h2>Selamat Datang  <strong>{{$datatim->nama_produk}}</strong></h2>
             @endforeach
 
-            <p>Silahkan ikutdi alur inkubasi dibawah ini, untuk mempermudah anda dalam membangun StartUp yang hebat </p>
+            <p>Silahkan ikut alur inkubasi dibawah ini, untuk mempermudah anda dalam membangun StartUp yang hebat </p>
         
     </div>    
     <br>

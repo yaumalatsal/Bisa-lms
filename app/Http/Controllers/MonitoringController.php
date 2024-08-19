@@ -4,15 +4,81 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Monitoring;
+use App\Models\Siswa;
+use App\Models\MonthlyReport;
 use Illuminate\Support\Facades\Storage;
+use Session;
+
 
 class MonitoringController extends Controller
 {
     public function index()
-    {
-        $data = Monitoring::all();
-        return view('monitoring.index', compact('data'));
+{
+    $user_id = Session::get('id_siswa');
+
+    // Ambil data siswa berdasarkan id_siswa
+    $siswa = Siswa::find($user_id);
+
+    // Ambil semua laporan bulanan yang sesuai dengan user_id
+    $monthlyReports = MonthlyReport::where('user_id', $user_id)->get();
+
+    // Hitung total profit, total penjualan, total pemasukan, total pengeluaran
+    $totalSales = $monthlyReports->sum('total_sales');
+    $totalRevenue = $monthlyReports->sum('revenue');
+    $totalSpending = $monthlyReports->sum('spending');
+    $totalProfit = $monthlyReports->sum(function ($report) {
+        return $report->revenue - $report->spending;
+    });
+
+    // Ambil data bulan sebelumnya
+    $previousMonthReports = MonthlyReport::where('user_id', $user_id)
+        ->whereMonth('report_date', '=', now()->subMonth()->month)
+        ->whereYear('report_date', '=', now()->subMonth()->year)
+        ->get();
+
+    // Hitung total dari bulan sebelumnya
+    $previousTotalSales = $previousMonthReports->sum('total_sales');
+    $previousTotalRevenue = $previousMonthReports->sum('revenue');
+    $previousTotalSpending = $previousMonthReports->sum('spending');
+    $previousTotalProfit = $previousMonthReports->sum(function ($report) {
+        return $report->revenue - $report->spending;
+    });
+
+    // Hitung persentase perubahan dibandingkan bulan sebelumnya
+    $profitPercentageChange = 0;
+    if ($previousTotalProfit != 0) {
+        $profitPercentageChange = (($totalProfit - $previousTotalProfit) / abs($previousTotalProfit)) * 100;
     }
+
+    $salesPercentageChange = 0;
+    if ($previousTotalSales != 0) {
+        $salesPercentageChange = (($totalSales - $previousTotalSales) / abs($previousTotalSales)) * 100;
+    }
+
+    $revenuePercentageChange = 0;
+    if ($previousTotalRevenue != 0) {
+        $revenuePercentageChange = (($totalRevenue - $previousTotalRevenue) / abs($previousTotalRevenue)) * 100;
+    }
+
+    $spendingPercentageChange = 0;
+    if ($previousTotalSpending != 0) {
+        $spendingPercentageChange = (($totalSpending - $previousTotalSpending) / abs($previousTotalSpending)) * 100;
+    }
+
+    return view('monitoring.index', compact(
+        'siswa', 
+        'totalSales', 
+        'totalRevenue', 
+        'totalSpending', 
+        'totalProfit', 
+        'profitPercentageChange',
+        'salesPercentageChange',
+        'revenuePercentageChange',
+        'spendingPercentageChange'
+    ));
+}
+
+
 
     public function store(Request $request)
     {
