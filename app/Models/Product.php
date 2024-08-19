@@ -27,4 +27,9 @@ class Product extends Model
     {
         return $this->belongsTo(Siswa::class, 'id_ceo');
     }
+
+    public function logoProduk()
+    {
+        return $this->hasOne(LogoProduk::class, 'id_produk', 'id');
+    }
 }

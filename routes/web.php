@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MonthlyReportController;
 use App\Models\MonthlyReport;
 use App\Http\Controllers\InvestorController;
+use App\Http\Controllers\InvestorProdukController;
 
 /*
 |--------------------------------------------------------------------------
@@ -136,5 +137,8 @@ Route::prefix('investor')->name('investor.')->group(function () {
 
     Route::middleware(['auth:investor'])->group(function () {
         Route::get('/', [InvestorController::class,'index'])->name('index');
+        Route::get('/produk', [InvestorProdukController::class,'index'])->name('produk');
+        Route::get('/produk/{id}', [InvestorProdukController::class,'detail'])->name('produk.detail');
+        Route::get('/produk/{id_bmc}/{id_produk}', [InvestorProdukController::class,'result_bmc'])->name('produk.result_bmc');
     });
 });
