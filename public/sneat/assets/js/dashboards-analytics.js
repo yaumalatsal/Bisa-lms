@@ -18,16 +18,16 @@
     totalRevenueChartOptions = {
       series: [
         {
-          name: '2021',
-          data: [18, 7, 15, 29, 18, 12, 9]
+          name: tahunLalu,
+          data: chartBulanLalu
         },
         {
-          name: '2020',
-          data: [-13, -18, -9, -14, -5, -17, -15]
+          name: tahunSekarang,
+          data: chartBulanSekarang
         }
       ],
       chart: {
-        height: 300,
+        height: 350,
         stacked: true,
         type: 'bar',
         toolbar: { show: false }
@@ -35,8 +35,8 @@
       plotOptions: {
         bar: {
           horizontal: false,
-          columnWidth: '33%',
-          borderRadius: 12,
+          columnWidth: '60%',
+          borderRadius: 33,
           startingShape: 'rounded',
           endingShape: 'rounded'
         }
@@ -78,7 +78,7 @@
         }
       },
       xaxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Desember'],
         labels: {
           style: {
             fontSize: '13px',
@@ -278,7 +278,7 @@
   // --------------------------------------------------------------------
   const growthChartEl = document.querySelector('#growthChart'),
     growthChartOptions = {
-      series: [78],
+      series: [chartData],
       labels: ['Growth'],
       chart: {
         height: 240,
@@ -494,7 +494,7 @@
     incomeChartConfig = {
       series: [
         {
-          data: [24, 21, 30, 22, 42, 26, 35, 29]
+          data: [324, 21, 30, 22, 42, 26, 35, 29, 24, 21, 30, 22, 42, 26, 35, 29]
         }
       ],
       chart: {
@@ -558,7 +558,7 @@
         }
       },
       xaxis: {
-        categories: ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+        categories: ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
         axisBorder: {
           show: false
         },

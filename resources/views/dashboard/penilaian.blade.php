@@ -33,7 +33,8 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Langkah</th>
-                                        <th>File Penilaian</th>
+                                        <th>Nilai</th>
+                                        <th>Keterangan</th>
                                         
                                     </tr>
                                     </thead>
@@ -48,6 +49,7 @@
                                                     {{$datanilai->file_nilai}}
                                                 </a>
                                             </td>
+                                            <td>{{ $datanilai->keterangan }}</td>
                                         
                                         </tr>
                                         @endforeach
