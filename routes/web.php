@@ -6,6 +6,7 @@ use App\Http\Controllers\RankingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MonthlyReportController;
 use App\Models\MonthlyReport;
+use App\Http\Controllers\InvestorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,7 +49,7 @@ Route::post('/pendaftaran_siswa', 'SiswaController@register_siswa');
 Route::get('/logout_siswa', 'SiswaController@logout');
 Route::post('/signin', 'SiswaController@login');
 // Route::get('/dashboard', 'DashboardController@index');
-Route::get('/login', 'DashboardController@login');
+Route::get('/login', 'DashboardController@login')->name('login');
 
 // feedback
 Route::get('/feedback', 'FeedbackController@siswaFeedBack');
@@ -122,3 +123,18 @@ Route::post('/mentor/editNilai', 'PenilaianController@editNilai');
 Route::post('/mentor/editTrack', 'ProdukController@editTrack');
 Route::get('/mentor/detail_result_bmc/{id_bmc}/{id_produk}', 'BmcController@resultBMC');
 Route::get('/mentor/feedback', 'FeedbackController@getFeedback');
+
+
+// investor
+Route::prefix('investor')->name('investor.')->group(function () {
+    Route::get('login', [InvestorController::class,'showLoginForm'])->name('login');
+    Route::post('login', [InvestorController::class,'login'])->name('login-process');
+    Route::post('login', [InvestorController::class,'login'])->name('login-process');
+    Route::get('register', [InvestorController::class,'showRegisterForm'])->name('register');
+    Route::post('register', [InvestorController::class,'register'])->name('register-process');
+    Route::get('logout', [InvestorController::class,'logout'])->name('logout');
+
+    Route::middleware(['auth:investor'])->group(function () {
+        Route::get('/', [InvestorController::class,'index'])->name('index');
+    });
+});

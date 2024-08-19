@@ -1,10 +1,10 @@
 
-@extends('mentor/template/blankindex')
-@if(Session::has('id_mentor'))
+@extends('investor/template/blankindex')
+{{-- @if(Session::has('id_mentor'))
     <script>
-        window.location.href = "{{url('/mentor')}}"
+        window.location.href = "{{url('/investor')}}"
     </script>
-@endif
+@endif --}}
 @section('css')
     <style>
         #cover-page{
@@ -139,24 +139,24 @@
             <p class="text-white nunito">
             BISa adalah platform untuk memonitoring bisnis Mahasiswa di Universitas Negeri Malang
             </p>
-            <a href="{{url('/register_siswa')}}" class="btn bt-linear nunito">Pendaftaran Siswa</a>
-            <a href="{{url('/login')}}" class="btn btn-success nunito">Login Siswa</a>
-            <a href="{{ route('investor.login') }}" class="btn btn-danger nunito">Login Investor</a>
+            {{-- <a href="{{url('/register_siswa')}}" class="btn bt-linear nunito">Pendaftaran Siswa</a> --}}
+            <a href="{{url('/mentor/login')}}" class="btn btn-success nunito">Login Mentor</a>
+            <a href="{{ route('investor.register')}}" class="btn btn-danger nunito">Daftar Investor</a>
             
         </div>
         <div class="col-lg-4 col-12">
             <div class="login-box">
-                <div class="label-box">Login Mentor</div>
+                <div class="label-box">Login Investor</div>
                 @if(isset($login_error))
                 <div class="alert alert-danger">
                     Maaf Email  atau Password Salah
                 </div>
                 @endif
                 <br>
-                <form action="{{url('/mentor/signin')}}" method="post">
-                {{csrf_field()}}
+                <form action="{{ route('investor.login-process') }}" method="post">
+                @csrf
                 <div class="form-group">
-                    <label class="nunito">Email Mentor</label>
+                    <label class="nunito">Email Investor</label>
                     <input type="email" name="email" class="form-control" required>
                 </div>
                 <div class="form-group">
