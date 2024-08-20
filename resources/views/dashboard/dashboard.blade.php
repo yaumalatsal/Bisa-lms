@@ -101,6 +101,7 @@
                                         <th>No</th>
                                         <th>Nama Langkah</th>
                                         <th>Nilai <strong>(1-100)</strong></th>
+                                        <th>Keterangan</th>
                                         
                                     </tr>
                                     </thead>
@@ -115,6 +116,7 @@
                                                     {{$datanilai->file_nilai}}
                                                 </a>
                                             </td>
+                                            <td>{{ $datanilai->keterangan }}</td>
                                         
                                         </tr>
                                         @endforeach

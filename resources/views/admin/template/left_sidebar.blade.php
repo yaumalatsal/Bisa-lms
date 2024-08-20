@@ -29,6 +29,10 @@
 
                 <li class="sidebar-item {{ (request()->is('admin/materi')) ? 'selected' : '' }}"> <a data-locs="{{url('/admin/materi')}}" class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"><i class="mdi mdi-comment-check"></i><span
                     class="hide-menu">Daftar Materi</span></a></li>
+                
+                
+                    <li class="sidebar-item {{ (request()->is('admin/mapel')) ? 'selected' : '' }}"> <a data-locs="{{route('admin.mapels.index')}}" class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"><i class="mdi mdi-comment-check"></i><span
+                        class="hide-menu">Soal Quiz</span></a></li>
                     
         </nav>
         <!-- End Sidebar navigation -->

@@ -71,7 +71,7 @@ class DashboardController extends Controller
 
         $nilai = DB::table('penilaian')
             ->select('master_step.*', 'master_step.id as id_step', 'penilaian.*', 'penilaian.id as penilaian_id')
-            ->join('master_step', 'penilaian.id_step', 'master_step.id')
+            ->join('master_step', 'penilaian.id_step', 'master_step.id' , 'penilaian')
             ->where('penilaian.id_produk', $id_produk)
             ->get();
 
