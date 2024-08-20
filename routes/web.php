@@ -155,6 +155,8 @@ Route::prefix('investor')->name('investor.')->group(function () {
 
 // Route::get('/admin/materi', [AdminController::class,'showMateri'])->name('admin.materi');
 Route::get('/materi/bmc', [DashboardController::class, 'showMateriBMC'])->name('dashboard.materi.bmc');
+Route::get('/materi/ide-bisnis', [DashboardController::class, 'showMateriIde'])->name('dashboard.materi.ide');
+Route::get('/materi/cara-memulai-bisnis', [DashboardController::class, 'showMateriCara'])->name('dashboard.materi.cara');
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('login', [AdminController::class, 'showLoginForm'])->name('login');

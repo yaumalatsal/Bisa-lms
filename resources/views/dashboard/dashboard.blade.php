@@ -67,7 +67,7 @@
                     <img src="{{asset('assets/images/ilustration/step/presen.gif')}}" alt="Cara Memulai Bisnis">
                     <h5 class="mt-3">Cara Memulai Bisnis</h5>
                     <p class="deskripsi-step">Panduan langkah demi langkah tentang cara memulai bisnis dari nol hingga sukses.</p>
-                    <a href="{{url('cara-memulai-bisnis')}}" class="w-100 btn btn-primary">Pelajari Lebih Lanjut</a>
+                    <a href="{{url('/materi/cara-memulai-bisnis')}}" class="w-100 btn btn-primary">Pelajari Lebih Lanjut</a>
                 </div>
             </div>
         </div>
@@ -79,7 +79,7 @@
                     <img src="{{asset('assets/images/ilustration/step/publis.gif')}}" alt="Ide Bisnis">
                     <h5 class="mt-3">Ide Bisnis</h5>
                     <p class="deskripsi-step">Temukan ide-ide bisnis kreatif dan inovatif untuk memulai usaha yang sukses.</p>
-                    <a href="{{url('ide-bisnis')}}" class="w-100 btn btn-primary">Pelajari Lebih Lanjut</a>
+                    <a href="{{url('/materi/ide-bisnis')}}" class="w-100 btn btn-primary">Pelajari Lebih Lanjut</a>
                 </div>
             </div>
         </div>

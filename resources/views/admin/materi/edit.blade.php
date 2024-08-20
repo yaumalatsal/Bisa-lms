@@ -8,7 +8,7 @@
     <div class="container">
         <h1>Edit Materi Inkubasi</h1>
 
-        <form action="{{ route('materi.update', $materi->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.materi.update', $materi->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="form-group">
