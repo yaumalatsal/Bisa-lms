@@ -31,6 +31,12 @@ use App\Http\Controllers\QuizController;
 // Route::get('/', 'DashboardController@index');
 // routes/web.php
 
+use App\Http\Controllers\PeringkatController;
+
+Route::get('/peringkat', [PeringkatController::class, 'index'])->name('dashboard.ranking.index');
+Route::get('/peringkat/{mapelId}', [PeringkatController::class, 'getRankings'])->name('dashboard.ranking.data');
+
+
 //QUIZ
 Route::get('/quiz', [QuizController::class, 'index'])->name('dashboard.quiz.index');
 

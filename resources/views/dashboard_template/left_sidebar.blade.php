@@ -38,8 +38,8 @@
                         data-locs="{{ url('/quiz') }}" class="sidebar-link waves-effect waves-dark sidebar-link"
                         aria-expanded="false"><i class="mdi mdi-chart-bar"></i><span
                             class="hide-menu">Kuis</span></a></li>
-                <li class="sidebar-item {{ request()->is('ranking') ? 'selected' : '' }}"> <a
-                        data-locs="{{ url('/ranking') }}" class="sidebar-link waves-effect waves-dark sidebar-link"
+                <li class="sidebar-item {{ request()->is('peringkat') ? 'selected' : '' }}"> <a
+                        data-locs="{{ url('/peringkat') }}" class="sidebar-link waves-effect waves-dark sidebar-link"
                         aria-expanded="false"><i class="mdi mdi-chart-bar"></i><span
                             class="hide-menu">Ranking</span></a></li>
                 <!-- <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
