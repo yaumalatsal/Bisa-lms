@@ -45,19 +45,19 @@
                                             <td>{{ $data->nama }}</td>
                                             <td>{{ $data->tanggal_lahir }}</td>
                                             <td>
-                                                <a href="{{ route('admin.produk.detail', $data->id) }}"
+                                                <a href=""
                                                     class="btn btn-primary">
-                                                    Detail Produk &nbsp;
+                                                    Detail Siswa &nbsp;
                                                     <i class="fas fa-arrow-circle-right"></i>
                                                 </a>
                                                 <a href="#" class="btn btn-danger"
-                                                    onclick="confirmDelete({{ $data->id }})">
-                                                    Hapus Produk &nbsp;
+                                                    onclick="confirmDeleteSiswa({{ $data->id }})">
+                                                    Hapus Siswa &nbsp;
                                                     <i class="fas fa-trash"></i>
                                                 </a>
 
                                                 <form id="delete-form-{{ $data->id }}"
-                                                    action="{{ route('admin.produk.destroy', $data->id) }}" method="POST"
+                                                    action="{{ route('admin.siswa.destroy', $data->id) }}" method="POST"
                                                     style="display: none;">
                                                     @csrf
                                                     @method('DELETE')
@@ -93,9 +93,9 @@
             $("#table-one").DataTable();
         });
 
-        function confirmDelete(id) {
+        function confirmDeleteSiswa(id) {
             Swal.fire({
-                title: 'Apa Yakin Menghapus Produk?',
+                title: 'Apa Yakin Menghapus Siswa?',
                 text: "Anda Tidak bisa mengulangi lagi!",
                 icon: 'warning',
                 showCancelButton: true,

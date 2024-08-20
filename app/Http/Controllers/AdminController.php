@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use App\Models\ArtikelInkubasi;
+use App\Models\Member;
+use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
 {
@@ -35,6 +37,40 @@ class AdminController extends Controller
 
         return view('admin.page.siswa')->with(compact('siswa'));
     }
+
+    public function destroySiswa($id)
+    {
+        $siswa = Siswa::findOrFail($id);
+        $siswaMember = Member::where('id_siswa', $siswa->id)->first();
+
+        if ($siswaMember && $siswaMember->position == 1) {
+            // Get all members associated with the same product
+            $members = Member::where('id_produk', $siswaMember->id_produk)->get();
+
+            // Get the associated product
+            $product = $siswaMember->produk()->first();
+
+            // Delete all members associated with the product
+            foreach ($members as $member) {
+                $member->delete();
+            }
+
+            // Delete the product if it exists
+            if ($product) {
+                $product->delete();
+            }
+        } else {
+            // If not position 1, just delete the member
+            $siswaMember->delete();
+        }
+
+        // Finally, delete the Siswa
+        $siswa->delete();
+
+        return redirect()->route('admin.siswa')->with('success', 'Siswa deleted successfully.');
+    }
+
+
     public function login(Request $request)
     {
         $request->validate([
