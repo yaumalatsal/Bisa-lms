@@ -11,6 +11,8 @@ use App\Http\Controllers\MentorController;
 use App\Models\MonthlyReport;
 use App\Http\Controllers\InvestorController;
 use App\Http\Controllers\InvestorProdukController;
+use App\Http\Controllers\MapelsQuizController;
+use App\Http\Controllers\QuizSoalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +24,7 @@ use App\Http\Controllers\InvestorProdukController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 
 // Route::get('/', [DashboardController::class,'index']);
 // Route::get('/', 'DashboardController@index');
@@ -166,14 +169,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 
     Route::middleware(['auth:admin'])->group(function () {
-        Route::get('/', [AdminController::class,'index'])->name('index');
-        Route::get('/produk', [AdminProdukController::class,'index'])->name('produk');
-        Route::get('/produk/{id}', [AdminProdukController::class,'detail'])->name('produk.detail');
-        Route::get('/produk/{id_bmc}/{id_produk}', [AdminProdukController::class,'result_bmc'])->name('produk.result_bmc');
-        Route::delete('/produk/{id}', [AdminProdukController::class,'destroy'])->name('produk.destroy');
+        Route::get('/', [AdminController::class, 'index'])->name('index');
+        Route::get('/produk', [AdminProdukController::class, 'index'])->name('produk');
+        Route::get('/produk/{id}', [AdminProdukController::class, 'detail'])->name('produk.detail');
+        Route::get('/produk/{id_bmc}/{id_produk}', [AdminProdukController::class, 'result_bmc'])->name('produk.result_bmc');
+        Route::delete('/produk/{id}', [AdminProdukController::class, 'destroy'])->name('produk.destroy');
 
 
-        Route::get('/siswa', [AdminController::class,'showSiswa'])->name('siswa');
+        Route::get('/siswa', [AdminController::class, 'showSiswa'])->name('siswa');
 
         //Materi
         Route::get('/materi/create', [AdminController::class, 'createMateri'])->name('materi.create');
@@ -182,7 +185,23 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('/materi/{id}', [AdminController::class, 'updateMateri'])->name('materi.update');
         Route::delete('/materi/{id}', [AdminController::class, 'destroyMateri'])->name('materi.destroy');
 
-        
+        Route::get('/mapel', [MapelsQuizController::class, 'index'])->name('mapels.index');
+        Route::get('/mapel/create', [MapelsQuizController::class, 'create'])->name('mapels.create');
+        Route::post('/mapel', [MapelsQuizController::class, 'store'])->name('mapels.store');
+        Route::get('/mapel/{id}/edit', [MapelsQuizController::class, 'edit'])->name('mapels.edit');
+        Route::put('/mapel/{id}', [MapelsQuizController::class, 'update'])->name('mapels.update');
+        Route::delete('/mapel/{id}', [MapelsQuizController::class, 'destroy'])->name('mapels.destroy');
+
+        // Rute CRUD untuk soal kuis di dalam mapel
+
+        Route::get('/mapel/soal', [QuizSoalController::class, 'index'])->name('quiz_soals.index');
+        Route::get('/mapel/soal/create', [QuizSoalController::class, 'create'])->name('quiz_soals.create');
+        Route::post('/mapel/soal/', [QuizSoalController::class, 'store'])->name('quiz_soals.store');
+        Route::get('/mapel/soal/{id}/edit', [QuizSoalController::class, 'edit'])->name('quiz_soals.edit');
+        Route::put('/mapel/soal/{id}', [QuizSoalController::class, 'update'])->name('quiz_soals.update');
+        Route::delete('/mapel/soal/{id}', [QuizSoalController::class, 'destroy'])->name('quiz_soals.destroy');
+
+
 
 
 
