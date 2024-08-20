@@ -187,7 +187,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::delete('/produk/{id}', [AdminProdukController::class, 'destroy'])->name('produk.destroy');
 
 
-        Route::get('/siswa', [AdminController::class, 'showSiswa'])->name('siswa');
+        Route::get('/siswa', [AdminController::class,'showSiswa'])->name('siswa');
+        Route::delete('/siswa/{id}', [AdminController::class,'destroySiswa'])->name('siswa.destroy');
 
         //Materi
         Route::get('/materi/create', [AdminController::class, 'createMateri'])->name('materi.create');
