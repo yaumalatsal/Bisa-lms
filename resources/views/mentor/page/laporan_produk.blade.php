@@ -1,7 +1,7 @@
 @extends('mentor/template/index')
 
 @section('title-page')
-    Laporan Bulanan Siswa
+    Laporan Bulanan
 @endsection
 
 @section('content')

@@ -27,6 +27,9 @@
                         class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"><i
                             class="mdi mdi-comment-check"></i><span class="hide-menu">Feedback</span></a></li>
 
+                <li class="sidebar-item {{ (request()->is('admin/materi')) ? 'selected' : '' }}"> <a data-locs="{{url('/admin/materi')}}" class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"><i class="mdi mdi-comment-check"></i><span
+                    class="hide-menu">Daftar Materi</span></a></li>
+                    
         </nav>
         <!-- End Sidebar navigation -->
     </div>

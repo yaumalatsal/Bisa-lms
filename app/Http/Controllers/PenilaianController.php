@@ -65,7 +65,8 @@ class PenilaianController extends Controller
             'id_step'       => $req->step,
             'id_mentor'     => $id_mentor,
             'id_produk'     => $req->id_produk,
-            'file_nilai'    => $req->nilai
+            'file_nilai'    => $req->nilai,
+            'keterangan'    => $req->keterangan
         ]);
 
         return redirect()->back();

@@ -8,6 +8,7 @@ use App\Models\Siswa;
 use App\Models\MonthlyReport;
 use Illuminate\Support\Facades\Storage;
 use Session;
+use DB;
 
 
 class MonitoringController extends Controller
@@ -21,7 +22,7 @@ class MonitoringController extends Controller
 
     // Ambil semua laporan bulanan yang telah disetujui dan sesuai dengan user_id
     $monthlyReports = MonthlyReport::where('user_id', $user_id)
-        ->where('status', 'disetujui') // Tambahkan kondisi untuk hanya menampilkan laporan yang disetujui
+        ->where('status', 'disetujui') // Hanya menampilkan laporan yang disetujui
         ->get();
 
     // Hitung total profit, total penjualan, total pemasukan, total pengeluaran
@@ -34,7 +35,7 @@ class MonitoringController extends Controller
 
     // Ambil data bulan sebelumnya yang telah disetujui
     $previousMonthReports = MonthlyReport::where('user_id', $user_id)
-        ->where('status', 'disetujui') // Tambahkan kondisi untuk hanya menampilkan laporan yang disetujui
+        ->where('status', 'disetujui') // Hanya menampilkan laporan yang disetujui
         ->whereMonth('report_date', '=', now()->subMonth()->month)
         ->whereYear('report_date', '=', now()->subMonth()->year)
         ->get();
@@ -60,7 +61,7 @@ class MonitoringController extends Controller
 
     $revenuePercentageChange = 0;
     if ($previousTotalRevenue != 0) {
-        $revenuePercentageChange = (($totalRevenue - $previousTotalRevenue) / abs($previousTotalRevenue)) * 100;
+        $revenuePercentageChange = ((($totalRevenue - $previousTotalRevenue)) / abs($previousTotalRevenue)) * 100;
     }
 
     $spendingPercentageChange = 0;
@@ -68,8 +69,62 @@ class MonitoringController extends Controller
         $spendingPercentageChange = (($totalSpending - $previousTotalSpending) / abs($previousTotalSpending)) * 100;
     }
 
+    // Ambil laporan tahunan
+    $currentYearReports = MonthlyReport::where('user_id', $user_id)
+    ->whereYear('report_date', now()->year)
+    ->where('status', 'disetujui') // Tambahkan kondisi ini
+    ->get();
+
+// Ambil laporan untuk tahun sebelumnya yang sudah disetujui
+$previousYearReports = MonthlyReport::where('user_id', $user_id)
+    ->whereYear('report_date', now()->subYear()->year)
+    ->where('status', 'disetujui') // Tambahkan kondisi ini
+    ->get();
+
+// Profit untuk tahun ini
+$currentYearProfit = $currentYearReports->sum(function ($report) {
+    return $report->revenue - $report->spending;
+});
+
+// Profit untuk tahun sebelumnya
+$previousYearProfit = $previousYearReports->sum(function ($report) {
+    return $report->revenue - $report->spending;
+});
+
+// Hitung persentase perubahan profit
+$profitPercentage = 0;
+if ($previousYearProfit != 0) {
+    $profitPercentage = (($currentYearProfit - $previousYearProfit) / abs($previousYearProfit)) * 100;
+}
+
+$currentYear = now()->year;
+    $previousYear = now()->subYear()->year;
+
+    // Ambil jumlah produk untuk tahun ini dan tahun lalu
+    $currentYearProducts = MonthlyReport::where('user_id', $user_id)
+        ->whereYear('created_at', $currentYear)
+        ->where('status', 'disetujui')
+        ->get();
+    
+    $currentSell = $currentYearProducts->sum('total_sales');
+
+    $previousYearProducts = MonthlyReport::where('user_id', $user_id)
+        ->whereYear('created_at', $previousYear)
+        ->count();
+
+    // Hitung pertumbuhan tahun ini dibandingkan tahun lalu
+    $growthPercentage = 0;
+    if ($previousYearProducts != 0) {
+        $growthPercentage = (($currentYearProducts - $previousYearProducts) / $previousYearProducts) * 100;
+    }
+
+// Hitung persentase perubahan profit
+
     return view('monitoring.index', compact(
         'siswa', 
+        'currentSell', 
+        'previousYearProducts', 
+        'growthPercentage',
         'totalSales', 
         'totalRevenue', 
         'totalSpending', 
@@ -77,9 +132,13 @@ class MonitoringController extends Controller
         'profitPercentageChange',
         'salesPercentageChange',
         'revenuePercentageChange',
-        'spendingPercentageChange'
+        'spendingPercentageChange',
+        'currentYearProfit',
+        'previousYearProfit',
+        'profitPercentage'
     ));
 }
+
 
 
 

@@ -18,7 +18,7 @@
                 class="hide-menu">Feedback</span></a></li>
                 <li class="sidebar-item {{ (request()->is('mentor/laporan-produk')) ? 'selected' : '' }}"> <a data-locs="{{url('/mentor/laporan-produk')}}" class="sidebar-link waves-effect waves-dark sidebar-link"
                     aria-expanded="false"><i class="mdi mdi-account-multiple"></i><span
-                       class="hide-menu">Laporan SIswa</span></a></li>
+                       class="hide-menu">Laporan Bulanan Siswa</span></a></li>
                     
         </nav>
         <!-- End Sidebar navigation -->

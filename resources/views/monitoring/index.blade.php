@@ -181,60 +181,62 @@
         <!-- Total Revenue -->
         <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
           <div class="card">
-            <div class="row row-bordered g-0">
-              <div class="col-md-8">
-                <h5 class="card-header m-0 me-2 pb-3">Total Pemasukan</h5>
-                <div id="totalRevenueChart" class="px-2"></div>
-              </div>
-              <div class="col-md-4">
-                <div class="card-body">
-                  <div class="text-center">
-                    <div class="dropdown">
-                      <button
-                        class="btn btn-sm btn-outline-primary dropdown-toggle"
-                        type="button"
-                        id="growthReportId"
-                        data-bs-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                      >
-                        2022
-                      </button>
-                      <div class="dropdown-menu dropdown-menu-end" aria-labelledby="growthReportId">
-                        <a class="dropdown-item" href="javascript:void(0);">2021</a>
-                        <a class="dropdown-item" href="javascript:void(0);">2020</a>
-                        <a class="dropdown-item" href="javascript:void(0);">2019</a>
+              <div class="row row-bordered g-0">
+                  <div class="col-md-8">
+                      <h5 class="card-header m-0 me-2 pb-3">Perkembangan Penjualan Produk</h5>
+                      <div id="totalRevenueChart" class="px-2"></div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="card-body">
+                          <div class="text-center">
+                              <div class="dropdown">
+                                  <button
+                                      class="btn btn-sm btn-outline-primary dropdown-toggle"
+                                      type="button"
+                                      id="growthReportId"
+                                      data-bs-toggle="dropdown"
+                                      aria-haspopup="true"
+                                      aria-expanded="false"
+                                  >
+                                      {{ now()->year }}
+                                  </button>
+                                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="growthReportId">
+                                      @foreach(range(now()->year, now()->year - 3) as $year)
+                                          <a class="dropdown-item" href="#" data-year="{{ $year }}">{{ $year }}</a>
+                                      @endforeach
+                                  </div>
+                              </div>
+                          </div>
+                          <div id="growthChart"></div>
+                          <div class="text-center fw-semibold pt-3 mb-2">{{ $growthPercentage }}% Growth</div>
+      
+                          <div class="d-flex px-xxl-4 px-lg-2 p-4 gap-xxl-3 gap-lg-1 gap-3 justify-content-between">
+                              <div class="d-flex">
+                                  <div class="me-2">
+                                      <span class="badge bg-label-primary p-2"><i class="bx bx-dollar text-primary"></i></span>
+                                  </div>
+                                  <div class="d-flex flex-column">
+                                      <small>Year {{ now()->year }}</small>
+                                      <h6 class="mb-0">{{ $currentSell   }} Produk</h6>
+                                  </div>
+                              </div>
+                              <div class="d-flex">
+                                  <div class="me-2">
+                                      <span class="badge bg-label-info p-2"><i class="bx bx-wallet text-info"></i></span>
+                                  </div>
+                                  <div class="d-flex flex-column">
+                                      <small>Year {{ now()->year - 1 }}</small>
+                                      <h6 class="mb-0">{{ $previousYearProducts }} Produk</h6>
+                                  </div>
+                              </div>
+                          </div>
                       </div>
-                    </div>
                   </div>
-                </div>
-                <div id="growthChart"></div>
-                <div class="text-center fw-semibold pt-3 mb-2">62% Company Growth</div>
-
-                <div class="d-flex px-xxl-4 px-lg-2 p-4 gap-xxl-3 gap-lg-1 gap-3 justify-content-between">
-                  <div class="d-flex">
-                    <div class="me-2">
-                      <span class="badge bg-label-primary p-2"><i class="bx bx-dollar text-primary"></i></span>
-                    </div>
-                    <div class="d-flex flex-column">
-                      <small>2022</small>
-                      <h6 class="mb-0">$32.5k</h6>
-                    </div>
-                  </div>
-                  <div class="d-flex">
-                    <div class="me-2">
-                      <span class="badge bg-label-info p-2"><i class="bx bx-wallet text-info"></i></span>
-                    </div>
-                    <div class="d-flex flex-column">
-                      <small>2021</small>
-                      <h6 class="mb-0">$41.2k</h6>
-                    </div>
-                  </div>
-                </div>
               </div>
-            </div>
           </div>
-        </div>
+      </div>
+      
+
         <!--/ Total Revenue -->
         <div class="col-12 col-md-8 col-lg-4 order-3 order-md-2">
           <div class="row">
@@ -322,33 +324,45 @@
             </div>
             <!-- </div>
 <div class="row"> -->
-            <div class="col-12 mb-4">
-              <div class="card">
-                <div class="card-body">
-                  <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
-                    <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
-                      <div class="card-title">
-                        <h5 class="text-nowrap mb-2">Profile Report</h5>
-                        <span class="badge bg-label-warning rounded-pill">Year 2021</span>
-                      </div>
-                      <div class="mt-sm-auto">
-                        <small class="text-success text-nowrap fw-semibold"
-                          ><i class="bx bx-chevron-up"></i> 68.2%</small
-                        >
-                        <h3 class="mb-0">$84,686k</h3>
-                      </div>
+  <div class="col-12 mb-4">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
+                <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
+                    <div class="card-title">
+                        <h5 class="text-nowrap mb-2">Profit Tahunan</h5>
+                        <span class="badge bg-label-warning rounded-pill">Year {{ now()->year }}</span>
                     </div>
-                    <div id="profileReportChart"></div>
-                  </div>
+                    <div class="mt-sm-auto">
+                        <small class="text-nowrap fw-semibold">
+                            @if($profitPercentage > 0)
+                                <i class="bx bx-chevron-up text-success"></i>
+                                +{{ number_format($profitPercentage, 2) }}%
+                            @elseif($profitPercentage < 0)
+                                <i class="bx bx-chevron-down text-danger"></i>
+                                {{ number_format($profitPercentage, 2) }}%
+                            @else
+                                <i class="bx bx-minus"></i>
+                                0%
+                            @endif
+                        </small>
+                        <h3 class="mb-0">Rp.{{ number_format($currentYearProfit, 0, ',', '.') }}</h3>
+                    </div>
                 </div>
-              </div>
+                <div id="profileReportChart"></div>
             </div>
+        </div>
+    </div>
+</div>
+
+
+
           </div>
         </div>
       </div>
       <div class="row">
         <!-- Order Statistics -->
-        <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
+        {{-- <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
           <div class="card h-100">
             <div class="card-header d-flex align-items-center justify-content-between pb-0">
               <div class="card-title mb-0">
@@ -445,11 +459,11 @@
               </ul>
             </div>
           </div>
-        </div>
+        </div> --}}
         <!--/ Order Statistics -->
 
         <!-- Expense Overview -->
-        <div class="col-md-6 col-lg-4 order-1 mb-4">
+        {{-- <div class="col-md-6 col-lg-4 order-1 mb-4">
           <div class="card h-100">
             <div class="card-header">
               <ul class="nav nav-pills" role="tablist">
@@ -506,11 +520,11 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> --}}
         <!--/ Expense Overview -->
 
         <!-- Transactions -->
-        <div class="col-md-6 col-lg-4 order-2 mb-4">
+        {{-- <div class="col-md-6 col-lg-4 order-2 mb-4">
           <div class="card h-100">
             <div class="card-header d-flex align-items-center justify-content-between">
               <h5 class="card-title m-0 me-2">Transactions</h5>
@@ -627,7 +641,7 @@
               </ul>
             </div>
           </div>
-        </div>
+        </div> --}}
         <!--/ Transactions -->
       </div>
     </div>
@@ -636,6 +650,7 @@
   </div>
   <!-- Content wrapper -->
 
+  scri
 <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="{{ asset('sneat') }}/assets/vendor/libs/jquery/jquery.js"></script>
@@ -652,6 +667,17 @@
     <!-- Main JS -->
     <script src="{{ asset('sneat') }}/assets/js/main.js"></script>
 
+    <script>
+      var chartData = 50
+      var tahunLalu = 2023
+      var tahunSekarang = 2024
+      var chartBulanSekarang = [18, 7, 15, 29, 18, 12, 9, 18, 7, 15, 29, 18]
+      var chartBulanLalu = [18, 7, 15, 29, 18, 12, 9, 18, 7, 15, 29, 18]
+      
+
+      
+      
+    </script>
     <!-- Page JS -->
     <script src="{{ asset('sneat') }}/assets/js/dashboards-analytics.js"></script>
 

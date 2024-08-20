@@ -79,6 +79,7 @@
                                         <th>No</th>
                                         <th>Nama Langkah</th>
                                         <th>File Penilaian</th>
+                                        <th>Keterangan</th>
                                         <th>Aksi</th>
                                     </tr>
                                     </thead>
@@ -93,6 +94,7 @@
                                                     {{$datanilai->file_nilai}}
                                                 </a>
                                             </td>
+                                            <td>{{ $datanilai->keterangan }}</td>
                                             <td>
                                                 <button class="btn btn-warning editNilai" data-bs-toggle="modal" data-bs-target="#modalEditNilai" data-file="{{$datanilai->file_nilai}}" data-langkah="{{$datanilai->nama_step}}" data-idpenilaian="{{$datanilai->penilaian_id}}" data-idstep="{{$datanilai->id_step}}"> <i class="fas fa-edit"> </i></button>
                                             </td>
@@ -136,9 +138,13 @@
             </select>
 
             <br>
-            <label for="">Link File Penilaian</label>
-            <input type="text" class="form-control" name="nilai">
+            <label for="">Masukkan Nilai <strong>(1-100)</strong></label>
+            <input type="number" class="form-control" name="nilai">
+            <label for="">Keterangan Nilai</label>
+            <input type="text" class="form-control" name="keterangan">
+
             <input type="hidden" name="id_produk" value="{{$data->product_id}}">
+            
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Simpan</button>
                 <button type="button"  class="btn btn-danger text-white" data-bs-dismiss="modal">Batalkan</button>

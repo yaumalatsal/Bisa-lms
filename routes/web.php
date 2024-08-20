@@ -79,38 +79,38 @@ Route::get('/detail_result_bmc/{id_bmc}/{id_produk}', 'BmcController@resultSiswa
 
 //tahap team and member
 Route::post('/cari_member', 'SiswaController@searchByNis');
-Route::post('/tambah_member','TeamController@tambah_member');
-Route::get('/delete_member/{id}','TeamController@delete_member');
+Route::post('/tambah_member', 'TeamController@tambah_member');
+Route::get('/delete_member/{id}', 'TeamController@delete_member');
 
-Route::get('/tahap_team','TeamController@index');
-Route::post('/lock_team','TeamController@lock_team');
-Route::get('/tahap_profil','ProfilBisnisController@index');
-Route::get('/product_abstract','ProdukController@index');
-Route::get('/bmc','BmcController@index');
+Route::get('/tahap_team', 'TeamController@index');
+Route::post('/lock_team', 'TeamController@lock_team');
+Route::get('/tahap_profil', 'ProfilBisnisController@index');
+Route::get('/product_abstract', 'ProdukController@index');
+Route::get('/bmc', 'BmcController@index');
 
 // tahap bmc
-Route::get('/detail_bmc/{id}','BmcController@detail');
-Route::post('/update_jawaban','BmcController@insertJawaban');
-Route::get('/submit_bmc','BmcController@updateTrack');
+Route::get('/detail_bmc/{id}', 'BmcController@detail');
+Route::post('/update_jawaban', 'BmcController@insertJawaban');
+Route::get('/submit_bmc', 'BmcController@updateTrack');
 
 
 // tahap prototype
-Route::get('/proto','ProtoController@index');
-Route::post('/setFigma','ProtoController@setFigma');
-Route::post('/setLogo','ProtoController@setLogo');
-Route::get('/submitProto','ProtoController@updateTrack');
+Route::get('/proto', 'ProtoController@index');
+Route::post('/setFigma', 'ProtoController@setFigma');
+Route::post('/setLogo', 'ProtoController@setLogo');
+Route::get('/submitProto', 'ProtoController@updateTrack');
 
 
 // tahap publikasi
-Route::get('/publikasi','PublikasiController@index');
-Route::post('/setVideo','PublikasiController@setVideo');
-Route::post('/setPoster','PublikasiController@setPoster');
-Route::get('/submitPublikasi','PublikasiController@updateTrackPublikasi');
+Route::get('/publikasi', 'PublikasiController@index');
+Route::post('/setVideo', 'PublikasiController@setVideo');
+Route::post('/setPoster', 'PublikasiController@setPoster');
+Route::get('/submitPublikasi', 'PublikasiController@updateTrackPublikasi');
 
 // tahap presentasi
-Route::get('/presentasi','PresentasiController@index');
-Route::get('/submitDeck','PresentasiController@updateTrackDeck');
-Route::post('/setPitchDeck','PresentasiController@setDeck');
+Route::get('/presentasi', 'PresentasiController@index');
+Route::get('/submitDeck', 'PresentasiController@updateTrackDeck');
+Route::post('/setPitchDeck', 'PresentasiController@setDeck');
 
 
 // mentor
@@ -140,24 +140,28 @@ Route::get('/mentor/feedback', 'FeedbackController@getFeedback');
 
 // investor
 Route::prefix('investor')->name('investor.')->group(function () {
-    Route::get('login', [InvestorController::class,'showLoginForm'])->name('login');
-    Route::post('login', [InvestorController::class,'login'])->name('login-process');
-    Route::get('register', [InvestorController::class,'showRegisterForm'])->name('register');
-    Route::post('register', [InvestorController::class,'register'])->name('register-process');
-    Route::get('logout', [InvestorController::class,'logout'])->name('logout');
+    Route::get('login', [InvestorController::class, 'showLoginForm'])->name('login');
+    Route::post('login', [InvestorController::class, 'login'])->name('login-process');
+    Route::get('register', [InvestorController::class, 'showRegisterForm'])->name('register');
+    Route::post('register', [InvestorController::class, 'register'])->name('register-process');
+    Route::get('logout', [InvestorController::class, 'logout'])->name('logout');
 
     Route::middleware(['auth:investor'])->group(function () {
-        Route::get('/', [InvestorController::class,'index'])->name('index');
-        Route::get('/produk', [InvestorProdukController::class,'index'])->name('produk');
-        Route::get('/produk/{id}', [InvestorProdukController::class,'detail'])->name('produk.detail');
-        Route::get('/produk/{id_bmc}/{id_produk}', [InvestorProdukController::class,'result_bmc'])->name('produk.result_bmc');
+        Route::get('/', [InvestorController::class, 'index'])->name('index');
+        Route::get('/produk', [InvestorProdukController::class, 'index'])->name('produk');
+        Route::get('/produk/{id}', [InvestorProdukController::class, 'detail'])->name('produk.detail');
+        Route::get('/produk/{id_bmc}/{id_produk}', [InvestorProdukController::class, 'result_bmc'])->name('produk.result_bmc');
     });
 });
 
+// Route::get('/admin/materi', [AdminController::class,'showMateri'])->name('admin.materi');
+Route::get('/materi/bmc', [DashboardController::class, 'showMateriBMC'])->name('dashboard.materi.bmc');
+
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('login', [AdminController::class,'showLoginForm'])->name('login');
-    Route::post('login', [AdminController::class,'login'])->name('login-process');
-    Route::get('logout', [AdminController::class,'logout'])->name('logout');
+    Route::get('login', [AdminController::class, 'showLoginForm'])->name('login');
+    Route::post('login', [AdminController::class, 'login'])->name('login-process');
+    Route::get('logout', [AdminController::class, 'logout'])->name('logout');
+
 
     Route::middleware(['auth:admin'])->group(function () {
         Route::get('/', [AdminController::class,'index'])->name('index');
@@ -169,5 +173,18 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('/siswa', [AdminController::class,'showSiswa'])->name('siswa');
 
+        //Materi
+        Route::get('/materi/create', [AdminController::class, 'createMateri'])->name('materi.create');
+        Route::post('/materi', [AdminController::class, 'storeMateri'])->name('materi.store');
+        Route::get('/materi/{id}/edit', [AdminController::class, 'editMateri'])->name('materi.edit');
+        Route::put('/materi/{id}', [AdminController::class, 'updateMateri'])->name('materi.update');
+        Route::delete('/materi/{id}', [AdminController::class, 'destroyMateri'])->name('materi.destroy');
+
+        
+
+
+
+        Route::get('/', [AdminController::class, 'index'])->name('index');
+        Route::get('/materi', [AdminController::class, 'showMateri'])->name('admin.showMateri');
     });
 });
