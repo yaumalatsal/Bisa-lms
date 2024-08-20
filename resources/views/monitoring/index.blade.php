@@ -189,7 +189,7 @@
                   <div class="col-md-4">
                       <div class="card-body">
                           <div class="text-center">
-                              <div class="dropdown">
+                              {{-- <div class="dropdown">
                                   <button
                                       class="btn btn-sm btn-outline-primary dropdown-toggle"
                                       type="button"
@@ -205,10 +205,11 @@
                                           <a class="dropdown-item" href="#" data-year="{{ $year }}">{{ $year }}</a>
                                       @endforeach
                                   </div>
-                              </div>
+                              </div> --}}
+                              {{ $currentYear }}
                           </div>
                           <div id="growthChart"></div>
-                          <div class="text-center fw-semibold pt-3 mb-2">{{ $growthPercentage }}% Growth</div>
+                          <div class="text-center fw-semibold pt-3 mb-2">{{ $salesGrowth }}% Growth from last year</div>
       
                           <div class="d-flex px-xxl-4 px-lg-2 p-4 gap-xxl-3 gap-lg-1 gap-3 justify-content-between">
                               <div class="d-flex">
@@ -216,8 +217,8 @@
                                       <span class="badge bg-label-primary p-2"><i class="bx bx-dollar text-primary"></i></span>
                                   </div>
                                   <div class="d-flex flex-column">
-                                      <small>Year {{ now()->year }}</small>
-                                      <h6 class="mb-0">{{ $currentSell   }} Produk</h6>
+                                      <small>Year {{ $currentYear }}</small>
+                                      <h6 class="mb-0">{{ $thisYearSales   }} Produk</h6>
                                   </div>
                               </div>
                               <div class="d-flex">
@@ -225,8 +226,8 @@
                                       <span class="badge bg-label-info p-2"><i class="bx bx-wallet text-info"></i></span>
                                   </div>
                                   <div class="d-flex flex-column">
-                                      <small>Year {{ now()->year - 1 }}</small>
-                                      <h6 class="mb-0">{{ $previousYearProducts }} Produk</h6>
+                                      <small>Year {{ $previousYear }}</small>
+                                      <h6 class="mb-0">{{ $lastYearSales }} Produk</h6>
                                   </div>
                               </div>
                           </div>
@@ -668,12 +669,13 @@
     <script src="{{ asset('sneat') }}/assets/js/main.js"></script>
 
     <script>
-      var chartData = 50
-      var tahunLalu = 2023
-      var tahunSekarang = 2024
-      var chartBulanSekarang = [18, 7, 15, 29, 18, 12, 9, 18, 7, 15, 29, 18]
-      var chartBulanLalu = [18, 7, 15, 29, 18, 12, 9, 18, 7, 15, 29, 18]
+      var chartData = {{$salesGrowth}}
+      var tahunLalu = {{ $previousYear }}
+      var tahunSekarang = {{ $currentYear }}
+      var chartTahunSekarang = @json($monthlySalesThisYear);
+      var chartTahunLalu = @json($monthlySalesLastYear)
       
+      var reportChartThisYear = @json($monthlyProfitThisYear)
 
       
       
