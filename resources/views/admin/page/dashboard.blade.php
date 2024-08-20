@@ -42,7 +42,7 @@
 </style>
 @endsection
 
-@extends('investor/template/index')
+@extends('admin/template/index')
 
 @section('content')
 <div class="container-fluid">

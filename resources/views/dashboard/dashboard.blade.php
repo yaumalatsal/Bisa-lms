@@ -55,7 +55,7 @@
                     <img src="{{asset('assets/images/ilustration/step/bmc.gif')}}" alt="BMC">
                     <h5 class="mt-3">BMC (Business Model Canvas)</h5>
                     <p class="deskripsi-step">Deskripsi singkat mengenai BMC dan bagaimana cara menggunakannya untuk merencanakan bisnis Anda dengan lebih baik.</p>
-                    <a href="{{url('artikel/bmc')}}" class="w-100 btn btn-primary">Pelajari Lebih Lanjut</a>
+                    <a href="{{url('materi/bmc')}}" class="w-100 btn btn-primary">Pelajari Lebih Lanjut</a>
                 </div>
             </div>
         </div>

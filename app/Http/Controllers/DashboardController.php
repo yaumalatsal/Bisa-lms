@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Session;
 use DB;
+use App\Models\artikelInkubasi;
 
 class DashboardController extends Controller
 {
@@ -12,6 +13,24 @@ class DashboardController extends Controller
     {
 
     }
+
+    public function showMateriBMC()
+{
+    // Ambil semua materi dengan kategori 'bmc'
+    $materi = artikelInkubasi::where('kategori', 'bmc')->get();
+
+    // Pisahkan artikel dan video
+    $artikel = $materi->filter(function($item) {
+        return $item->bentuk_kategori == 'artikel';
+    });
+
+    $video = $materi->filter(function($item) {
+        return $item->bentuk_kategori == 'video';
+    });
+
+    return view('dashboard.materi.bmc', compact('artikel', 'video'));
+}
+
 
     public function penilaian_siswa(){
         $id_produk = Session::get('id_produk');

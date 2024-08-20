@@ -47,14 +47,14 @@
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
         
-        @include('investor/template/top_sidebar')
+        @include('admin/template/top_sidebar')
         <!-- ============================================================== -->
         <!-- End Topbar header -->
         <!-- ============================================================== -->
         <!-- ============================================================== -->
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
-        @include('investor/template/left_sidebar')
+        @include('admin/template/left_sidebar')
         
         <!-- ============================================================== -->
         <!-- End Left Sidebar - style you can find in sidebar.scss  -->
