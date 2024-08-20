@@ -141,7 +141,7 @@
             </p>
             {{-- <a href="{{url('/register_siswa')}}" class="btn bt-linear nunito">Pendaftaran Siswa</a> --}}
             <a href="{{url('/mentor/login')}}" class="btn btn-success nunito">Login Mentor</a>
-            <a href="{{ route('investor.register')}}" class="btn btn-danger nunito">Daftar Investor</a>
+            <a href="{{ route('investor.login')}}" class="btn btn-danger nunito">Login Investor</a>
             
         </div>
         <div class="col-lg-4 col-12">

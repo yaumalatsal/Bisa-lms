@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminProdukController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\RankingController;
@@ -165,6 +166,15 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 
     Route::middleware(['auth:admin'])->group(function () {
+        Route::get('/', [AdminController::class,'index'])->name('index');
+        Route::get('/produk', [AdminProdukController::class,'index'])->name('produk');
+        Route::get('/produk/{id}', [AdminProdukController::class,'detail'])->name('produk.detail');
+        Route::get('/produk/{id_bmc}/{id_produk}', [AdminProdukController::class,'result_bmc'])->name('produk.result_bmc');
+        Route::delete('/produk/{id}', [AdminProdukController::class,'destroy'])->name('produk.destroy');
+
+
+        Route::get('/siswa', [AdminController::class,'showSiswa'])->name('siswa');
+
         //Materi
         Route::get('/materi/create', [AdminController::class, 'createMateri'])->name('materi.create');
         Route::post('/materi', [AdminController::class, 'storeMateri'])->name('materi.store');

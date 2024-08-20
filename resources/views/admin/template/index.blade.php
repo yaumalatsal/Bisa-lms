@@ -120,6 +120,7 @@
     <!--Custom JavaScript -->
     <script src="{{asset('matrix/dist/js/custom.min.js')}}"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @yield('js')
     <script>
         $(function(){
@@ -128,6 +129,8 @@
             });
         });
     </script>
+
+
 </body>
 
 </html>
