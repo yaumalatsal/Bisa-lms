@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
-class InvestorProdukController extends Controller
+class AdminProdukController extends Controller
 {
     public function index(){
         $products = Product::with([
@@ -18,7 +18,7 @@ class InvestorProdukController extends Controller
 
         // Log::info($products);
 
-        return view('investor/page/produk')->with(compact('products'));
+        return view('admin/page/produk')->with(compact('products'));
     }
 
     public function detail($id){
@@ -67,7 +67,7 @@ class InvestorProdukController extends Controller
         ->get();
         
 
-        return view('investor/page/detail_produk')
+        return view('admin/page/detail_produk')
         ->with(compact(
             'produk',
             'track',
@@ -93,6 +93,12 @@ class InvestorProdukController extends Controller
         ->where('jawaban_bmc.id_produk',$id_produk)
         ->get();
         
-        return view('investor/page/detail_result_bmc')->with(compact('getResult','getmaster'));
+        return view('admin/page/detail_result_bmc')->with(compact('getResult','getmaster'));
+    }
+
+    public function destroy($id){
+        $product = Product::findOrFail($id);
+        $product->delete();
+        return redirect()->route('admin.produk')->with('success', 'Product deleted successfully.');
     }
 }

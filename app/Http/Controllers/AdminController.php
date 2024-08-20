@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Siswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -33,6 +34,13 @@ class AdminController extends Controller
 
     public function index()
     {
-        return view('investor.page.dashboard');
+        return view('admin.page.dashboard');
+    }
+
+
+    public function showSiswa(){
+        $siswa = Siswa::get();
+
+        return view('admin.page.siswa')->with(compact('siswa'));
     }
 }

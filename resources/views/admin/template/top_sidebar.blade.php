@@ -73,7 +73,7 @@
                         <i class="font-24 mdi mdi-account"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end user-dd animated" aria-labelledby="navbarDropdown">                        
-                        <a class="dropdown-item" href="{{ route('investor.logout') }}" href="javascript:void(0)">
+                        <a class="dropdown-item" href="{{ route('admin.logout') }}" href="javascript:void(0)">
                         <i class="fa fa-power-off me-1 ms-1"></i> Logout</a>                        
                     </ul>
                 </li>

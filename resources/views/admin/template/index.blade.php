@@ -47,14 +47,14 @@
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
         
-        @include('investor/template/top_sidebar')
+        @include('admin/template/top_sidebar')
         <!-- ============================================================== -->
         <!-- End Topbar header -->
         <!-- ============================================================== -->
         <!-- ============================================================== -->
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
-        @include('investor/template/left_sidebar')
+        @include('admin/template/left_sidebar')
         
         <!-- ============================================================== -->
         <!-- End Left Sidebar - style you can find in sidebar.scss  -->
@@ -120,6 +120,7 @@
     <!--Custom JavaScript -->
     <script src="{{asset('matrix/dist/js/custom.min.js')}}"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @yield('js')
     <script>
         $(function(){
@@ -128,6 +129,8 @@
             });
         });
     </script>
+
+
 </body>
 
 </html>
