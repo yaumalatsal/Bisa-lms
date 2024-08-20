@@ -22,6 +22,7 @@ class MapelsQuizController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'durasi' => 'required|integer|min:1',
         ]);
 
         MapelsQuiz::create($validated);
@@ -39,6 +40,7 @@ class MapelsQuizController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'durasi' => 'required|integer|min:1',
         ]);
 
         $mapel = MapelsQuiz::findOrFail($id);

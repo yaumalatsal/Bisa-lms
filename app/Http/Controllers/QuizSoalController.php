@@ -19,7 +19,7 @@ class QuizSoalController extends Controller
     public function create(Request $request)
     {
         $mapelId = $request->query('mapel_id');
-        return view('quiz_soals.create', compact('mapelId'));
+        return view('admin.quiz_soals.create', compact('mapelId'));
     }
 
     public function store(Request $request)
@@ -36,13 +36,13 @@ class QuizSoalController extends Controller
 
         QuizSoal::create($validated);
 
-        return redirect()->route('quiz_soals.index', ['mapel_id' => $request->mapel_id])->with('success', 'Soal berhasil ditambahkan!');
+        return redirect()->route('admin.quiz_soals.index', ['mapel_id' => $request->mapel_id])->with('success', 'Soal berhasil ditambahkan!');
     }
 
     public function edit($id)
     {
         $soal = QuizSoal::findOrFail($id);
-        return view('quiz_soals.edit', compact('soal'));
+        return view('admin.quiz_soals.edit', compact('soal'));
     }
 
     public function update(Request $request, $id)
@@ -60,7 +60,7 @@ class QuizSoalController extends Controller
         $soal = QuizSoal::findOrFail($id);
         $soal->update($validated);
 
-        return redirect()->route('quiz_soals.index', ['mapel_id' => $validated['mapel_id']])->with('success', 'Soal berhasil diupdate!');
+        return redirect()->route('admin.quiz_soals.index', ['mapel_id' => $validated['mapel_id']])->with('success', 'Soal berhasil diupdate!');
     }
 
     public function destroy($id)
@@ -69,6 +69,6 @@ class QuizSoalController extends Controller
         $mapelId = $soal->mapel_id;
         $soal->delete();
 
-        return redirect()->route('quiz_soals.index', ['mapel_id' => $mapelId])->with('success', 'Soal berhasil dihapus!');
+        return redirect()->route('admin.quiz_soals.index', ['mapel_id' => $mapelId])->with('success', 'Soal berhasil dihapus!');
     }
 }

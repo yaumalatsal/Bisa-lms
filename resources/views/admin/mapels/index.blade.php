@@ -11,6 +11,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Nama Mapel</th>
+                    <th>Durasi Pengerjaan</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -19,6 +20,7 @@
                     <tr>
                         <td>{{ $mapel->id }}</td>
                         <td>{{ $mapel->name }}</td>
+                        <td>{{ $mapel->durasi }}</td>
                         <td>
                             <a href="{{ route('admin.mapels.edit', $mapel->id) }}" class="btn btn-warning">Edit</a>
                             <form action="{{ route('admin.mapels.destroy', $mapel->id) }}" method="POST" style="display:inline;">

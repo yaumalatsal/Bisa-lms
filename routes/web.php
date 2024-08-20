@@ -13,6 +13,7 @@ use App\Http\Controllers\InvestorController;
 use App\Http\Controllers\InvestorProdukController;
 use App\Http\Controllers\MapelsQuizController;
 use App\Http\Controllers\QuizSoalController;
+use App\Http\Controllers\QuizController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,16 @@ use App\Http\Controllers\QuizSoalController;
 // Route::get('/', [DashboardController::class,'index']);
 // Route::get('/', 'DashboardController@index');
 // routes/web.php
+
+//QUIZ
+Route::get('/quiz', [QuizController::class, 'index'])->name('dashboard.quiz.index');
+
+Route::get('/quiz/{mapel_id}', [QuizController::class, 'showQuiz'])->name('dashboard.quiz.show');
+Route::post('/quiz/{mapel_id}/submit', [QuizController::class, 'submitQuiz'])->name('dashboard.quiz.submit');
+Route::get('/quiz/{mapel_id}/result', [QuizController::class, 'showResult'])->name('dashboard.quiz.result');
+
+
+
 Route::get('/', [DashboardController::class, 'penilaian_siswa'])->name('dashboard.dashboard');
 
 Route::get('/artikel/bmc', function () {
@@ -208,4 +219,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('index');
         Route::get('/materi', [AdminController::class, 'showMateri'])->name('admin.showMateri');
     });
+
+
 });

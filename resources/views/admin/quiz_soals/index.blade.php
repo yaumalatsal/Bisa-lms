@@ -1,11 +1,10 @@
-@extends('layouts.app')
-
+@extends('admin/template/index')
 @section('title', 'Daftar Soal untuk {{ $mapel->name }}')
 
 @section('content')
     <div class="container">
         <h1>Daftar Soal untuk {{ $mapel->name }}</h1>
-        <a href="{{ route('quiz_soals.create', ['mapel_id' => $mapel->id]) }}" class="btn btn-primary">Tambah Soal</a>
+        <a href="{{ route('admin.quiz_soals.create', ['mapel_id' => $mapel->id]) }}" class="btn btn-primary">Tambah Soal</a>
         <table class="table mt-3">
             <thead>
                 <tr>
@@ -30,8 +29,8 @@
                         <td>{{ $soal->option_d }}</td>
                         <td>{{ $soal->key }}</td>
                         <td>
-                            <a href="{{ route('quiz_soals.edit', $soal->id) }}" class="btn btn-warning">Edit</a>
-                            <form action="{{ route('quiz_soals.destroy', $soal->id) }}" method="POST" style="display:inline;">
+                            <a href="{{ route('admin.quiz_soals.edit', $soal->id) }}" class="btn btn-warning">Edit</a>
+                            <form action="{{ route('admin.quiz_soals.destroy', $soal->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">Hapus</button>
