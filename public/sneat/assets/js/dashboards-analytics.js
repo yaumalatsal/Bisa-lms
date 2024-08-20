@@ -19,15 +19,15 @@
       series: [
         {
           name: tahunLalu,
-          data: chartBulanLalu
+          data: chartTahunLalu
         },
         {
           name: tahunSekarang,
-          data: chartBulanSekarang
+          data: chartTahunSekarang
         }
       ],
       chart: {
-        height: 350,
+        height: 300,
         stacked: true,
         type: 'bar',
         toolbar: { show: false }
@@ -36,7 +36,7 @@
         bar: {
           horizontal: false,
           columnWidth: '60%',
-          borderRadius: 33,
+          borderRadius: 12,
           startingShape: 'rounded',
           endingShape: 'rounded'
         }
@@ -394,7 +394,7 @@
       },
       series: [
         {
-          data: [110, 270, 145, 245, 205, 285]
+          data: reportChartThisYear
         }
       ],
       xaxis: {
