@@ -123,6 +123,11 @@
                             </div>
                             @endforeach
                             <hr>
+                            
+                            <div class="alert alert-info d-flex gap-3 align-items-center" role="alert">
+                                <h3 class="h3">Monitoring Produk</h3>
+                                <a href="{{ route('investor.produk.monitoring', $data->product_id) }}" class="btn btn-primary">View</a>
+                            </div>
                         </div>
                     </div>    
                     
