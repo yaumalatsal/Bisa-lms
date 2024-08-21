@@ -193,8 +193,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::delete('/produk/{id}', [AdminProdukController::class, 'destroy'])->name('produk.destroy');
 
 
-        Route::get('/siswa', [AdminController::class,'showSiswa'])->name('siswa');
-        Route::delete('/siswa/{id}', [AdminController::class,'destroySiswa'])->name('siswa.destroy');
+        Route::get('/siswa', [AdminController::class, 'showSiswa'])->name('siswa');
+        Route::delete('/siswa/{id}', [AdminController::class, 'destroySiswa'])->name('siswa.destroy');
 
         //Materi
         Route::get('/materi/create', [AdminController::class, 'createMateri'])->name('materi.create');
@@ -219,6 +219,29 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('/mapel/soal/{id}', [QuizSoalController::class, 'update'])->name('quiz_soals.update');
         Route::delete('/mapel/soal/{id}', [QuizSoalController::class, 'destroy'])->name('quiz_soals.destroy');
 
+        //bmc
+        Route::get('/bmc', [AdminController::class, 'bmc'])->name('bmc.index');
+        Route::get('/bmc/create', [AdminController::class, 'bmcCreate'])->name('bmc.create');
+        Route::post('/bmc', [AdminController::class, 'bmcStore'])->name('bmc.store');
+        Route::get('/bmc/{id}/edit', [AdminController::class, 'bmcEdit'])->name('bmc.edit');
+        Route::put('/bmc/{id}', [AdminController::class, 'bmcUpdate'])->name('bmc.update');
+        Route::delete('/bmc/{id}', [AdminController::class, 'bmcDestroy'])->name('bmc.destroy');
+        // Route::get('/bmc/{id}/subsoal', [AdminController::class, 'bmcSubsoal'])->name('bmc.subsoal');
+
+        //soal bmc
+        // Routes untuk mengelola soal
+        Route::get('/bmc/{id}/soal', [AdminController::class, 'kelolaSoal'])->name('bmc.soal.index');
+
+        // Create Soal
+        Route::get('/bmc/{id}/soal/create', [AdminController::class, 'soalCreate'])->name('bmc.soal.create');
+        Route::post('/bmc/{id}/soal', [AdminController::class, 'soalStore'])->name('bmc.soal.store');
+
+        // Edit Soal
+        Route::get('/bmc/{id}/soal/{soalId}/edit', [AdminController::class, 'soalEdit'])->name('bmc.soal.edit');
+        Route::put('/bmc/{id}/soal/{soalId}', [AdminController::class, 'soalUpdate'])->name('bmc.soal.update');
+
+        // Hapus Soal
+        Route::delete('/bmc/{id}/soal/{soalId}', [AdminController::class, 'soalDestroy'])->name('bmc.soal.destroy');
 
 
 
@@ -226,6 +249,4 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('index');
         Route::get('/materi', [AdminController::class, 'showMateri'])->name('admin.showMateri');
     });
-
-
 });

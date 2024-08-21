@@ -9,9 +9,144 @@ use Illuminate\Validation\ValidationException;
 use App\Models\ArtikelInkubasi;
 use App\Models\Member;
 use Illuminate\Support\Facades\Log;
+use App\Models\MasterBMC;
+use App\Models\PertanyaanBMC;
 
 class AdminController extends Controller
 {
+    public function kelolaSoal($id)
+    {
+        $bmc = MasterBMC::findOrFail($id);
+        $soals = PertanyaanBMC::where('id_poin_bmc', $id)->get();
+        return view('admin.bmc.soal.index', compact('bmc', 'soals'));
+    }
+
+    // Menampilkan form untuk menambah soal
+    public function soalCreate($id)
+    {
+        $bmc = MasterBMC::findOrFail($id);
+        return view('admin.bmc.soal.create', compact('bmc'));
+    }
+
+    // Menyimpan soal baru ke database
+    public function soalStore(Request $request, $id)
+    {
+        $request->validate([
+            'pertanyaan' => 'required|string|max:255',
+            'keterangan' => 'nullable|string',
+        ]);
+
+        PertanyaanBMC::create([
+            'pertanyaan' => $request->pertanyaan,
+            'keterangan' => $request->keterangan,
+            'id_poin_bmc' => $id,
+        ]);
+
+        return redirect()->route('admin.bmc.soal.index', $id)->with('success', 'Soal berhasil ditambahkan.');
+    }
+
+    // Menampilkan form untuk mengedit soal
+    public function soalEdit($id, $soalId)
+    {
+        $bmc = MasterBMC::findOrFail($id);
+        $soal = PertanyaanBMC::findOrFail($soalId);
+        return view('admin.bmc.soal.edit', compact('bmc', 'soal'));
+    }
+
+    // Memperbarui soal di database
+    public function soalUpdate(Request $request, $id, $soalId)
+    {
+        $request->validate([
+            'pertanyaan' => 'required|string|max:255',
+            'keterangan' => 'nullable|string',
+        ]);
+
+        $soal = PertanyaanBMC::findOrFail($soalId);
+        $soal->update([
+            'pertanyaan' => $request->pertanyaan,
+            'keterangan' => $request->keterangan,
+        ]);
+
+        return redirect()->route('admin.bmc.soal.index', $id)->with('success', 'Soal berhasil diperbarui.');
+    }
+
+    // Menghapus soal dari database
+    public function soalDestroy($id, $soalId)
+    {
+        $soal = PertanyaanBMC::findOrFail($soalId);
+        $soal->delete();
+
+        return redirect()->route('admin.bmc.soal.index', $id)->with('success', 'Soal berhasil dihapus.');
+    }
+    
+    public function bmc()
+    {
+        $bmcs = MasterBMC::all(); // Mengambil semua data BMC dari database
+        return view('admin.bmc.index', compact('bmcs'));
+    }
+
+    public function bmcCreate()
+    {
+        return view('admin.bmc.create');
+    }
+
+    // Menyimpan BMC baru ke database
+    public function bmcStore(Request $request)
+    {
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+            'route' => 'required|string|max:255',
+            'icon' => 'required|string|max:255',
+            'video' => 'nullable|string|max:255',
+        ]);
+
+        MasterBMC::create($request->all());
+
+        return redirect()->route('admin.bmc.index')->with('success', 'BMC berhasil dibuat.');
+    }
+
+    // Menampilkan form edit BMC
+    public function bmcEdit($id)
+    {
+        $bmc = MasterBMC::findOrFail($id);
+        return view('admin.bmc.edit', compact('bmc'));
+    }
+
+    // Memperbarui data BMC di database
+    public function bmcUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+            'route' => 'required|string|max:255',
+            'icon' => 'required|string|max:255',
+            'video' => 'nullable|string|max:255',
+        ]);
+
+        $bmc = MasterBMC::findOrFail($id);
+        $bmc->update($request->all());
+
+        return redirect()->route('admin.bmc.index')->with('success', 'BMC berhasil diperbarui.');
+    }
+
+    // Menghapus data BMC dari database
+    public function bmcDestroy($id)
+    {
+        $bmc = MasterBMC::findOrFail($id);
+        $bmc->delete();
+
+        return redirect()->route('admin.bmc.index')->with('success', 'BMC berhasil dihapus.');
+    }
+
+    // Mengelola sub soal untuk BMC tertentu
+    // public function bmcSubsoal($id)
+    // {
+    //     $bmc = MasterBMC::findOrFail($id);
+    //     // Logic untuk menampilkan dan mengelola sub soal bisa ditambahkan di sini
+    //     return view('admin.bmc.subsoal', compact('bmc'));
+    // }
+
     public function showMateri()
     {
         $materi = artikelInkubasi::all();
