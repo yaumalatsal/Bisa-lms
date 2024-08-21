@@ -65,6 +65,8 @@ class InvestorProdukController extends Controller
         $presentasi = DB::table('presentasi')
         ->where('id_produk',$id)
         ->get();
+
+        // Log::info($produk);
         
 
         return view('investor/page/detail_produk')

@@ -170,7 +170,9 @@ Route::prefix('investor')->name('investor.')->group(function () {
         Route::get('/', [InvestorController::class, 'index'])->name('index');
         Route::get('/produk', [InvestorProdukController::class, 'index'])->name('produk');
         Route::get('/produk/{id}', [InvestorProdukController::class, 'detail'])->name('produk.detail');
+        Route::get('/produk/monitoring/{product_id}', [MonitoringController::class, 'investorMonitoring'])->name('produk.monitoring');
         Route::get('/produk/{id_bmc}/{id_produk}', [InvestorProdukController::class, 'result_bmc'])->name('produk.result_bmc');
+
     });
 });
 
