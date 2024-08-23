@@ -1,10 +1,11 @@
-@if(!Session::has('id_siswa'))
+@if (!Session::has('id_siswa'))
     <script>
-        window.location.href = "{{url('/login')}}"
+        window.location.href = "{{ url('/login') }}"
     </script>
 @endif
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,13 +16,18 @@
     <meta name="description"
         content="Matrix Admin Lite Free Version is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
-    <title>BISa  -@yield('title-page')</title>
+    <title>BISa -@yield('title-page')</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('assets/images/logo_bisa.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/logo_bisa.png') }}">
     <!-- Custom CSS -->
-    <link href="{{asset('matrix/assets/libs/flot/css/float-chart.css')}}" rel="stylesheet">
+    <link href="{{ asset('matrix/assets/libs/flot/css/float-chart.css') }}" rel="stylesheet">
+    {{-- Datatable --}}
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
     <!-- Custom CSS -->
-    <link href="{{asset('matrix/dist/css/style.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('matrix/dist/css/style.min.css') }}" rel="stylesheet">
+    {{-- animation --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    
     @yield('css')
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -49,7 +55,7 @@
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
-        
+
         @include('dashboard_template/top_sidebar')
         <!-- ============================================================== -->
         <!-- End Topbar header -->
@@ -58,14 +64,14 @@
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
         @include('dashboard_template/left_sidebar')
-        
+
         <!-- ============================================================== -->
         <!-- End Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
         <!-- ============================================================== -->
         <!-- Page wrapper  -->
         <!-- ============================================================== -->
-        
+
         <div class="page-wrapper">
             <!-- ============================================================== -->
             <!-- Bread crumb and right sidebar toggle -->
@@ -92,7 +98,7 @@
             <!-- ============================================================== -->
             <!-- Container fluid  -->
             <!-- ============================================================== -->
-            
+
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
             <!-- ============================================================== -->
@@ -116,21 +122,24 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    <script src="{{asset('matrix/assets/libs/jquery/dist/jquery.min.js')}}"></script>
+    <script src="{{ asset('matrix/assets/libs/jquery/dist/jquery.min.js') }}"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="{{asset('matrix/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{asset('matrix/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js')}}"></script>
-    <script src="{{asset('matrix/assets/extra-libs/sparkline/sparkline.js')}}"></script>
+    <script src="{{ asset('matrix/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('matrix/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js') }}"></script>z
+    <script src="{{ asset('matrix/assets/extra-libs/sparkline/sparkline.js') }}"></script>
     <!--Wave Effects -->
-    <script src="{{asset('matrix/dist/js/waves.js')}}"></script>
+
+    {{-- Datatable --}}
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
+    <script src="{{ asset('matrix/dist/js/waves.js') }}"></script>
     <!--Menu sidebar -->
-    <script src="{{asset('matrix/dist/js/sidebarmenu.js')}}"></script>
+    <script src="{{ asset('matrix/dist/js/sidebarmenu.js') }}"></script>
     <!--Custom JavaScript -->
-    <script src="{{asset('matrix/dist/js/custom.min.js')}}"></script>
+    <script src="{{ asset('matrix/dist/js/custom.min.js') }}"></script>
     @yield('js')
     <script>
-        $(function(){
-            $(".sidebar-link").click(function(){
+        $(function() {
+            $(".sidebar-link").click(function() {
                 window.location.assign($(this).data('locs'));
             });
         });

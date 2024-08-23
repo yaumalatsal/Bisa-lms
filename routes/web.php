@@ -48,9 +48,9 @@ Route::get('/quiz/{mapel_id}/result', [QuizController::class, 'showResult'])->na
 
 Route::get('/', [DashboardController::class, 'penilaian_siswa'])->name('dashboard.dashboard');
 
-Route::get('/artikel/bmc', function () {
-    return view('artikel.bmc');
-});
+    Route::get('/artikel/bmc', function () {
+        return view('artikel.bmc');
+    });
 
 // Route::get('/inkubasi', 'DashboardController@inkubasi');
 Route::get('/inkubasi', [DashboardController::class, 'inkubasi'])->name('dashboard.inkubasi');

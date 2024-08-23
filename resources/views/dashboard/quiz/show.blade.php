@@ -1,4 +1,3 @@
-<!-- resources/views/dashboard/quiz/show.blade.php -->
 @extends('dashboard_template.index')
 
 @section('title-page')
@@ -7,41 +6,32 @@
 
 @section('content')
 <div class="container">
-    <div class="quiz-header mb-4">
-        <h2>Kuis: {{ $mapel->name }}</h2>
-        <p>Durasi: <span id="timer">{{ $mapel->durasi }}:00</span> menit</p>
+    <div class="quiz-header mb-4 text-center">
+        <h2 class="display-4">{{ $mapel->name }}</h2>
+        <p class="lead">Durasi: <span id="timer">{{ $mapel->durasi }}:00</span> menit</p>
     </div>
     
     <form id="quiz-form" action="{{ route('dashboard.quiz.submit', $mapel->id) }}" method="POST">
         @csrf
 
         <div id="quiz-questions">
-            @foreach($mapel->quizSoals as $index => $soal)
+            @foreach($mapel->quizSoals->shuffle() as $index => $soal)
                 <div class="question-card animate__animated animate__fadeIn mb-4 p-4" data-question-index="{{ $index }}">
-                    <h4>{{ $index + 1 }}. {{ $soal->question }}</h4>
+                    <h4 class="question-number">{{ $index + 1 }}.</h4>
+                    <p class="question-text">{{ $soal->question }}</p>
                     <div class="options mt-2">
-                        <label class="option-label">
-                            <input type="radio" name="question_{{ $soal->id }}" value="{{ $soal->option_a }}">
-                            <span class="option-text">A. {{ $soal->option_a }}</span>
-                        </label>
-                        <label class="option-label">
-                            <input type="radio" name="question_{{ $soal->id }}" value="{{ $soal->option_b }}">
-                            <span class="option-text">B. {{ $soal->option_b }}</span>
-                        </label>
-                        <label class="option-label">
-                            <input type="radio" name="question_{{ $soal->id }}" value="{{ $soal->option_c }}">
-                            <span class="option-text">C. {{ $soal->option_c }}</span>
-                        </label>
-                        <label class="option-label">
-                            <input type="radio" name="question_{{ $soal->id }}" value="{{ $soal->option_d }}">
-                            <span class="option-text">D. {{ $soal->option_d }}</span>
-                        </label>
+                        @foreach(['option_a', 'option_b', 'option_c', 'option_d'] as $key)
+                            <label class="option-label">
+                                <input type="radio" name="question_{{ $soal->id }}" value="{{ $soal->$key }}">
+                                <span class="option-text">{{ strtoupper(substr($key, -1)) }}. {{ $soal->$key }}</span>
+                            </label>
+                        @endforeach
                     </div>
                 </div>
             @endforeach
         </div>
 
-        <div class="navigation-buttons mt-4">
+        <div class="navigation-buttons mt-4 d-flex justify-content-between">
             <button type="button" id="prev-button" class="btn btn-secondary" disabled>Sebelumnya</button>
             <button type="button" id="next-button" class="btn btn-secondary">Selanjutnya</button>
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -90,6 +80,7 @@
         function showQuestion(index) {
             questions.forEach((question, i) => {
                 question.style.display = i === index ? 'block' : 'none';
+                question.classList.toggle('animate__fadeIn', i === index);
             });
             document.getElementById('prev-button').disabled = index === 0;
             document.getElementById('next-button').disabled = index === questions.length - 1;
@@ -118,18 +109,33 @@
     .quiz-header {
         text-align: center;
         margin-bottom: 2rem;
+        font-family: 'Arial', sans-serif;
     }
 
     .question-card {
         border: 1px solid #ddd;
         border-radius: 8px;
-        background-color: #f9f9f9;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        display: none; /* Hide all questions initially */
+        background-color: #ffffff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s, transform 0.3s;
+        padding: 20px;
+        display: none;
     }
 
-    .question-card:first-child {
-        display: block; /* Show the first question by default */
+    .question-card:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        transform: scale(1.02);
+    }
+
+    .question-number {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .question-text {
+        font-size: 1.2rem;
+        margin-top: 0.5rem;
+        margin-bottom: 1rem;
     }
 
     .options {
@@ -145,7 +151,7 @@
     }
 
     .option-label:hover {
-        background-color: #e0e0e0;
+        background-color: #f1f1f1;
     }
 
     .option-text {
@@ -157,6 +163,7 @@
         border-color: #007bff;
         padding: 0.5rem 1rem;
         border-radius: 5px;
+        font-size: 1rem;
     }
 
     .btn-primary:hover {
@@ -169,6 +176,7 @@
         border-color: #6c757d;
         padding: 0.5rem 1rem;
         border-radius: 5px;
+        font-size: 1rem;
     }
 
     .btn-secondary:hover {

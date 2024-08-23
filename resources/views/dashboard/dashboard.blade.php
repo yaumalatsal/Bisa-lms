@@ -45,7 +45,7 @@
 @extends('dashboard_template/index')
 
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid slide-up">
 
     <div class="row p-30">
         <!-- Card 1: BMC -->
@@ -84,7 +84,7 @@
             </div>
         </div>
     </div>
-    <h4>Hasil Penilaian Produk</h2>
+    <h4 class="animate__bounceInUp">Hasil Penilaian Produk</h2>
     <br>
 <div class="row">
         <div class="col-md-12">
@@ -95,13 +95,13 @@
                             
                             <h3>Riwayat Penilaian </h3> 
                             <div class="table-responsive">
-                                <table class="table table-stripped" id="table-one">
+                                <table class="table" id="table-one">
                                     <thead>
                                     <tr>
-                                        <th>No</th>
-                                        <th>Nama Langkah</th>
-                                        <th>Nilai <strong>(1-100)</strong></th>
-                                        <th>Keterangan</th>
+                                        <th class="text-center"><strong>No</strong></th>
+                                        <th class="text-center"><strong>Nama Langkah</strong></th>
+                                        <th class="text-center"> <strong>Nilai (1-100)</strong></th>
+                                        <th class="text-center"><strong>Keterangan</strong></th>
                                         
                                     </tr>
                                     </thead>
@@ -109,14 +109,14 @@
                                         @php $no = 1; @endphp
                                         @foreach($nilai as $datanilai)
                                         <tr>
-                                            <td>{{$no++}}</td>
-                                            <td>{{$datanilai->nama_step}}</td>
-                                            <td>
+                                            <td class="text-center">{{$no++}}</td>
+                                            <td class="text-center">{{$datanilai->nama_step}}</td>
+                                            <td class="text-center">
                                                 <a href="{{$datanilai->file_nilai}}" target="_blank">
                                                     {{$datanilai->file_nilai}}
                                                 </a>
                                             </td>
-                                            <td>{{ $datanilai->keterangan }}</td>
+                                            <td class="text-center">{{ $datanilai->keterangan }}</td>
                                         
                                         </tr>
                                         @endforeach
@@ -135,6 +135,18 @@
 
 
 @endsection
+
+@section('js')
+    <script>
+        $(function() {
+            $("#table-one").DataTable();
+        });
+
+        
+        
+    </script>
+@endsection
+
 
 
 
