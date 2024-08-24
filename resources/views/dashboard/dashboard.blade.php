@@ -1,5 +1,5 @@
 @section('title-page')
-    Dashboard
+   
 @endsection
 
 @section('css')
@@ -45,7 +45,7 @@
 @extends('dashboard_template/index')
 
 @section('content')
-<div class="container-fluid slide-up">
+<div class="container-fluid slide-up animated fadeInUp">
 
     <div class="row p-30">
         <!-- Card 1: BMC -->
@@ -95,7 +95,7 @@
                             
                             <h3>Riwayat Penilaian </h3> 
                             <div class="table-responsive">
-                                <table class="table" id="table-one">
+                                <table class="table table-borderd table-striped" id="table-one">
                                     <thead>
                                     <tr>
                                         <th class="text-center"><strong>No</strong></th>

@@ -71,17 +71,25 @@ class ProdukController extends Controller
         }
     }
 
-    public function getProduk(){
+    public function getProduk()
+    {
         $id_mentor = Session::get('id_mentor');
         $produk = DB::table('product')
-        ->select('product.*','mentor.*','siswa.*','product.id as product_id','logo_produk.logo_produk','mentor.nama as nama_mentor', 'siswa.nama as  nama_siswa')
-        ->leftJoin('logo_produk', 'logo_produk.id_produk','product.id')
-        ->join('mentor', 'product.id_mentor','mentor.id')
-        ->join('siswa', 'product.id_ceo','siswa.id')
-        ->where('product.id_mentor',$id_mentor)
-        ->get();
+            ->select('product.*', 'mentor.*', 'siswa.*', 'product.id as product_id', 'logo_produk.logo_produk', 'mentor.nama as nama_mentor', 'siswa.nama as nama_siswa')
+            ->leftJoin('logo_produk', 'logo_produk.id_produk', 'product.id')
+            ->join('mentor', 'product.id_mentor', 'mentor.id')
+            ->join('siswa', 'product.id_ceo', 'siswa.id')
+            ->where('product.id_mentor', $id_mentor)
+            ->get();
+    
+        // Generate group chat URL for each product
+        foreach ($produk as $item) {
+            $item->group_chat_url = route('mentor.page.groupchat', ['id_produk' => $item->product_id]);
+        }
+    
         return view('mentor/page/produk')->with(compact('produk'));
     }
+    
 
     public function detail_produk($id){
         $id_mentor = Session::get('id_mentor');

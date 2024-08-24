@@ -22,8 +22,8 @@
             <div class="col-md-4 mb-4 drop-in" style="animation-delay: {{ $loop->index * 0.5 }}s;">
                 <div class="card shadow-sm border-0 rounded-3">
                     <div class="card-body text-center">
-                        <div class="icon-circle bg-primary text-white mb-4 mx-auto" style="width: 70px; height: 70px; display: flex; justify-content: center; align-items: center;">
-                            <i class="fas fa-book" style="font-size: 2rem;"></i>
+                        <div class="text-white mb-4 mx-auto" style="width: 70px; height: 70px; display: flex; justify-content: center; align-items: center;">
+                            <img src="{{ asset('assets/images/ilustration/gif/api.gif') }}" alt="Quiz Icon" style="width: 5rem; height: 5rem;"/>
                         </div>
                         <h5 class="card-title font-weight-bold">{{ $mapel->name }}</h5>
                         <p class="card-text text-muted">Durasi: {{ $mapel->durasi }} menit</p>
@@ -50,10 +50,24 @@
                 el.classList.add('visible');
             }, index * 200);
         });
+
+        // Particle.js effect for inferno theme
+        particlesJS.load('particles-js', '{{ asset('assets/particles/inferno.json') }}', function() {
+            console.log('Particles.js loaded with inferno theme.');
+        });
     });
 </script>
 
 <style>
+    #particles-js {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+
     .text-cyan {
         color: #00bcd4;
     }
@@ -66,10 +80,6 @@
     .card:hover {
         transform: translateY(-10px) scale(1.05);
         box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-    }
-
-    .icon-circle {
-        border-radius: 50%;
     }
 
     .btn-outline-primary {
@@ -100,4 +110,6 @@
         }
     }
 </style>
+
+<div id="particles-js"></div>
 @endsection

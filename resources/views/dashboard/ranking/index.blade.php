@@ -1,9 +1,5 @@
 @extends('dashboard_template.index')
 
-@section('title-page')
-    Peringkat Kuis Siswa
-@endsection
-
 @section('content')
 <div class="container">
     <div class="ranking-header mb-4">
@@ -81,6 +77,16 @@
 </script>
 
 <style>
+    /* Background Image */
+  
+
+    .container {
+        background-color: rgba(0, 0, 0, 0.8);
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+
     /* Animations */
     @keyframes fadeInDown {
         from {
@@ -119,16 +125,17 @@
 
     /* Custom Styles */
     .ranking-header h2 {
-        color: #343a40;
+        color: #ff4500;
         font-weight: 700;
-        letter-spacing: 1px;
-        border-bottom: 2px solid #007bff;
+        letter-spacing: 2px;
+        border-bottom: 3px solid #ff6347;
         padding-bottom: 10px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
     }
 
     .form-group label {
         font-size: 1.2rem;
-        color: #007bff;
+        color: #ff6347;
     }
 
     th {
@@ -138,42 +145,54 @@
     .custom-select {
         font-size: 1rem;
         border-radius: 30px;
-        border: 2px solid #007bff;
+        border: 2px solid #ff6347;
+        background-color: #2b2b2b;
+        color: #ffffff;
         transition: border-color 0.3s ease;
     }
 
-
-    
     .custom-select:focus {
-        border-color: #0056b3;
+        border-color: #ff4500;
         box-shadow: none;
     }
 
     .table {
-        background-color: #ffffff;
+        background-color: #2b2b2b;
         border-radius: 10px;
         overflow: hidden;
-        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.8);
     }
 
     .table th, .table td {
         padding: 1rem;
         font-size: 1rem;
+        color: #ffffff;
     }
 
     .table th {
-        background-color: #007bff;
-        color: #ffffff;
+        background-color: #ff4500;
         font-weight: 700;
         text-transform: uppercase;
+        border-bottom: 2px solid #ff6347;
     }
 
     .table-striped tbody tr:nth-of-type(odd) {
-        background-color: #f9f9f9;
+        background-color: #333333;
     }
 
     .table-hover tbody tr:hover {
-        background-color: #e9ecef;
+        background-color: #444444;
+    }
+
+    /* Additional Customizations */
+    h2, .form-group label, .custom-select, .table th, .table td {
+        transition: color 0.3s ease, background-color 0.3s ease;
+    }
+
+  
+
+    .text-center {
+        color: #ff4500;
     }
 </style>
 @endsection
