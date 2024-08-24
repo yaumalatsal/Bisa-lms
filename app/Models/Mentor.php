@@ -19,4 +19,8 @@ class Mentor extends Model
         'umur',
         'instansi',
     ];
+
+    public function courses() {
+        return $this->hasMany(Course::class);
+    }
 }
