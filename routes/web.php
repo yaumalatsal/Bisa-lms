@@ -36,10 +36,20 @@ use App\Http\Controllers\QuizController;
 // routes/web.php
 
 use App\Http\Controllers\PeringkatController;
+use App\Http\Controllers\GroupChatController;
 
 Route::get('/peringkat', [PeringkatController::class, 'index'])->name('dashboard.ranking.index');
 Route::get('/peringkat/{mapelId}', [PeringkatController::class, 'getRankings'])->name('dashboard.ranking.data');
 
+//GROUP CHAT
+Route::get('/groupchat', [GroupChatController::class, 'index'])->name('dashboard.groupchat');
+Route::post('groupchat/{id_product}', [GroupChatController::class, 'sendMessage'])->name('groupchat.sendMessage');
+
+// Route::get('/groupchat', [GroupChatController::class, 'mentor'])->name('mentor.page.groupchat');
+// Route::post('groupchat-mentor/{id_product}', [GroupChatController::class, 'sendMessageMentor'])->name('groupchat.sendMessage');
+
+Route::get('/groupchat-mentor/{id_produk}', [GroupChatController::class, 'mentor'])->name('mentor.page.groupchat');
+Route::post('/groupchat-mentor/{id_produk}', [GroupChatController::class, 'sendMessageMentor'])->name('groupchat.sendMessageMentor');
 
 //QUIZ
 Route::get('/quiz', [QuizController::class, 'index'])->name('dashboard.quiz.index');

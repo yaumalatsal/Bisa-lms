@@ -1,4 +1,4 @@
-@if (!Session::has('id_siswa'))
+@if (!Session::has('id_siswa') && !Session::has('id_mentor'))
     <script>
         window.location.href = "{{ url('/login') }}"
     </script>
@@ -22,11 +22,11 @@
     <!-- Custom CSS -->
     <link href="{{ asset('matrix/assets/libs/flot/css/float-chart.css') }}" rel="stylesheet">
     {{-- Datatable --}}
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.css"/>
     <!-- Custom CSS -->
     <link href="{{ asset('matrix/dist/css/style.min.css') }}" rel="stylesheet">
     {{-- animation --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" /> --}}
     
     @yield('css')
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
