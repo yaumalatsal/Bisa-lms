@@ -119,7 +119,7 @@
     <div class="container-fluid">
         <div class="row mb-4">
             <div class="col-md-12">
-                <h1 class="mb-4 text-center font-weight-bold text-primary">Available Courses</h1>
+                <h1 class="mb-4 text-center font-weight-bold">Course Yang Tersedia</h1>
             </div>
         </div>
         

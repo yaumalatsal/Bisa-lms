@@ -96,7 +96,7 @@
                                             </td>
                                             <td>{{ $datanilai->keterangan }}</td>
                                             <td>
-                                                <button class="btn btn-warning editNilai" data-bs-toggle="modal" data-bs-target="#modalEditNilai" data-file="{{$datanilai->file_nilai}}" data-langkah="{{$datanilai->nama_step}}" data-idpenilaian="{{$datanilai->penilaian_id}}" data-idstep="{{$datanilai->id_step}}"> <i class="fas fa-edit"> </i></button>
+                                                <button class="btn btn-warning editNilai" data-bs-toggle="modal" data-bs-target="#modalEditNilai" data-file="{{$datanilai->file_nilai}}" data-langkah="{{$datanilai->nama_step}}" data-idpenilaian="{{$datanilai->penilaian_id}}" data-idstep="{{$datanilai->id_step}} " data-keterangan="{{$datanilai->keterangan}} "> <i class="fas fa-edit"> </i></button>
                                             </td>
                                         </tr>
                                         @endforeach
@@ -170,9 +170,14 @@
             <input type="hidden" value="" name="id_penilaian" id="ed-id-penilaian">
 
             <br>
-            <label for="">Link File Penilaian</label>
+            <label for="">Edit Penilaian (1-100)</label>
             <input type="text" class="form-control" id="ed-nilai" name="nilai">
+
+            <label for="">Edit Keterangan Penilaian</label>
+            <input type="text" class="form-control" id="ed-keterangan" name="keterangan">
             <input type="hidden" name="id_produk" value="{{$data->product_id}}">
+
+
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Simpan</button>
                 <button type="button"  class="btn btn-danger text-white" data-bs-dismiss="modal">Batalkan</button>
@@ -192,11 +197,13 @@
             var id_step = $(this).data('idstep');
             var langkah = $(this).data('langkah');
             var namafile = $(this).data('file');
+            var keterangan = $(this).data('keterangan');
             var id_penilaian = $(this).data('idpenilaian')
 
             $("#ed-nama-step").val(langkah);
             $("#ed-id-step").val(id_step);
             $("#ed-nilai").val(namafile);
+            $("#ed-keterangan").val(keterangan);
             $("#ed-id-penilaian").val(id_penilaian);
         });
     });
