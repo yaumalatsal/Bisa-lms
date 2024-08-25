@@ -37,6 +37,7 @@ use App\Http\Controllers\QuizController;
 
 use App\Http\Controllers\PeringkatController;
 use App\Http\Controllers\GroupChatController;
+use App\Http\Controllers\Mentor\MentorPameranController;
 
 Route::get('/peringkat', [PeringkatController::class, 'index'])->name('dashboard.ranking.index');
 Route::get('/peringkat/{mapelId}', [PeringkatController::class, 'getRankings'])->name('dashboard.ranking.data');
@@ -66,9 +67,9 @@ Route::get('/quiz/{mapel_id}/result', [QuizController::class, 'showResult'])->na
 
 Route::get('/', [DashboardController::class, 'penilaian_siswa'])->name('dashboard.dashboard');
 
-    Route::get('/artikel/bmc', function () {
-        return view('artikel.bmc');
-    });
+Route::get('/artikel/bmc', function () {
+    return view('artikel.bmc');
+});
 
 // Route::get('/inkubasi', 'DashboardController@inkubasi');
 Route::get('/inkubasi', [DashboardController::class, 'inkubasi'])->name('dashboard.inkubasi');
@@ -194,6 +195,12 @@ Route::get('/mentor/courses/{courseId}/answers', [CourseQuestionController::clas
 Route::post('/courses/{courseId}/answers/{answerId}/update-score', [CourseQuestionController::class, 'updateScore'])->name('mentor.answers.updateScore');
 
 
+Route::get('/mentor/pameran', [MentorPameranController::class, 'index'])->name('mentor.pameran.index');
+Route::get('/mentor/pameran/{id}', [MentorPameranController::class, 'detail'])->name('mentor.pameran.detail');
+Route::get('/mentor/pameran/monitoring/{product_id}', [MonitoringController::class, 'mentorMonitoring'])->name('mentor.pameran.monitoring');
+Route::get('/mentor/pameran/{id_bmc}/{id_produk}', [MentorPameranController::class, 'result_bmc'])->name('mentor.pameran.result_bmc');
+
+
 
 
 
@@ -211,7 +218,6 @@ Route::prefix('investor')->name('investor.')->group(function () {
         Route::get('/produk/{id}', [InvestorProdukController::class, 'detail'])->name('produk.detail');
         Route::get('/produk/monitoring/{product_id}', [MonitoringController::class, 'investorMonitoring'])->name('produk.monitoring');
         Route::get('/produk/{id_bmc}/{id_produk}', [InvestorProdukController::class, 'result_bmc'])->name('produk.result_bmc');
-
     });
 });
 

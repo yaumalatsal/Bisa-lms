@@ -1,6 +1,4 @@
-@section('title-page')
-    Dashboard Investor
-@endsection
+
 
 @section('css')
 <style>
@@ -44,7 +42,7 @@
 </style>
 @endsection
 
-@extends('investor/template/index')
+@extends('mentor/template/index')
 @section('content')
 <div class="container-fluid">
 <div class="row">
@@ -126,7 +124,7 @@
                             
                             <div class="alert alert-info d-flex gap-3 align-items-center" role="alert">
                                 <h3 class="h3">Monitoring Produk</h3>
-                                <a href="{{ route('investor.produk.monitoring', $data->product_id) }}" class="btn btn-primary">View</a>
+                                <a href="{{ route('mentor.pameran.monitoring', $data->product_id) }}" class="btn btn-primary">View</a>
                             </div>
                         </div>
                     </div>    
@@ -171,7 +169,7 @@
                                                 <td>{{$nourut++}}</td>
                                                 <td>{{$databmc->judul}}</td>
                                                 <td>
-                                                    <a href="{{ route('investor.produk.result_bmc',[$databmc->id,$data->product_id]) }}" class="btn btn-primary">
+                                                    <a href="{{ route('mentor.pameran.result_bmc',[$databmc->id,$data->product_id]) }}" class="btn btn-primary">
                                                         Detail &nbsp;<span class="fas fa-eye"></span>
                                                     </a>
                                                 </td>

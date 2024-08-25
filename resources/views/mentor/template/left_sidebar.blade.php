@@ -13,6 +13,10 @@
                         data-locs="{{ url('/mentor/produk') }}"
                         class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"><i
                             class="mdi mdi-buffer"></i><span class="hide-menu">Produk</span></a></li>
+                <li class="sidebar-item {{ request()->is('mentor/pameran') ? 'selected' : '' }}"> <a
+                        data-locs="{{ url('/mentor/pameran*') }}"
+                        class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"><i
+                            class="mdi mdi-buffer"></i><span class="hide-menu">Pameran</span></a></li>
                 <li class="sidebar-item {{ request()->is('mentor/courses*') ? 'selected' : '' }}"> <a
                         data-locs="{{ url('/mentor/courses') }}"
                         class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"><i
