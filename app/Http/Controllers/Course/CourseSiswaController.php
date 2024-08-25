@@ -74,15 +74,21 @@ class CourseSiswaController extends Controller
         $siswa_id = Session::get('id_siswa');
 
         // Fetch the current material and course
-        $material = CourseMaterial::with('course')->findOrFail($materialId);
+        $material = CourseMaterial::with('course')->where('status',1)->findOrFail($materialId);
 
         // Get all materials for the course
         $course = Course::with(['courseMaterials.materialStudents' => function ($query) use ($siswa_id) {
             $query->where('siswa_id', $siswa_id);
         }])->findOrFail($material->course_id);
 
+        // Filter the materials where is_read = 1
+        $filteredMaterials = $course->courseMaterials->filter(function ($material) {
+            return $material->status == 1;
+        })->sortBy('id')->values();
         // Determine current material position
-        $materials = $course->courseMaterials->sortBy('id')->values();
+        $materials = $filteredMaterials;
+
+
         $currentIndex = $materials->search(function ($item) use ($materialId) {
             return $item->id == $materialId;
         });

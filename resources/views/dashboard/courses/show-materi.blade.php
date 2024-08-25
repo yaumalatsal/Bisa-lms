@@ -66,7 +66,7 @@
                         <ul class="list-group">
                             @foreach ($materials as $index => $material)
                                 <li class="list-group-item">
-                                    <a href="">
+                                    <a href="{{ route('siswa.courses.showMaterial', $material->id) }}">
                                         @if ($material->is_read)
                                             <i class="mdi mdi-check-circle"></i>
                                         @endif
@@ -79,7 +79,7 @@
                             <li class="list-group-item">
                                 @if ($completion)
                                     @if ($completion->completed == 1)
-                                    <span class="btn btn-secondary disabled">Next</span>
+                                    <span class="text-link">Soal Pertanyaan</span>
                                     @endif
                                 @elseif ($allMaterialsRead)
                                 <a href="{{ route('siswa.courses.showQuestions', $course->id) }}"> Soal Pertanyaan </a> 
