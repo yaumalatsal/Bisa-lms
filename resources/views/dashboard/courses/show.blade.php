@@ -35,7 +35,7 @@
                         <div class="card">
                             <div class="card-header" id="heading{{ $index }}">
                                 <h4 class="mb-0">
-                                    <a href="#" class="text-dark">{{ $index + 1 }}. {{ $material->title }}</a>
+                                    <a href="#" class="text-dark">{{ $material->title }}</a>
                                 </h4>
                             </div>
 

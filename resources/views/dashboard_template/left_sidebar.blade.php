@@ -83,7 +83,15 @@
                         class="sidebar-link waves-effect waves-dark sidebar-link"
                         aria-expanded="false">
                         <i class="mdi mdi-trophy"></i>
-                        <span class="hide-menu">Ranking</span>
+                        <span class="hide-menu">Ranking Quiz</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ request()->is('points') ? 'selected' : '' }}">
+                    <a data-locs="{{ url('/points') }}"
+                        class="sidebar-link waves-effect waves-dark sidebar-link"
+                        aria-expanded="false">
+                        <i class="mdi mdi-trophy"></i>
+                        <span class="hide-menu">Ranking Point</span>
                     </a>
                 </li>
                 <li class="sidebar-item {{ request()->is('groupchat') ? 'selected' : '' }}">

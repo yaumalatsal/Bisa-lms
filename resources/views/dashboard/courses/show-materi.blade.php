@@ -47,8 +47,10 @@
                                 @if ($nextMaterial)
                                     <a href="{{ route('siswa.courses.showMaterial', $nextMaterial->id) }}"
                                         class="btn btn-primary">Next</a>
-                                @elseif ($completion->completed == 1)
+                                @elseif ($completion)
+                                    @if ($completion->completed == 1)
                                     <span class="btn btn-secondary disabled">Next</span>
+                                    @endif
                                 @else
                                     <a href="{{ route('siswa.courses.showQuestions', $course->id) }}"
                                         class="btn btn-primary">Go to Questions</a>
@@ -75,8 +77,10 @@
                         </ul>
                         <ul class="list-group">
                             <li class="list-group-item">
-                                @if ($completion->completed == 1)
-                                <span class="text-link">Soal Pertanyaan</span>
+                                @if ($completion)
+                                    @if ($completion->completed == 1)
+                                    <span class="btn btn-secondary disabled">Next</span>
+                                    @endif
                                 @elseif ($allMaterialsRead)
                                 <a href="{{ route('siswa.courses.showQuestions', $course->id) }}"> Soal Pertanyaan </a> 
                                 @else 

@@ -22,7 +22,7 @@ class Siswa extends Model
         return $this->hasMany(CourseAnswer::class);
     }
 
-    public function courseCompletion(){
+    public function courseCompletions(){
         return $this->hasMany(CourseCompletion::class); 
     }
 }

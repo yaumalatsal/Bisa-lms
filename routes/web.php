@@ -40,6 +40,10 @@ use App\Http\Controllers\GroupChatController;
 
 Route::get('/peringkat', [PeringkatController::class, 'index'])->name('dashboard.ranking.index');
 Route::get('/peringkat/{mapelId}', [PeringkatController::class, 'getRankings'])->name('dashboard.ranking.data');
+Route::get('/points', [PeringkatController::class, 'showRankings'])->name('dashboard.ranking.point');
+
+
+
 
 //GROUP CHAT
 Route::get('/groupchat', [GroupChatController::class, 'index'])->name('dashboard.groupchat');

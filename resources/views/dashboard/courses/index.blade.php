@@ -24,12 +24,12 @@
                 </div>
             </div> --}}
 
-            <div class="container mt-5">
+            <div class="container">
                 <h1 class="mb-4">Available Courses</h1>
                 <div class="row">
                     @foreach ($courses as $course)
                         <div class="col-md-4 mb-4">
-                            <div class="card rounded" style="width: 18rem;">
+                            <div class="card shadow bg-body-tertiary rounded" style="width: 18rem;">
                                 <img src="{{ asset('storage/' . $course->image) }}" style="height: 14rem; object-fit: cover"
                                     class="object-fit-cover card-img-top" alt="{{ $course->title }}">
                                 <div class="card-body">

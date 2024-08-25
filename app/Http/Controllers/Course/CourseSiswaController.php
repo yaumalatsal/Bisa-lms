@@ -20,8 +20,8 @@ class CourseSiswaController extends Controller
         $siswa_id = Session::get('id_siswa');
         $courses = Course::with(['courseCompletions' => function ($query) use ($siswa_id) {
             $query->where('siswa_id', $siswa_id);
-        }])->get();
-    
+        }])->where('status', 1)->get();
+
         return view('dashboard.courses.index', compact('courses'));
     }
 
@@ -38,12 +38,18 @@ class CourseSiswaController extends Controller
             $material->read_at = optional($material->materialStudents->first())->created_at;
             return $material;
         });
-
-        $allMaterialsRead = $courseMaterials->every(function ($material) {
+        
+        // Filter the materials where is_read = 1
+        $filteredMaterials = $courseMaterials->filter(function ($material) {
+            return $material->status == 1;
+        });
+        
+        // Check if all the filtered materials have been read
+        $allMaterialsRead = $filteredMaterials->every(function ($material) {
             return $material->is_read;
         });
-
-        $materials = $courseMaterials;
+        
+        $materials = $filteredMaterials;
 
         $questions = $allMaterialsRead ? CourseQuestion::where('course_id', $courseId)->get() : [];
 
@@ -53,7 +59,7 @@ class CourseSiswaController extends Controller
         //     ->whereIn('question_id', $questions->pluck('id'))
         //     ->get()
         //     ->keyBy('question_id');
-            $answers = CourseAnswer::with(['courseQuestion', 'siswa'])->where('siswa_id', $siswa_id)
+        $answers = CourseAnswer::with(['courseQuestion', 'siswa'])->where('siswa_id', $siswa_id)
             ->whereHas('courseQuestion', function ($query) use ($courseId) {
                 $query->where('course_id', $courseId);
             })
@@ -102,7 +108,9 @@ class CourseSiswaController extends Controller
             ['is_read' => true, 'created_at' => now()]
         );
 
-        $completion = CourseCompletion::where('siswa_id', $siswa_id)->first();
+        $completion = CourseCompletion::where('siswa_id', $siswa_id)->where('course_id',$material->course_id)->first();
+
+        // dd($completion);
 
         return view('dashboard.courses.show-materi', compact('course', 'materials', 'material', 'previousMaterial', 'nextMaterial', 'allMaterialsRead', 'completion'));
     }
@@ -143,14 +151,16 @@ class CourseSiswaController extends Controller
             );
         }
 
-        CourseCompletion::updateOrCreate([
-            'course_id' => $courseId,
-            'siswa_id' => $siswa_id
-        ],
-        [
-            'score' => 10,
-            'completed'=> 1,
-        ]);
+        CourseCompletion::updateOrCreate(
+            [
+                'course_id' => $courseId,
+                'siswa_id' => $siswa_id
+            ],
+            [
+                'score' => 10,
+                'completed' => 1,
+            ]
+        );
         // DB::table('course_completions')->updateOrInsert(
         //     [
         //         'course_id' => $courseId,
