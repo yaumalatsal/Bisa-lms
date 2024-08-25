@@ -16,7 +16,7 @@
                 <b class="logo-icon ps-2" style="float: right;">
                     <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                     <!-- Dark Logo icon -->
-                    <img src="{{asset('assets/images/logo_bisma.png')}}" style="width:130px" alt="homepage" class="light-logo" />
+                    <img src="{{asset('assets/images/logo_fix.png')}}" style="width:130px" alt="homepage" class="light-logo" />
 
                 </b>
                 <!--End Logo icon -->

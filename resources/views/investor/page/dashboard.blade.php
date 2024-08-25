@@ -84,7 +84,7 @@
             </div>
         </div>
     </div>
-    <h4>Hasil Penilaian Produk</h2>
+    {{-- <h4>Hasil Penilaian Produk</h2>
     <br>
     <div class="table-responsive">
         <table class="table table-stripped" id="table-one">
@@ -101,7 +101,7 @@
                     
             </tbody>
         </table> 
-    </div>
+    </div> --}}
 </div>
 
 

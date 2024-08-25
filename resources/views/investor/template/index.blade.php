@@ -92,7 +92,7 @@
             <!-- footer -->
             <!-- ============================================================== -->
             <footer class="footer text-center">
-                All Rights Reserved by Awak Rantau. Designed and Developed by Awak Rantau
+                All Rights Reserved by BISA. Designed and Developed by BISA
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->

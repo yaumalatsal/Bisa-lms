@@ -87,6 +87,8 @@
 
             if (duration <= 0) {
                 clearInterval(timerInterval);
+                // Disable beforeunload event when time is up
+                window.removeEventListener('beforeunload', handleBeforeUnload);
                 Swal.fire({
                     icon: 'info',
                     title: 'Waktu Habis',
@@ -134,12 +136,13 @@
         showQuestion(currentIndex);
 
         // Prevent losing data on page unload
-        window.addEventListener('beforeunload', (event) => {
+        function handleBeforeUnload(event) {
             if (!isFormSubmitted) {
                 event.preventDefault();
                 event.returnValue = ''; // Required for most browsers
             }
-        });
+        }
+        window.addEventListener('beforeunload', handleBeforeUnload);
     });
 
     function handleSubmit(event) {
@@ -164,6 +167,7 @@
         return false; // Prevent form from submitting automatically
     }
 </script>
+
 
 <style>
     .quiz-header {
@@ -206,14 +210,19 @@
     .question-number {
         font-size: 1.5rem;
         font-weight: bold;
+        color: #007bff;
+    }
+
+    .options {
+        margin-top: 1rem;
     }
 
     .option-label {
-        display: block;
-        padding: 10px;
-        border-radius: 5px;
-        border: 1px solid transparent;
-        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        border-radius: 8px;
+        border: 2px solid transparent;
         cursor: pointer;
         transition: background-color 0.3s, border-color 0.3s;
     }

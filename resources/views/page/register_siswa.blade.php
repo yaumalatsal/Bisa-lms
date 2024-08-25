@@ -105,13 +105,13 @@
             <div class="col-lg-5 col-12 hidden-xs desc"  data-aos="fade-up" data-aos-duration="1500">
                 <h1 class="nunito">Bis<span class="main-text">MA<span></h1>
                 <p class="text-white nunito">
-                BisMA adalah platform untuk memonitoring bisnis Mahasiswa di Universitas Negeri Malang
+                BisMA adalah platform untuk memonitoring bisnis Siswa di Universitas Negeri Malang
                 </p>
                 <a href="{{url('/login')}}" class="btn bt-linear nunito">Masuk Akun</a>
             </div>
             <div class="col-lg-6 col-12">
                 <div class="login-box">
-                    <div class="label-box">Pendaftaran Mahasiswa</div>
+                    <div class="label-box">Pendaftaran Siswa</div>
                     <br>
                     @if(isset($status))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -122,11 +122,11 @@
                     <form action="{{url('/pendaftaran_siswa')}}" method="post">
                     {{csrf_field()}}    
                     <div class="form-group">
-                        <label class="nunito">Nama Mahasiswa</label>
+                        <label class="nunito">Nama Siswa</label>
                         <input required="required" type="text" name="nama_siswa" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label class="nunito">Nomor Induk Mahasiswa</label>
+                        <label class="nunito">Nomor Induk Siswa</label>
                         <input required="required" type="text" name="nis" id="nis" class="form-control">
                     </div>
                     <div class="form-group">

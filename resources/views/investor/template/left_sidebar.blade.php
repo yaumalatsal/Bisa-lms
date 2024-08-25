@@ -9,13 +9,13 @@
                             class="hide-menu" >Dashboard</span></a></li>
                 <li class="sidebar-item {{ (request()->is('investor/produk*')) ? 'selected' : '' }}"> <a data-locs="{{ route('investor.produk') }}" class="sidebar-link waves-effect waves-dark sidebar-link"
                          aria-expanded="false"><i class="mdi mdi-buffer"></i><span
-                            class="hide-menu">Produk</span></a></li>
-                            <li class="sidebar-item {{ (request()->is('investor/penilaian')) ? 'selected' : '' }}"> <a data-locs="{{url('/investor/penilaian')}}" class="sidebar-link waves-effect waves-dark sidebar-link"
+                            class="hide-menu">Pameran Produk</span></a></li>
+                            {{-- <li class="sidebar-item {{ (request()->is('investor/penilaian')) ? 'selected' : '' }}"> <a data-locs="{{url('/investor/penilaian')}}" class="sidebar-link waves-effect waves-dark sidebar-link"
                          aria-expanded="false"><i class="mdi mdi-account-multiple"></i><span
                             class="hide-menu">Penilaian</span></a></li>
 
                 <li class="sidebar-item {{ (request()->is('investor/feedback')) ? 'selected' : '' }}"> <a data-locs="{{url('/investor/feedback')}}" class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"><i class="mdi mdi-comment-check"></i><span
-                class="hide-menu">Feedback</span></a></li>
+                class="hide-menu">Feedback</span></a></li> --}}
                     
         </nav>
         <!-- End Sidebar navigation -->
