@@ -1,4 +1,4 @@
-@if (!Session::has('id_siswa') && !Session::has('id_mentor'))
+@if (!Session::has('id_siswa'))
     <script>
         window.location.href = "{{ url('/login') }}"
     </script>

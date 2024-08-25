@@ -39,6 +39,7 @@ use App\Http\Controllers\PeringkatController;
 use App\Http\Controllers\GroupChatController;
 use App\Http\Controllers\Mentor\MentorPameranController;
 use App\Http\Controllers\PenilaianController;
+use App\Http\Controllers\Profile\ProfileController;
 
 Route::get('/peringkat', [PeringkatController::class, 'index'])->name('dashboard.ranking.index');
 Route::get('/peringkat/{mapelId}', [PeringkatController::class, 'getRankings'])->name('dashboard.ranking.data');
@@ -161,6 +162,10 @@ Route::prefix('courses')->name('siswa.')->group(function () {
     Route::get('/{courseId}/questions', [CourseQuestionController::class, 'showQuestions'])->name('courses.showQuestions');
     Route::post('/{courseid}/submit-answer', [CourseSiswaController::class, 'submitAnswers'])->name('courses.submitAnswers');
 });
+
+Route::get('/profile', [ProfileController::class, 'showProfile'])->name('siswa.profile');
+Route::post('/profile', [ProfileController::class, 'updateProfile'])->name('siswa.profile.update');
+
 
 
 // mentor
