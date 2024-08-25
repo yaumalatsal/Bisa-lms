@@ -22,6 +22,14 @@
                         </a>
                     </li>
                 @endif
+                <li class="sidebar-item {{ request()->is('courses*') ? 'selected' : '' }}">
+                    <a data-locs="{{ url('/courses') }}"
+                        class="sidebar-link waves-effect waves-dark sidebar-link"
+                        aria-expanded="false">
+                        <i class="mdi mdi-book"></i>
+                        <span class="hide-menu">Course</span>
+                    </a>
+                </li>
                 <li class="sidebar-item {{ request()->is('inkubasi') ? 'selected' : '' }}">
                     <a data-locs="{{ url('/inkubasi') }}"
                         class="sidebar-link waves-effect waves-dark sidebar-link"

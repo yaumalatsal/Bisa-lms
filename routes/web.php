@@ -150,8 +150,10 @@ Route::post('/setPitchDeck', 'PresentasiController@setDeck');
 Route::prefix('courses')->name('siswa.')->group(function () {
     Route::get('/', [CourseSiswaController::class, 'index'])->name('courses.index');
     Route::get('/{course}', [CourseSiswaController::class, 'show'])->name('courses.show');
+    Route::get('/materials/{materialId}', [CourseSiswaController::class, 'showMaterial'])->name('courses.showMaterial');
     Route::post('materials/{material}/mark-read', [CourseSiswaController::class, 'markMaterialAsRead'])->name('materials.markRead');
-    Route::post('/{course}/answer', [CourseSiswaController::class, 'submitAnswers'])->name('questions.answer');
+    Route::get('/{courseId}/questions', [CourseQuestionController::class, 'showQuestions'])->name('courses.showQuestions');
+    Route::post('/{courseid}/submit-answer', [CourseSiswaController::class, 'submitAnswers'])->name('courses.submitAnswers');
 });
 
 
@@ -184,6 +186,10 @@ Route::resource('mentor/courses/{course}/materials', CourseMaterialController::c
 Route::prefix('mentor/courses/{course_id}')->name('course.')->group(function () {
     Route::resource('questions', CourseQuestionController::class);
 });
+Route::get('/mentor/courses/{courseId}/answers', [CourseQuestionController::class, 'showAnswers'])->name('mentor.answers.index');
+Route::post('/courses/{courseId}/answers/{answerId}/update-score', [CourseQuestionController::class, 'updateScore'])->name('mentor.answers.updateScore');
+
+
 
 
 

@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Course;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
+use App\Models\CourseAnswer;
 use App\Models\CourseQuestion;
+use App\Models\Siswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CourseQuestionController extends Controller
 {
@@ -73,5 +76,46 @@ class CourseQuestionController extends Controller
 
         return redirect()->route('course.questions.index', $course_id)
             ->with('success', 'Question deleted successfully.');
+    }
+
+
+    public function showQuestions($courseId)
+    {
+        $course = Course::with('courseQuestions')->findOrFail($courseId);
+        $questions = $course->courseQuestions;
+
+        return view('dashboard.courses.show-questions', compact('course', 'questions'));
+    }
+
+    public function showAnswers($courseId)
+    {
+        $answers = CourseAnswer::with(['courseQuestion', 'siswa'])
+            ->whereHas('courseQuestion', function ($query) use ($courseId) {
+                $query->where('course_id', $courseId);
+            })
+            ->get();
+        return view('mentor.courses.show-answer', compact('answers', "courseId"));
+    }
+
+    public function updateScore(Request $request, $courseId, $answerId)
+    {
+        // Validate the request
+        $request->validate([
+            'score' => 'required|integer|min:0|max:100', // Adjust min and max as needed
+        ]);
+
+        // Find the specific answer by ID
+        $answer = CourseAnswer::where('id', $answerId)
+            ->whereHas('courseQuestion', function ($query) use ($courseId) {
+                $query->where('course_id', $courseId);
+            })
+            ->firstOrFail();
+
+        // Update the score
+        $answer->score = $request->input('score');
+        $answer->save();
+
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Score updated successfully!');
     }
 }

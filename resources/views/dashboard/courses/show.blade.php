@@ -1,5 +1,5 @@
 @section('title-page')
-    Dashboard Mentor
+    Dashboard Siswa
 @endsection
 
 @section('css')
@@ -14,69 +14,65 @@
     </style>
 @endsection
 
-@extends('mentor/template/index')
+@extends('dashboard_template/index')
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            {{-- <div class="row mb-3">
-                <div class="col-md-12">
-                    <a href="{{ route('courses.create') }}" class="btn btn-primary">Add New Course</a>
-                </div>
-            </div> --}}
 
             @if (session('success'))
                 <div class="alert alert-success">{{ session('success') }}</div>
             @endif
 
-            <div class="container mt-5">
-                <h1>{{ $course->title }}</h1>
-                <p>{{ $course->description }}</p>
-            
-                <div class="accordion" id="courseMaterialsAccordion">
-                    @foreach($materials as $index => $material)
-                    <div class="card">
-                        <div class="card-header" id="heading{{ $index }}">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{ $index }}" aria-expanded="true" aria-controls="collapse{{ $index }}">
-                                    {{ $index + 1 }}. {{ $material->title }}
-                                </button>
-                            </h2>
+            <div class="container">
+                <div class="row bg-light my-3 rounded">
+                    <h1 class="py-2">Course {{ $course->title }}</h1>
+                    <p>{{ $course->description }}</p>
+                </div>
+
+                <div class="my-4">
+                    <h3>Materi Course</h3>
+                    @foreach ($materials as $index => $material)
+                        <div class="card">
+                            <div class="card-header" id="heading{{ $index }}">
+                                <h4 class="mb-0">
+                                    <a href="#" class="text-dark">{{ $index + 1 }}. {{ $material->title }}</a>
+                                </h4>
+                            </div>
+
+                            <div id="card" class="card">
+                                <div class="card-body pb-0">
+                                    @if ($material->is_read)
+                                        <p><small>Dibaca Pada {{ $material->read_at }}</small></p>
+                                    @endif
+                                    <a href="{{ route('siswa.courses.showMaterial', $material->id) }}"
+                                        class="btn btn-primary btn-sm">Baca Selengkapnya</a>
+                                </div>
+                            </div>
                         </div>
-            
-                        <div id="collapse{{ $index }}" class="collapse {{ $index === 0 ? 'show' : '' }}" aria-labelledby="heading{{ $index }}" data-parent="#courseMaterialsAccordion">
-                            <div class="card-body">
-                                {!! $material->content !!}
-                                @if($material->is_read)
-                                <span class="badge badge-success">Read</span>
-                                @else
-                                <form action="{{ route('siswa.materials.markRead', $material->id) }}" method="POST">
-                                    @csrf
-                                    <button type="submit" class="btn btn-sm btn-outline-success">Mark as Read</button>
-                                </form>
-                                @endif
+                    @endforeach
+
+                </div>
+
+                @if ($allMaterialsRead)
+                    <h3 class="mt-4">Course Questions {{ $allMaterialsRead }}</h3>
+                    @foreach ($answers as $index => $answer)
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <h4 class="mb-0">
+                                <label for="question{{ $index }}" class="form-label">{{ $index + 1 }}.
+                                    {{ $answer->courseQuestion->question_text }}</label>
+                            </h4>
+                            <span>Score: {{ $answer->score ?? '' }}</span>
+                        </div>
+
+                        <div id="card" class="card">
+                            <div class="card-body pb-0">
+                                <textarea id="question{{ $index }}" class="form-control"  readonly>{{ $answer->answer_text ?? 'Belum Dijawab' }}</textarea>
                             </div>
                         </div>
                     </div>
                     @endforeach
-                </div>
-            
-                <div class="mt-5">
-                    <h3>Questions</h3>
-                    @if($allMaterialsRead)
-                    <form action="{{ route('siswa.questions.answer', $course->id) }}" method="POST">
-                        @csrf
-                        @foreach($questions as $question)
-                        <div class="form-group">
-                            <label for="question_{{ $question->id }}">{{ $question->question_text }}</label>
-                            <textarea name="answers[{{ $question->id }}]" id="question_{{ $question->id }}" class="form-control" rows="3" required></textarea>
-                        </div>
-                        @endforeach
-                        <button type="submit" class="btn btn-primary">Submit Answers</button>
-                    </form>
-                    @else
-                    <p class="text-warning">You must read all the materials before answering the questions.</p>
-                    @endif
-                </div>
+                @endif
             </div>
         </div>
     </div>

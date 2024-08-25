@@ -29,6 +29,10 @@ class Course extends Model
         return $this->belongsTo(Mentor::class);
     }
 
+    public function courseCompletions(){
+        return $this->hasMany(CourseCompletion::class); 
+    }
+
 
 
     

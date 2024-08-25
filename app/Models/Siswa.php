@@ -21,4 +21,8 @@ class Siswa extends Model
     public function courseAnswers(){
         return $this->hasMany(CourseAnswer::class);
     }
+
+    public function courseCompletion(){
+        return $this->hasMany(CourseCompletion::class); 
+    }
 }

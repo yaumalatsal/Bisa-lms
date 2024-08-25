@@ -53,6 +53,7 @@
                                         <div class="view mb-3">
                                             <a href="{{ route('courses.show', $course->id) }}" class="btn btn-primary btn-sm">Show Materi</a>
                                             <a href="{{ route('course.questions.index', $course->id) }}" class="btn btn-primary btn-sm">Show Question</a>
+                                            <a href="{{ route('mentor.answers.index', $course->id) }}" class="btn btn-primary btn-sm">Show Answer</a>
                                             
                                         </div>
                                         <a href="{{ route('courses.edit', $course->id) }}"
