@@ -88,4 +88,16 @@ class PenilaianController extends Controller
 
         return redirect()->back();
     }
+
+    public function deleteNilai(Request $req)
+{
+    $id_penilaian = $req->id_penilaian;
+
+    // Menghapus data dari tabel penilaian
+    DB::table('penilaian')->where('id', $id_penilaian)->delete();
+
+    return response()->json(['success' => true]);
+}
+
+
 }
