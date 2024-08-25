@@ -224,6 +224,15 @@ class AdminController extends Controller
         ]);
     }
 
+    public function logout()
+    {
+        Auth::guard('admin')->logout();
+
+        return redirect()->route('admin.login')->with('status', 'Logged out successfully.');
+    }
+
+
+
     public function createMateri()
     {
         return view('admin.materi.create');
