@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminProdukController;
+use App\Http\Controllers\Course\CourseController;
+use App\Http\Controllers\Course\CourseMaterialController;
+use App\Http\Controllers\Course\CourseQuestionController;
+use App\Http\Controllers\Course\CourseSiswaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\RankingController;
@@ -142,6 +146,16 @@ Route::get('/presentasi', 'PresentasiController@index');
 Route::get('/submitDeck', 'PresentasiController@updateTrackDeck');
 Route::post('/setPitchDeck', 'PresentasiController@setDeck');
 
+// Course Siswa
+Route::prefix('courses')->name('siswa.')->group(function () {
+    Route::get('/', [CourseSiswaController::class, 'index'])->name('courses.index');
+    Route::get('/{course}', [CourseSiswaController::class, 'show'])->name('courses.show');
+    Route::get('/materials/{materialId}', [CourseSiswaController::class, 'showMaterial'])->name('courses.showMaterial');
+    Route::post('materials/{material}/mark-read', [CourseSiswaController::class, 'markMaterialAsRead'])->name('materials.markRead');
+    Route::get('/{courseId}/questions', [CourseQuestionController::class, 'showQuestions'])->name('courses.showQuestions');
+    Route::post('/{courseid}/submit-answer', [CourseSiswaController::class, 'submitAnswers'])->name('courses.submitAnswers');
+});
+
 
 // mentor
 Route::get('/mentor', 'MentorController@index');
@@ -166,6 +180,17 @@ Route::post('/mentor/editNilai', 'PenilaianController@editNilai');
 Route::post('/mentor/editTrack', 'ProdukController@editTrack');
 Route::get('/mentor/detail_result_bmc/{id_bmc}/{id_produk}', 'BmcController@resultBMC');
 Route::get('/mentor/feedback', 'FeedbackController@getFeedback');
+
+Route::resource('mentor/courses', CourseController::class);
+Route::resource('mentor/courses/{course}/materials', CourseMaterialController::class);
+Route::prefix('mentor/courses/{course_id}')->name('course.')->group(function () {
+    Route::resource('questions', CourseQuestionController::class);
+});
+Route::get('/mentor/courses/{courseId}/answers', [CourseQuestionController::class, 'showAnswers'])->name('mentor.answers.index');
+Route::post('/courses/{courseId}/answers/{answerId}/update-score', [CourseQuestionController::class, 'updateScore'])->name('mentor.answers.updateScore');
+
+
+
 
 
 // investor

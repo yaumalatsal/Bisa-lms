@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,21 +11,26 @@
     <meta name="description"
         content="Matrix Admin Lite Free Version is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
-    <title>Mentor  -@yield('title-page')</title>
+    <title>Mentor -@yield('title-page')</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('matrix/assets/images/favicon.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('matrix/assets/images/favicon.png') }}">
     <!-- Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.css"/>
-    <link href="{{asset('matrix/assets/libs/flot/css/float-chart.css')}}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.css" />
+    <link href="{{ asset('matrix/assets/libs/flot/css/float-chart.css') }}" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="{{asset('matrix/dist/css/style.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('matrix/dist/css/style.min.css') }}" rel="stylesheet">
     @yield('css')
+    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.0.0/ckeditor5.css" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    
+
+    
 <![endif]-->
+
 </head>
 
 <body>
@@ -46,7 +51,7 @@
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
-        
+
         @include('mentor/template/top_sidebar')
         <!-- ============================================================== -->
         <!-- End Topbar header -->
@@ -55,14 +60,14 @@
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
         @include('mentor/template/left_sidebar')
-        
+
         <!-- ============================================================== -->
         <!-- End Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
         <!-- ============================================================== -->
         <!-- Page wrapper  -->
         <!-- ============================================================== -->
-        
+
         <div class="page-wrapper">
             <!-- ============================================================== -->
             <!-- Bread crumb and right sidebar toggle -->
@@ -84,7 +89,7 @@
             <!-- ============================================================== -->
             <!-- Container fluid  -->
             <!-- ============================================================== -->
-            
+
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
             <!-- ============================================================== -->
@@ -108,26 +113,71 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    <script src="{{asset('matrix/assets/libs/jquery/dist/jquery.min.js')}}"></script>
+    <script src="{{ asset('matrix/assets/libs/jquery/dist/jquery.min.js') }}"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="{{asset('matrix/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{asset('matrix/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js')}}"></script>
-    <script src="{{asset('matrix/assets/extra-libs/sparkline/sparkline.js')}}"></script>
+    <script src="{{ asset('matrix/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('matrix/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js') }}"></script>
+    <script src="{{ asset('matrix/assets/extra-libs/sparkline/sparkline.js') }}"></script>
     <!--Wave Effects -->
-    <script src="{{asset('matrix/dist/js/waves.js')}}"></script>
+    <script src="{{ asset('matrix/dist/js/waves.js') }}"></script>
     <!--Menu sidebar -->
-    <script src="{{asset('matrix/dist/js/sidebarmenu.js')}}"></script>
+    <script src="{{ asset('matrix/dist/js/sidebarmenu.js') }}"></script>
     <!--Custom JavaScript -->
-    <script src="{{asset('matrix/dist/js/custom.min.js')}}"></script>
+    <script src="{{ asset('matrix/dist/js/custom.min.js') }}"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{-- <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script> --}}
     @yield('js')
     <script>
-        $(function(){
-            $(".sidebar-link").click(function(){
+        $(function() {
+            $(".sidebar-link").click(function() {
                 window.location.assign($(this).data('locs'));
             });
         });
     </script>
+    <script type="importmap">
+        {
+            "imports": {
+                "ckeditor5": "https://cdn.ckeditor.com/ckeditor5/43.0.0/ckeditor5.js",
+                "ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/43.0.0/"
+            }
+        }
+    </script>
+    <script type="module">
+        import {
+            ClassicEditor,
+            AccessibilityHelp,
+            Autosave,
+            Bold,
+            Essentials,
+            Italic,
+            Mention,
+            Paragraph,
+            SelectAll,
+            Undo,
+            Link,
+            List,
+            Heading,
+            BlockQuote
+        } from 'ckeditor5';
+
+
+
+        ClassicEditor
+            .create(document.querySelector('#editor'), {
+                plugins: [Essentials, Paragraph, Bold, Italic, Link, List, Heading, BlockQuote],
+                toolbar: ['bold', 'italic', 'link', 'heading',
+                    '|', 'fontSize', 'bulletedList',
+                    'numberedList', 'blockQuote'
+                ]
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+
+
+    
 </body>
 
 </html>

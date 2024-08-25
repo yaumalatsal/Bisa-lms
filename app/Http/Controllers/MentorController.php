@@ -17,7 +17,7 @@ class MentorController extends Controller
         ->get();
 
         return view('mentor/page/dashboard')->with(compact('data'));
-    }
+    } 
 
     public function login(){
         return view('mentor/page/login');
