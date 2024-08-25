@@ -38,6 +38,7 @@ use App\Http\Controllers\QuizController;
 use App\Http\Controllers\PeringkatController;
 use App\Http\Controllers\GroupChatController;
 use App\Http\Controllers\Mentor\MentorPameranController;
+use App\Http\Controllers\PenilaianController;
 
 Route::get('/peringkat', [PeringkatController::class, 'index'])->name('dashboard.ranking.index');
 Route::get('/peringkat/{mapelId}', [PeringkatController::class, 'getRankings'])->name('dashboard.ranking.data');
@@ -183,6 +184,8 @@ Route::get('/mentor/detail_produk/{id}', 'ProdukController@detail_produk');
 Route::post('/mentor/inputNilai', 'PenilaianController@inputNilai');
 Route::post('/mentor/editNilai', 'PenilaianController@editNilai');
 Route::post('/mentor/editTrack', 'ProdukController@editTrack');
+Route::post('/mentor/deleteNilai', [PenilaianController::class, 'deleteNilai']);
+
 Route::get('/mentor/detail_result_bmc/{id_bmc}/{id_produk}', 'BmcController@resultBMC');
 Route::get('/mentor/feedback', 'FeedbackController@getFeedback');
 
