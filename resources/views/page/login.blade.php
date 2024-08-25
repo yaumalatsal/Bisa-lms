@@ -139,7 +139,7 @@
                 <p class="text-white nunito">
                 BisMA adalah platform untuk memonitoring bisnis Mahasiswa di Universitas Negeri Malang
                 </p>
-                <a href="{{url('/register_siswa')}}" class="btn bt-linear nunito">Pendaftaran Mahasiswa</a>
+                <a href="{{url('/register_siswa')}}" class="btn bt-linear nunito">Pendaftaran Siswa</a>
                 <a href="{{url('/mentor/login')}}" class="btn bt-white nunito">Login Mentor</a>
                 <a href="{{ route('investor.login') }}" class="btn btn-danger nunito">Login Investor</a>
   
@@ -156,7 +156,7 @@
                     <form action="{{url('/signin')}}" method="post">
                     {{csrf_field()}}
                     <div class="form-group">
-                        <label class="nunito">Nomor Induk Mahasiswa</label>
+                        <label class="nunito">Nomor Induk Siswa</label>
                         <input type="number" name="nis" class="form-control">
                     </div>
                     <div class="form-group">

@@ -111,7 +111,7 @@
             </div>
             <div class="col-lg-6 col-12">
                 <div class="login-box">
-                    <div class="label-box">Pendaftaran Mahasiswa</div>
+                    <div class="label-box">Pendaftaran Siswa</div>
                     <br>
                     @if(isset($status))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -122,11 +122,11 @@
                     <form action="{{url('/pendaftaran_siswa')}}" method="post">
                     {{csrf_field()}}    
                     <div class="form-group">
-                        <label class="nunito">Nama Mahasiswa</label>
+                        <label class="nunito">Nama Siswa</label>
                         <input required="required" type="text" name="nama_siswa" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label class="nunito">Nomor Induk Mahasiswa</label>
+                        <label class="nunito">Nomor Induk Siswa</label>
                         <input required="required" type="text" name="nis" id="nis" class="form-control">
                     </div>
                     <div class="form-group">
