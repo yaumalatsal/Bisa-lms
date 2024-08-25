@@ -129,7 +129,7 @@
 <div class="container py-4">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h3 class="text-center mb-4 text-primary">Group Chat Untuk Produk {{ $nama_product }}</h3>
+            <h3 class="text-center mb-4 ">Group Chat Untuk Produk {{ $nama_product }}</h3>
             <div class="card chat-card shadow-lg">
                 <div class="card-body chat-body">
                     <ul class="list-group list-group-flush chat-messages" id="chat-messages">
