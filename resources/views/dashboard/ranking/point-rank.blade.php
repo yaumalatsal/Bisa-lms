@@ -280,6 +280,7 @@
                                 <p class="mb-0">Course Score: <strong>{{ $ranking['totalCourseScore'] ?? 0 }}</strong></p>
                                 <p class="mb-0">Answer Score: <strong>{{ $ranking['totalAnswerScore'] ?? 0 }}</strong></p>
                                 <p class="mb-0">Product Score: <strong>{{ $ranking['totalPenilaian'] ?? 0}}</strong></p>
+                                <p class="mb-0">Quiz Score: <strong>{{ $ranking['totalQuizScore'] ?? 0}}</strong></p>
                                 <p class="mb-0">Total Score: <strong>{{ $ranking['total_score'] }}</strong></p>
                                 <div class="level-container">
                                     <p class="mb-0">Level: <strong>{{ $level }}</strong></p>
