@@ -82,7 +82,8 @@ class PenilaianController extends Controller
         $update = DB::table('penilaian')
             ->where('id', $req->id_penilaian)
             ->update([
-                'file_nilai'    => $req->nilai
+                'file_nilai'    => $req->nilai,
+                'keterangan'    => $req->keterangan,
             ]);
 
         return redirect()->back();
