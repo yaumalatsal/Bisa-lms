@@ -32,4 +32,8 @@ class Siswa extends Model
         return $this->hasMany(CourseCompletion::class);
     }
 
+    public function quizHasil()
+    {
+        return $this->hasMany(QuizHasil::class, 'user_id', 'id');
+    }
 }

@@ -102,6 +102,14 @@
                         <span class="hide-menu">Group Chat</span>
                     </a>
                 </li>
+                <li class="sidebar-item {{ request()->is('profile*') ? 'selected' : '' }}">
+                    <a data-locs="{{ url('/profile') }}"
+                        class="sidebar-link waves-effect waves-dark sidebar-link"
+                        aria-expanded="false">
+                        <i class="mdi mdi-account"></i> <!-- Updated Icon -->
+                        <span class="hide-menu">Profile</span>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- End Sidebar navigation -->
