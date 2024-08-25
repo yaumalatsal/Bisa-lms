@@ -32,4 +32,5 @@ class Penilaian extends Model
     {
         return $this->belongsTo(Mentor::class, 'id_mentor');
     }
+    
 }

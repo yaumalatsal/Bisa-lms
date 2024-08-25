@@ -18,11 +18,18 @@ class Siswa extends Model
         'nama',
     ];
 
-    public function courseAnswers(){
+    public function members()
+    {
+        return $this->hasMany(Member::class, 'id_siswa');
+    }
+    public function courseAnswers()
+    {
         return $this->hasMany(CourseAnswer::class);
     }
 
-    public function courseCompletions(){
-        return $this->hasMany(CourseCompletion::class); 
+    public function courseCompletions()
+    {
+        return $this->hasMany(CourseCompletion::class);
     }
+
 }
