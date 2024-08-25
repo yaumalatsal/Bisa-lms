@@ -132,14 +132,14 @@
         </div>
     </div>    
         <div class="row">
-            <div class="col-lg-6 col-12 hidden-xs desc"  data-aos="fade-up" data-aos-duration="1500">
+            <div class="col-lg-6 col-12 desc"  data-aos="fade-up" data-aos-duration="1500">
                 <h1 class="nunito">
                     <img src="{{asset('assets/images/logo_bisa.png')}}" class="logo-incube">
                 </h1>
                 <p class="text-white nunito">
                 BisMA adalah platform untuk memonitoring bisnis Mahasiswa di Universitas Negeri Malang
                 </p>
-                <a href="{{url('/register_siswa')}}" class="btn bt-linear nunito">Pendaftaran Siswa</a>
+                
                 <a href="{{url('/mentor/login')}}" class="btn bt-white nunito">Login Mentor</a>
                 <a href="{{ route('investor.login') }}" class="btn btn-danger nunito">Login Investor</a>
   
@@ -164,6 +164,7 @@
                         <input type="password" name="password" class="form-control">
                     </div>                    
                     <button class="btn bt-main w-100" type="submit">Login</button>
+                    <a href="{{url('/register_siswa')}}" class="btn btn-secondary w-100 mt-4 text-center bg-succes">Pendaftaran Siswa</a>
                     <br><br>
                     </form>
                 </div>
