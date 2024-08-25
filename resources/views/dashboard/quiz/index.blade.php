@@ -23,7 +23,7 @@
                     <div class="card shadow-lg border-0 rounded-4">
                         <div class="card-body text-center">
                             <div class="icon-container mb-4 mx-auto">
-                                <img src="{{ asset('assets/images/ilustration/gif/api.gif') }}" alt="Quiz Icon" class="img-fluid"/>
+                                <img src="{{ asset('assets/images/bukuk.gif') }}" alt="Quiz Icon" class="img-fluid"/>
                             </div>
                             <h5 class="card-title font-weight-bold">{{ $mapel->name }}</h5>
                             <p class="card-text text-muted">Durasi: {{ $mapel->durasi }} menit</p>

@@ -124,8 +124,7 @@
         <div class="alert alert-warning">
             <p>
                 <i class="fas fa-exclamation-circle"></i> Format penilaian setiap langkah menyesuaikan dengan parameter dari tiap mentor.
-                Link yang diupload adalah link file penilaian yang telah di simpan di dalam Google Drive
-                atau Drive penyimpanan lain
+                Penilaian digambarkan dengan nilai 1-100
             </p>
         </div>
         <form action="{{url('/mentor/inputNilai')}}" method="post" enctype='multipart/form-data'>

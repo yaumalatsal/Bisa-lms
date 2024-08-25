@@ -1,67 +1,142 @@
+@extends('dashboard_template/index')
+
 @section('title-page')
     Dashboard Siswa
 @endsection
 
 @section('css')
     <style>
-        .card-step {
-            min-height: 350px;
+        .container-fluid {
+            background-color: #f0f3f5;
+            padding: 2rem;
         }
 
-        .card-step .deskripsi-step {
-            height: 90px;
+        .alert {
+            margin-bottom: 1rem;
+        }
+
+        .quiz-container {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin: 1rem 0;
+        }
+
+        .quiz-header {
+            background-color: #00aaff;
+            color: #ffffff;
+            padding: 1rem;
+            border-radius: 15px 15px 0 0;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .question-card {
+            border: none;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: #f9f9f9;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-card:hover {
+            background-color: #e1eaff;
+            transform: scale(1.02);
+        }
+
+        .question-card label {
+            font-size: 1.2rem;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .question-card textarea {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            width: 100%;
+            padding: 0.75rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+            resize: vertical;
+        }
+
+        .question-card textarea:focus {
+            border-color: #00aaff;
+            outline: none;
+        }
+
+        .submit-btn {
+            background-color: #00aaff;
+            color: #ffffff;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: block;
+            margin: 2rem auto;
+        }
+
+        .submit-btn:hover {
+            background-color: #0088cc;
         }
     </style>
 @endsection
 
-@extends('dashboard_template/index')
 @section('content')
     <div class="container-fluid">
         <div class="row">
-
-
             @if (session('success'))
                 <div class="alert alert-success">{{ session('success') }}</div>
             @endif
 
-            <div class="row ">
-                <h2>{{ $course->title }} - Questions</h2>
+            <div class="quiz-container">
+                <div class="quiz-header">
+                    <h2>{{ $course->title }} - Questions</h2>
+                </div>
 
                 <form action="{{ route('siswa.courses.submitAnswers', $course->id) }}" method="POST">
                     @csrf
                     @foreach ($questions as $index => $question)
-                        <div class="mb-3">
-                            <label for="question{{ $index }}" class="form-label">{{ $index + 1 }}.
-                                {{ $question->question_text }}</label>
-                            <textarea name="answers[{{ $question->id }}]" id="question{{ $index }}" class="form-control" rows="3"></textarea>
+                        <div class="question-card">
+                            <label for="question{{ $index }}">{{ $index + 1 }}. {{ $question->question_text }}</label>
+                            <textarea name="answers[{{ $question->id }}]" id="question{{ $index }}" rows="4" placeholder="Type your answer here..."></textarea>
                         </div>
                     @endforeach
-                    <button type="submit" class="btn btn-primary">Submit Answers</button>
+                    <button type="submit" class="submit-btn">Submit Answers</button>
                 </form>
             </div>
         </div>
-    @endsection
-    @section('js')
-        <script>
-            $(function() {
-                $("#table-one").DataTable();
-            });
+    </div>
+@endsection
 
+@section('js')
+    <script>
+        $(function() {
+            $("#table-one").DataTable();
+        });
 
-            function confirmDeleteQuestion(id) {
-                Swal.fire({
-                    title: 'Apa Yakin Menghapus Pertanyaan?',
-                    text: "Anda Tidak bisa mengulangi lagi!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Hapus!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        document.getElementById('delete-form-' + id).submit();
-                    }
-                })
-            }
-        </script>
-    @endsection
+        function confirmDeleteQuestion(id) {
+            Swal.fire({
+                title: 'Apa Yakin Menghapus Pertanyaan?',
+                text: "Anda Tidak bisa mengulangi lagi!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('delete-form-' + id).submit();
+                }
+            })
+        }
+    </script>
+@endsection

@@ -6,10 +6,7 @@
 
 @section('css')
 <style>
-    body {
-        background: url('{{ asset('assets/images/background/cloudy-sky.jpg') }}') no-repeat center center fixed;
-        background-size: cover;
-    }
+
 
     .card-step {
         min-height: 350px;
@@ -89,6 +86,9 @@
     .dataTables_wrapper .dataTables_filter input {
         margin: 0;
         padding: 5px;
+    }
+    .btn-primary{
+        background-color: #007bff;
     }
 </style>
 @endsection

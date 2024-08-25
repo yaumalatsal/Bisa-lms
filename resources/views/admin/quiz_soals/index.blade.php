@@ -5,7 +5,7 @@
     <div class="container">
         <h1>Daftar Soal untuk {{ $mapel->name }}</h1>
         <a href="{{ route('admin.quiz_soals.create', ['mapel_id' => $mapel->id]) }}" class="btn btn-primary">Tambah Soal</a>
-        <table class="table mt-3">
+        <table id="table-one" class="table-stripped">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -41,4 +41,12 @@
             </tbody>
         </table>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        $(function() {
+            $("#table-one").DataTable();
+        });
+    </script>
 @endsection

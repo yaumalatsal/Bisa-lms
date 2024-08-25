@@ -40,28 +40,29 @@ class QuizSoalController extends Controller
     }
 
     public function edit($id)
-    {
-        $soal = QuizSoal::findOrFail($id);
-        return view('admin.quiz_soals.edit', compact('soal'));
-    }
+{
+    $soal = QuizSoal::findOrFail($id);
+    $mapelId = $soal->mapel_id;
+    return view('admin.quiz_soals.edit', compact('soal', 'mapelId'));
+}
 
-    public function update(Request $request, $id)
-    {
-        $validated = $request->validate([
-            'mapel_id' => 'required|exists:mapels_quiz,id',
-            'question' => 'required|string',
-            'option_a' => 'required|string',
-            'option_b' => 'required|string',
-            'option_c' => 'required|string',
-            'option_d' => 'required|string',
-            'key' => 'required|string',
-        ]);
+public function update(Request $request, $id)
+{
+    $validated = $request->validate([
+        'mapel_id' => 'required|exists:mapels_quiz,id',
+        'question' => 'required|string',
+        'option_a' => 'required|string',
+        'option_b' => 'required|string',
+        'option_c' => 'required|string',
+        'option_d' => 'required|string',
+        'key' => 'required|string',
+    ]);
 
-        $soal = QuizSoal::findOrFail($id);
-        $soal->update($validated);
+    $soal = QuizSoal::findOrFail($id);
+    $soal->update($validated);
 
-        return redirect()->route('admin.quiz_soals.index', ['mapel_id' => $validated['mapel_id']])->with('success', 'Soal berhasil diupdate!');
-    }
+    return redirect()->route('admin.quiz_soals.index', ['mapel_id' => $validated['mapel_id']])->with('success', 'Soal berhasil diupdate!');
+}
 
     public function destroy($id)
     {

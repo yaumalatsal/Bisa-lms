@@ -1,22 +1,7 @@
 @extends('dashboard_template/index')
 
 @section('content')
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        function scrollToBottom() {
-            const chatMessages = document.getElementById('chat-messages');
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
 
-        // Scroll to bottom on page load
-        scrollToBottom();
-
-        // Optionally scroll to bottom on new message if you use AJAX or similar
-        document.querySelector('form').addEventListener('submit', function () {
-            setTimeout(scrollToBottom, 100); // Delay for new message to be rendered
-        });
-    });
-</script>
 
 <style>
     .chat-card {
@@ -131,8 +116,8 @@
         <div class="col-md-8">
             <h3 class="text-center mb-4 ">Group Chat Untuk Produk {{ $nama_product }}</h3>
             <div class="card chat-card shadow-lg">
-                <div class="card-body chat-body">
-                    <ul class="list-group list-group-flush chat-messages" id="chat-messages">
+                <div class="card-body chat-body" id="chat-messages">
+                    <ul class="list-group list-group-flush chat-messages" >
                         @foreach($messages as $message)
                             <li class="list-group-item {{ $message->id_siswa ? 'message-siswa' : 'message-mentor' }}">
                                 <div class="message-content">
@@ -162,4 +147,26 @@
     </div>
 </div>
 
+
+
+@endsection
+
+
+@section('js')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        function scrollToBottom() {
+            const chatMessages = document.getElementById('chat-messages');
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Scroll to bottom on page load
+        scrollToBottom();
+
+        // Optionally scroll to bottom on new message if you use AJAX or similar
+        document.querySelector('form').addEventListener('submit', function () {
+            setTimeout(scrollToBottom, 100); // Delay for new message to be rendered
+        });
+    });
+</script>
 @endsection

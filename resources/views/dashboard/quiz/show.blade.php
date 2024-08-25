@@ -8,7 +8,13 @@
 <div class="container">
     <div class="quiz-header mb-5 text-center">
         <h2 class="display-4">{{ $mapel->name }}</h2>
-        <p class="lead">Durasi: <span id="timer" class="text-danger">{{ $mapel->durasi }}:00</span> menit</p>
+        <p class="lead">
+            Durasi: 
+            <span id="timer" class="text-danger">{{ $mapel->durasi }}:00</span> menit
+        </p>
+        <div class="timer-container">
+            <div id="progress-bar" class="progress-bar"></div>
+        </div>
     </div>
     
     <form id="quiz-form" action="{{ route('dashboard.quiz.submit', $mapel->id) }}" method="POST" onsubmit="return handleSubmit(event)">
@@ -54,17 +60,31 @@
 <!-- Include SweetAlert2 for modern alerts -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+{{-- Musik --}}
+<div id="youtube-player" style="display: none;">
+    <iframe id="player" width="1" height="1" src="https://www.youtube.com/embed/-AvLz4_Qc4g?autoplay=1&loop=1&playlist=-AvLz4_Qc4g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+
 <script>
+    let isFormSubmitted = false; // Variable to track form submission
+
     document.addEventListener('DOMContentLoaded', (event) => {
         // Timer functionality
         let duration = {{ $mapel->durasi }} * 60; // Convert minutes to seconds
         const timerElement = document.getElementById('timer');
+        const progressBarElement = document.getElementById('progress-bar');
         const formElement = document.getElementById('quiz-form');
+        const totalDuration = {{ $mapel->durasi }} * 60;
 
         function updateTimer() {
             let minutes = Math.floor(duration / 60);
             let seconds = duration % 60;
             timerElement.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+            // Update progress bar
+            const progress = ((totalDuration - duration) / totalDuration) * 100;
+            progressBarElement.style.width = `${progress}%`;
+
             if (duration <= 0) {
                 clearInterval(timerInterval);
                 Swal.fire({
@@ -112,6 +132,14 @@
 
         // Show the first question initially
         showQuestion(currentIndex);
+
+        // Prevent losing data on page unload
+        window.addEventListener('beforeunload', (event) => {
+            if (!isFormSubmitted) {
+                event.preventDefault();
+                event.returnValue = ''; // Required for most browsers
+            }
+        });
     });
 
     function handleSubmit(event) {
@@ -128,8 +156,8 @@
             cancelButtonText: 'Batal'
         }).then((result) => {
             if (result.isConfirmed) {
-                // Submit the form if confirmed
-                document.getElementById('quiz-form').submit();
+                isFormSubmitted = true; // Set the flag to true
+                document.getElementById('quiz-form').submit(); // Submit the form
             }
         });
 
@@ -142,6 +170,22 @@
         text-align: center;
         margin-bottom: 2rem;
         font-family: 'Arial', sans-serif;
+    }
+
+    .timer-container {
+        margin-top: 1rem;
+        position: relative;
+        height: 30px;
+        background-color: #f3f3f3;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .progress-bar {
+        height: 100%;
+        background-color: #007bff;
+        width: 0;
+        transition: width 1s linear;
     }
 
     .question-card {
@@ -162,100 +206,54 @@
     .question-number {
         font-size: 1.5rem;
         font-weight: bold;
-        color: #007bff;
-    }
-
-    .options {
-        margin-top: 1rem;
     }
 
     .option-label {
-        display: flex;
-        align-items: center;
-        padding: 1rem;
-        border-radius: 8px;
-        border: 2px solid #007bff;
+        display: block;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid transparent;
+        margin-bottom: 10px;
         cursor: pointer;
-        margin-bottom: 0.5rem;
         transition: background-color 0.3s, border-color 0.3s;
-        position: relative;
-        font-size: 1.1rem;
     }
 
     .option-label:hover {
-        background-color: #007bff;
-        color: #ffffff;
-        border-color: #0056b3;
-    }
-
-    .option-label input[type="radio"] {
-        position: absolute;
-        opacity: 0;
-    }
-
-    .option-label input[type="radio"] + .option-text::before {
-        content: ""; /* Remove default A. B. C. D. */
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        border: 2px solid #007bff;
-        margin-right: 10px;
-        background-color: #ffffff;
-        vertical-align: middle;
-        transition: background-color 0.3s, border-color 0.3s;
-    }
-
-    .option-label input[type="radio"]:checked + .option-text::before {
-        background-color: #007bff;
-        border-color: #007bff;
+        background-color: #e1e1e1;
     }
 
     .option-text {
-        font-size: 1.1rem;
-        display: inline-block;
-        line-height: 20px;
+        margin-left: 0.5rem;
     }
 
     .btn-nav {
-        background-color: #28a745;
-        border-color: #28a745;
-        padding: 0.5rem 1.5rem;
-        border-radius: 6px;
-        font-size: 1rem;
+        background-color: #007bff;
         color: #ffffff;
-        display: flex;
-        align-items: center;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
         transition: background-color 0.3s;
     }
 
     .btn-nav:hover {
-        background-color: #218838;
-        border-color: #1e7e34;
+        background-color: #0056b3;
     }
 
     .btn-submit {
-        background-color: #007bff;
-        border-color: #007bff;
-        padding: 0.5rem 1.5rem;
-        border-radius: 6px;
-        font-size: 1rem;
+        background-color: #28a745;
         color: #ffffff;
-        display: flex;
-        align-items: center;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
         transition: background-color 0.3s;
     }
 
     .btn-submit:hover {
-        background-color: #0056b3;
-        border-color: #004085;
-    }
-
-    .navigation-buttons {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 1rem;
+        background-color: #218838;
     }
 </style>
 @endsection
