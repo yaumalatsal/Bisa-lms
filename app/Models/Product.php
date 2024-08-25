@@ -32,4 +32,9 @@ class Product extends Model
     {
         return $this->hasOne(LogoProduk::class, 'id_produk', 'id');
     }
+
+    public function penilaian()
+    {
+        return $this->hasMany(Penilaian::class, 'id_produk');
+    }
 }

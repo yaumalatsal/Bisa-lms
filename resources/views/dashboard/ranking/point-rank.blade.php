@@ -61,8 +61,9 @@
                                 </div>
                                 <div class="student-info ms-4">
                                     <h4 class="mb-1">{{ $ranking->nama }}</h4>
-                                    <p class="mb-0">Course Score: <strong>{{ $ranking->total_course_score }}</strong></p>
-                                    <p class="mb-0">Answer Score: <strong>{{ $ranking->total_answer_score }}</strong></p>
+                                    <p class="mb-0">Course Score: <strong>{{ $ranking->total_course_score ?? 0 }}</strong></p>
+                                    <p class="mb-0">Answer Score: <strong>{{ $ranking->total_answer_score ?? 0 }}</strong></p>
+                                    <p class="mb-0">Product Score: <strong>{{ $ranking->total_penilaian ?? 0}}</strong></p>
                                     <p class="mb-0">Total Score: <strong>{{ $ranking->total_score }}</strong></p>
                                 </div>
                             </div>
