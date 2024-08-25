@@ -28,15 +28,13 @@ class PeringkatController extends Controller
 
     public function showRankings()
     {
-        $rankings = Siswa::withSum('courseCompletions as total_course_score', 'score')
-        ->withSum('courseAnswers as total_answer_score', 'score')
-        ->with(['members.produk.penilaian' => function ($query) {
-            $query->selectRaw('id_produk, SUM(file_nilai) as total_penilaian')
-                  ->groupBy('id_produk');
-        }])
+        $rankings = Siswa::with(['members.produk.penilaian'])
         ->get()
         ->map(function ($siswa) {
-            // Calculate total score including penilaian scores
+            $totalCourseScore = $siswa->courseCompletions->sum('score');
+            $totalAnswerScore = $siswa->courseAnswers->sum('score');
+            
+            // Aggregate penilaian scores
             $totalPenilaian = $siswa->members->reduce(function ($carry, $member) {
                 // Ensure that $member->produk and $member->produk->penilaian are not null
                 $penilaianTotal = $member->produk && $member->produk->penilaian
@@ -45,15 +43,19 @@ class PeringkatController extends Controller
 
                 return $carry + $penilaianTotal;
             }, 0);
-
-            $siswa->total_score = $siswa->total_course_score
-                + $siswa->total_answer_score
-                + $totalPenilaian;
-
-            return $siswa;
+            
+            $totalScore = $totalCourseScore + $totalAnswerScore + $totalPenilaian;
+            
+            return [
+                'siswa' => $siswa,
+                'totalCourseScore' => $totalCourseScore,
+                'totalAnswerScore' => $totalAnswerScore,
+                'totalPenilaian' => $totalPenilaian,
+                'total_score' => $totalScore
+            ];
         })
-        ->filter(function ($siswa) {
-            return $siswa->total_score > 0;
+        ->filter(function ($item) {
+            return $item['total_score'] > 0;
         })
         ->sortByDesc('total_score');
 
