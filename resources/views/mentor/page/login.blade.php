@@ -137,7 +137,7 @@
                 <img src="{{asset('assets/images/logo_bisa.png')}}" class="logo-incube">
             </h1>
             <p class="text-white nunito">
-            BISa adalah platform untuk memonitoring bisnis Siswa di Universitas Negeri Malang
+            BISa adalah platform untuk memonitoring bisnis Mahasiswa di Universitas Negeri Malang
             </p>
             <a href="{{url('/register_siswa')}}" class="btn bt-linear nunito">Pendaftaran Siswa</a>
             <a href="{{url('/login')}}" class="btn btn-success nunito">Login Siswa</a>

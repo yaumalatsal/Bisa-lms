@@ -106,7 +106,7 @@
             <!-- footer -->
             <!-- ============================================================== -->
             <footer class="footer text-center">
-                All Rights Reserved by Awak Rantau. Designed and Developed by Awak Rantau
+                All Rights Reserved by BISa. Designed and Developed by BISa
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->
