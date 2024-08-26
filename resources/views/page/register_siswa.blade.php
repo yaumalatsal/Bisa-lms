@@ -103,9 +103,9 @@
 <section  id="cover-page">    
         <div class="row">
             <div class="col-lg-5 col-12 hidden-xs desc"  data-aos="fade-up" data-aos-duration="1500">
-                <h1 class="nunito">Bis<span class="main-text">MA<span></h1>
+                <h1 class="nunito">BIS<span class="main-text">a<span></h1>
                 <p class="text-white nunito">
-                BisMA adalah platform untuk memonitoring bisnis Mahasiswa di Universitas Negeri Malang
+                BISa adalah platform untuk memonitoring bisnis Mahasiswa di Universitas Negeri Malang
                 </p>
                 <a href="{{url('/login')}}" class="btn bt-linear nunito">Masuk Akun</a>
             </div>

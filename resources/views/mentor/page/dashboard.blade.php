@@ -27,7 +27,7 @@
                         <div class="col-md-6">
                             <br>
                             <h2>Selamat Datang, Mentor</h2>
-                            <p>BisMA adalah platform monitoring dan inkubasi online yang membantu para mahasiswa untuk merumuskan
+                            <p>BISa adalah platform monitoring dan inkubasi online yang membantu para mahasiswa untuk merumuskan
                                 produk dan konsep bisnis nya. Disini peran mentor adalah untuk membimbing ide ide cemerlang dari mahasiswa sesuai dengan syarat
                                 standar produk yang layak jual dan layak di publish. Mohon dukungannya :
                                 <br>

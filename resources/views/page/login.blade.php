@@ -137,7 +137,7 @@
                     <img src="{{asset('assets/images/logo_bisa.png')}}" class="logo-incube">
                 </h1>
                 <p class="text-white nunito">
-                BisMA adalah platform untuk memonitoring bisnis Mahasiswa di Universitas Negeri Malang
+                BISa adalah platform untuk memonitoring bisnis Mahasiswa di Universitas Negeri Malang
                 </p>
                 
                 <a href="{{url('/mentor/login')}}" class="btn bt-white nunito">Login Mentor</a>
