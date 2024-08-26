@@ -66,7 +66,9 @@
                     <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="font-24 mdi mdi-account"></i>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end user-dd animated" aria-labelledby="navbarDropdown">                        
+                    <ul class="dropdown-menu dropdown-menu-end user-dd animated" aria-labelledby="navbarDropdown">       
+                        <a class="dropdown-item" href="{{url('/profile')}}"href="javascript:void(0)">
+                            <i class="fa fa-user me-1 ms-1"></i> Profile</a>                        
                         <a class="dropdown-item" href="{{url('/logout_siswa')}}"href="javascript:void(0)">
                         <i class="fa fa-power-off me-1 ms-1"></i> Logout</a>                        
                     </ul>
