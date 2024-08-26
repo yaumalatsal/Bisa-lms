@@ -102,12 +102,20 @@
                         <span class="hide-menu">Group Chat</span>
                     </a>
                 </li>
-                <li class="sidebar-item {{ request()->is('profile*') ? 'selected' : '' }}">
+                <li class="sidebar-item d-sm-block d-lg-none {{ request()->is('profile*') ? 'selected' : '' }}">
                     <a data-locs="{{ url('/profile') }}"
                         class="sidebar-link waves-effect waves-dark sidebar-link"
                         aria-expanded="false">
                         <i class="mdi mdi-account"></i> <!-- Updated Icon -->
                         <span class="hide-menu">Profile</span>
+                    </a>
+                </li>
+                <li class="sidebar-item d-sm-block d-lg-none {{ request()->is('logout_siswa') ? 'selected' : '' }}">
+                    <a data-locs="{{ url('/logout_siswa') }}"
+                        class="sidebar-link waves-effect waves-dark sidebar-link"
+                        aria-expanded="false">
+                        <i class="fa fa-power-off"></i> <!-- Updated Icon -->
+                        <span class="hide-menu">Logout</span>
                     </a>
                 </li>
             </ul>

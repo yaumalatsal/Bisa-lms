@@ -22,7 +22,14 @@ class MonitoringController extends Controller
         // Ambil data siswa berdasarkan id_siswa
         $siswa = Siswa::find($user_id);
         $member = Member::where('id_siswa', $user_id)->first();
+        if (!$member) {
+            return view('monitoring.index', [
+                'message' => 'Belum terdaftar ke Member, Buat produk dulu / Join Member .',
+                'monthlyReports' => null
+            ]);
+        }
         $product_id = $member->id_produk;
+
 
         $currentYear = Carbon::now()->year;
         $previousYear = Carbon::now()->subYear()->year;

@@ -102,15 +102,17 @@
                     <h2>{{ $course->title }} - Questions</h2>
                 </div>
 
-                <form action="{{ route('siswa.courses.submitAnswers', $course->id) }}" method="POST">
+                <form action="{{ route('siswa.courses.submitAnswers', $course->id) }}" id="quiz-form" method="POST">
                     @csrf
                     @foreach ($questions as $index => $question)
                         <div class="question-card">
-                            <label for="question{{ $index }}">{{ $index + 1 }}. {{ $question->question_text }}</label>
-                            <textarea name="answers[{{ $question->id }}]" id="question{{ $index }}" rows="4" placeholder="Type your answer here..."></textarea>
+                            <label for="question{{ $index }}">{{ $index + 1 }}.
+                                {{ $question->question_text }}</label>
+                            <textarea name="answers[{{ $question->id }}]" id="question{{ $index }}" rows="4"
+                                placeholder="Type your answer here..."></textarea>
                         </div>
                     @endforeach
-                    <button type="submit" class="submit-btn">Submit Answers</button>
+                    <button type="submit" class="submit-btn" onclick="confirmSubmit()">Submit Answers</button>
                 </form>
             </div>
         </div>
@@ -123,18 +125,18 @@
             $("#table-one").DataTable();
         });
 
-        function confirmDeleteQuestion(id) {
+        function confirmSubmit() {
             Swal.fire({
-                title: 'Apa Yakin Menghapus Pertanyaan?',
-                text: "Anda Tidak bisa mengulangi lagi!",
+                title: 'Are you sure?',
+                text: "You won't be able to edit your answers once submitted!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Hapus!'
+                confirmButtonText: 'Yes, submit it!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    document.getElementById('delete-form-' + id).submit();
+                    document.getElementById('quiz-form').submit();
                 }
             })
         }

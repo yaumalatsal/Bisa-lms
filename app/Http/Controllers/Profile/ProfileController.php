@@ -21,10 +21,12 @@ class ProfileController extends Controller
                 $query->select('file_nilai');
             }])
             ->findOrFail($siswa_id);
-        
-        $produk_id = $siswa->members[0]->id_produk;
 
-        $total_penilaian = Penilaian::where('id_produk', $produk_id)->sum('file_nilai');
+            
+        
+        $produk_id = $siswa->members[0]->id_produk ?? 0;
+
+        $total_penilaian = Penilaian::where('id_produk', $produk_id)->sum('file_nilai') ?? 0;
 
         // Calculate total penilaian
         $quiz_hasil = QuizHasil::where('user_id', $siswa_id)->sum('nilai');

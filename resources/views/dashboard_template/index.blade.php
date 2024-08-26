@@ -127,6 +127,8 @@
     <script src="{{ asset('matrix/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('matrix/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js') }}"></script>z
     <script src="{{ asset('matrix/assets/extra-libs/sparkline/sparkline.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!--Wave Effects -->
 
     {{-- Datatable --}}
