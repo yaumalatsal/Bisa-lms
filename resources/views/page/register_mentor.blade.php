@@ -105,7 +105,7 @@
             <div class="col-lg-5 col-12 hidden-xs desc"  data-aos="fade-up" data-aos-duration="1500">
                 <h1 class="nunito">IN<span class="main-text">CUBE<span></h1>
                 <p class="text-white nunito">
-                INCUBE  adalah platform untuk menginkubasi bisnis siswa pada mata pelajara Produk Kreatif dan Kewirausahaan
+                BISa  adalah platform untuk menginkubasi bisnis siswa pada mata pelajara Produk Kreatif dan Kewirausahaan
                 </p>
                 <a href="{{url('/login')}}" class="btn bt-linear nunito">Masuk Akun</a>
             </div>

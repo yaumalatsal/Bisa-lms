@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}">
     <link rel="stylesheet" href="{{asset('assets/fontawesome-free/css/all.css')}}">
     @yield('css')
-    <title>INCUBE</title>
+    <title>BISa</title>
     
   </head>
   <body>  
