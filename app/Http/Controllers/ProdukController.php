@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Siswa;
 use Illuminate\Http\Request;
 use DB;
 use Session;
@@ -13,14 +14,14 @@ class ProdukController extends Controller
         $getmentor = DB::table('mentor')->get();
         $track = Session::get('track');
         $track_status = Session::get('track_status');
+        return view('dashboard/tahap_abstract')->with(compact('getmentor'));
 
-        if($track == 1 && $track_status == 0){
-            return view('dashboard/tahap_abstract')->with(compact('getmentor'));
-        }elseif($track == NULL && $track_status == NULL)
-            return view('dashboard/tahap_abstract')->with(compact('getmentor'));        
-        {
-            return redirect('/');
-        }
+        // if($track == 1 && $track_status == 0){
+        // }elseif($track == NULL && $track_status == NULL)
+        //     return view('dashboard/tahap_abstract')->with(compact('getmentor'));        
+        // {
+        //     return redirect('/');
+        // }
     }
 
     // pendaftaran produk
@@ -30,8 +31,11 @@ class ProdukController extends Controller
         $cek = DB::table('product')
         ->where('nama_produk',$nama_produk)
         ->count();
+
+        $siswa = Siswa::with('members','members.produk')->findOrFail($id_ceo);
+
         
-        if($cek == 0){
+        if($cek == 0 && !$siswa->members[0]->produk){
             $input = DB::table('product')->insert([
                 'nama_produk'   => $request->nama_produk,
                 'deskripsi'     => $request->deskripsi,
@@ -67,7 +71,7 @@ class ProdukController extends Controller
                 return redirect('/');
             } 
         }else{
-            return redirect('/product_abstract')->with('status', 'Maaf produk sudah ada');
+            return redirect('/product_abstract')->with('status', 'Maaf produk sudah ada / Anda tergabung dalam tim');
         }
     }
 

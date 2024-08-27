@@ -15,11 +15,11 @@ class PresentasiController extends Controller
 
         $track = Session::get('track');
         $track_status = Session::get('track_status');
-        if($track == 6 && $track_status == 0){
-            return view('dashboard/tahap_presentasi')->with(compact('countDeck','deck'));
-        }else{
-            return redirect('/');
-        }
+        return view('dashboard/tahap_presentasi')->with(compact('countDeck','deck'));
+        // if($track == 6 && $track_status == 0){
+        // }else{
+        //     return redirect('/');
+        // }
     }
 
     public function setDeck(Request $request){

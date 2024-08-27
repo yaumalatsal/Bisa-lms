@@ -11,12 +11,12 @@ class BmcController extends Controller
     public function index(){
         $track = Session::get('track');
         $track_status = Session::get('track_status');
-        if($track == 3 && $track_status == 0){
-            $getBMC = DB::table('master_bmc')->get();
-            return view('dashboard/bmc')->with('bmc', $getBMC);
-        }else{
-            return redirect('/');
-        }
+        $getBMC = DB::table('master_bmc')->get();
+        return view('dashboard/bmc')->with('bmc', $getBMC);
+        // if($track == 3 && $track_status == 0){
+        // }else{
+        //     return redirect('/');
+        // }
     }
 
     public function detail($id){

@@ -35,12 +35,12 @@ class ProtoController extends Controller
 
         $track = Session::get('track');
         $track_status = Session::get('track_status');
-        if($track == 4 && $track_status == 0){
-            return view('dashboard/tahap_workflow')
-            ->with(compact('dataFigma','dataLogo','countFigma','countLogo','dataMentor'));
-        }else{
-            return redirect('/');
-        }
+        return view('dashboard/tahap_workflow')
+        ->with(compact('dataFigma','dataLogo','countFigma','countLogo','dataMentor'));
+        // if($track == 4 && $track_status == 0){
+        // }else{
+        //     return redirect('/');
+        // }
     }
 
     public function setFigma(Request $request){

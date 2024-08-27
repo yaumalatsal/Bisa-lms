@@ -44,16 +44,16 @@ class TeamController extends Controller
 
         $track = Session::get('track');
         $track_status = Session::get('track_status');
-        if($track == 2 && $track_status == 0){
-            return view('dashboard/tahap_team')
-            ->with(compact('getproduk'))
-            ->with(compact('getceo'))
-            ->with(compact('getmember'))
-            ->with(compact('position'))
-            ->with(compact('countmember'));
-        }else{
-            return redirect('/');
-        }
+        return view('dashboard/tahap_team')
+        ->with(compact('getproduk'))
+        ->with(compact('getceo'))
+        ->with(compact('getmember'))
+        ->with(compact('position'))
+        ->with(compact('countmember'));
+        // if($track == 2 && $track_status == 0){
+        // }else{
+        //     return redirect('/');
+        // }
 
     }
 

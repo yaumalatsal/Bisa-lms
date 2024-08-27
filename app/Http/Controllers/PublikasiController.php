@@ -34,12 +34,12 @@ class PublikasiController extends Controller
 
         $track = Session::get('track');
         $track_status = Session::get('track_status');
-        if($track == 5 && $track_status == 0){
-            return view('dashboard/tahap_publikasi')
-            ->with(compact('dataVideo','playerVideo','dataPoster','countVideo','countPoster'));
-        }else{
-            return redirect('/');
-        }
+        return view('dashboard/tahap_publikasi')
+        ->with(compact('dataVideo','playerVideo','dataPoster','countVideo','countPoster'));
+        // if($track == 5 && $track_status == 0){
+        // }else{
+        //     return redirect('/');
+        // }
         
 
     }
