@@ -120,7 +120,7 @@
     .ranking-header h2 {
         color: #333;
         font-weight: 700;
-        border-bottom: 3px solid #1a75fd;
+        border-bottom: 3px solid #fd1a1a;
         padding-bottom: 10px;
     }
 
@@ -132,14 +132,14 @@
     .custom-select {
         font-size: 1rem;
         border-radius: 30px;
-        border: 2px solid #1a75fd;
+        border: 2px solid #fd1a1a;
         background-color: #fff;
         color: #333;
         transition: border-color 0.3s ease;
     }
 
     .custom-select:focus {
-        border-color: #1a75fd;
+        border-color: #fd1a1a;
         box-shadow: none;
     }
 
@@ -162,7 +162,7 @@
     .ranking-number {
         font-size: 1.5rem;
         font-weight: 700;
-        color: #1a75fd;
+        color: #fd1a1a;
         width: 50px;
         text-align: center;
     }
@@ -259,7 +259,7 @@
     }
 
     .text-center {
-        color: #1a75fd;
+        color: #fd1a1a;
     }
 </style>
 @endsection

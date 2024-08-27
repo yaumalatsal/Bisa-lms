@@ -158,7 +158,7 @@
         }
 
         .text-cyan {
-            color: #00bcd4;
+            color: #d40000 !important;
         }
 
         .card {
@@ -178,13 +178,13 @@
         }
 
         .btn-primary {
-            background-color: #00bcd4;
-            border-color: #00bcd4;
+            background-color: #d40000 !important;
+            border-color: red;
             color: #fff;
         }
 
         .btn-primary:hover {
-            background-color: #0097a7;
+            background-color: #a70000;
             border-color: #0097a7;
         }
 

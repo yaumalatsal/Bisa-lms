@@ -45,7 +45,7 @@
         .card-body {
             background-color: #ffffff;
             padding: 1.5rem;
-            border-top: 3px solid #007bff;
+            border-top: 3px solid #ff0000;
             position: relative;
             overflow: hidden;
         }
@@ -57,7 +57,7 @@
             left: 0;
             width: 100%;
             height: 4px;
-            background: linear-gradient(90deg, #007bff, #00d084);
+            background: linear-gradient(90deg, #ff0000, #00d084);
             transform: scaleX(0);
             transform-origin: bottom right;
             transition: transform 0.4s ease;
@@ -78,13 +78,13 @@
         }
 
         .btn-primary {
-            background-color: #007bff;
+            background-color: #ff0000;
             border-color: #007bff;
             transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
         .btn-primary:hover {
-            background-color: #0056b3;
+            background-color: #b30000;
             border-color: #004085;
         }
 

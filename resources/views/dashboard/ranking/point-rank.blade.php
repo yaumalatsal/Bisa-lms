@@ -14,7 +14,7 @@
     /* Ranking Card Animation */
     .ranking-card {
         background-color: #f8f9fa;
-        border-left: 5px solid #007bff;
+        border-left: 5px solid #ff0000;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
         border-radius: 10px;
         animation: slideIn 1s ease-out;
@@ -210,6 +210,9 @@
     display: inline-block;
     vertical-align: middle;
 }
+.dor{
+    color: red !important;
+}
 
 </style>
 @endsection
@@ -233,7 +236,7 @@
                     <img src="{{ asset ('assets/images/ilustration/gif/api.gif') }}" class="celebration-gif" alt="Left Celebration GIF">
 
                     <!-- Congratulations Message -->
-                    <h2 class="text-success d-inline-block mx-2">Selamat {{ $topRanking['siswa']->nama }}!</h2>
+                    <h2 class="text-success d-inline-block mx-2 dor">Selamat {{ $topRanking['siswa']->nama }}!</h2>
                 
                     <!-- Right GIF -->
                     <img src="{{ asset ('assets/images/ilustration/gif/api.gif') }}" class="celebration-gif" alt="Right Celebration GIF">

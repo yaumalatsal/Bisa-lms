@@ -21,14 +21,15 @@
 
     /* Button Styles */
     .btn-primary {
-        background: linear-gradient(135deg, #6e8efb, #a777e3);
+        background: #ff5722;
         border: none;
-        box-shadow: 0 4px 12px rgba(110, 142, 251, 0.4);
+        box-shadow: 0 4px 12px rgba(255, 87, 34, 0.4);
         transition: all 0.3s ease;
+        border-radius: 20px;
     }
     .btn-primary:hover {
         transform: translateY(-3px);
-        box-shadow: 0 6px 15px rgba(110, 142, 251, 0.6);
+        box-shadow: 0 6px 15px rgba(255, 87, 34, 0.6);
     }
 
     /* Alert Styles */
@@ -39,9 +40,17 @@
     }
 
     /* Table Styles */
-    
+    .table {
+        border-collapse: separate;
+        border-spacing: 0 10px;
+    }
+    .table thead th {
+        background-color: #343a40;
+        color: #fff;
+    }
     .table tbody tr {
         transition: all 0.3s ease;
+        border-radius: 8px;
     }
     .table tbody tr:hover {
         background-color: #f2f4ff;
@@ -54,6 +63,7 @@
         border-radius: 20px;
         padding: 5px 10px;
         font-size: 0.9rem;
+        color: #fff;
     }
     .badge-success {
         background: linear-gradient(135deg, #56d798, #56dfb6);
@@ -117,7 +127,7 @@
 
     <div class="table-responsive">
         <table id="table-one" class="table table-striped table-hover table-bordered">
-            <thead class="thead-dark">
+            <thead>
                 <tr>
                     <th>Nama Produk</th>
                     <th>Total Penjualan Produk</th>
@@ -181,7 +191,11 @@
 @section('js')
     <script>
         $(function() {
-            $("#table-one").DataTable();
+            $("#table-one").DataTable({
+                "ordering": false, // Disable ordering
+                "paging": true,   // Enable pagination
+                "info": true       // Show table info
+            });
         });
     </script>
 @endsection

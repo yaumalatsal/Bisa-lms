@@ -52,7 +52,7 @@
     }
 
     h4 {
-        color: #007bff;
+        color: #ff0000;
         font-weight: bold;
         margin-bottom: 20px;
     }
@@ -88,7 +88,7 @@
         padding: 5px;
     }
     .btn-primary{
-        background-color: #007bff;
+        background-color: #ff0000;
     }
 </style>
 @endsection
