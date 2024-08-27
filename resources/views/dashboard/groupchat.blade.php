@@ -93,7 +93,7 @@
     .chat-footer .form-control {
         border-radius: 20px;
         padding: 10px 15px;
-        border: 1px solid #007bff;
+        border: 1px solid #ff0000;
         resize: none;
     }
 
@@ -103,7 +103,7 @@
         margin-left: 10px;
         background-color: transparent;
         border: none;
-        color: #007bff;
+        color: #ff0000 !important;
         cursor: pointer;
     }
 
