@@ -35,7 +35,7 @@ class ProdukController extends Controller
         $siswa = Siswa::with('members','members.produk')->findOrFail($id_ceo);
 
         
-        if($cek == 0 && !$siswa->members[0]->produk){
+        if($cek == 0 && $siswa->members->isEmpty()){
             $input = DB::table('product')->insert([
                 'nama_produk'   => $request->nama_produk,
                 'deskripsi'     => $request->deskripsi,
