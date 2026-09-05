@@ -2,211 +2,178 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Siswa;
+use App\Support\LegacyPassword;
 use Illuminate\Http\Request;
-use DB;
-use Session;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class SiswaController extends Controller
 {
-    //Fungsi Registrasi Siswa
-    public function register_siswa(Request $req){
-        $pass = md5($req->password).sha1($req->password);
-        $ceknis = DB::table('siswa')
-        ->select('nomor_induk')
-        ->where('nomor_induk',$req->nis)
-        ->count();
-        $status = "arrgghh";
-        
-        if($ceknis != 1){
+    /**
+     * Pendaftaran siswa baru.
+     */
+    public function register_siswa(Request $request)
+    {
+        $validated = $request->validate([
+            'nama_siswa' => ['required', 'string', 'max:255'],
+            'nis' => ['required', 'string', 'max:50', 'unique:siswa,nomor_induk'],
+            'password' => ['required', 'string', 'min:8'],
+            'ttl' => ['required', 'date'],
+        ], [
+            'nis.unique' => 'Maaf, NIS sudah terdaftar, silakan hubungi Guru Pendamping.',
+        ]);
 
-            $sql = DB::table('siswa')->insert([
-                'nama'          => $req->nama_siswa,
-                'nomor_induk'   => $req->nis,
-                'password'      => $pass,
-                'tanggal_lahir' => $req->ttl 
-            ]);
+        Siswa::create([
+            'nama' => $validated['nama_siswa'],
+            'nomor_induk' => $validated['nis'],
+            'password' => Hash::make($validated['password']),
+            'tanggal_lahir' => $validated['ttl'],
+        ]);
 
-            if($sql){
-                $status = "Pendaftaran Berhasil, Silahkan Login";                
-                // return redirect(url('/register_siswa'),compact('status'));
-                return view('page/login')->with('status','Pendaftaran berhasil, silahkan melakukan login');
-                
-            } 
-        }else{
-        //     $status = "NIS Sudah terdaftar, silahkan hubungi guru pengajar";
-            return view('page/register_siswa')->with('status','Maaf, NIS sudah terdaftar, silahkan hubungi Guru Pendamping');
-        }
-
+        return redirect('/login')->with('status', 'Pendaftaran berhasil, silakan melakukan login.');
     }
 
-    // logout siswa
-    public function logout(Request $request){        
-        Session::flush();
+    public function logout(Request $request)
+    {
+        Auth::guard('siswa')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
         return redirect('/login');
     }
 
-    //login siswa
-    public function login(Request $req){
-        $enc =   md5($req->password).sha1($req->password);
-		$logins = DB::table('siswa')
-		->where('nomor_induk',$req->nis)
-		->where('password',$enc)
-		->count();        
-        
-		if($logins != 0 ){
-            $data = DB::table('siswa')
-            ->where('nomor_induk',$req->nis)
-            ->where('password',$enc)
-            ->get();
-             foreach ($data as $val) {
-             		$id_siswa =  $val->id;
-             		$nis_siswa =  $val->nomor_induk;
-             }
+    /**
+     * Login siswa. Menerima hash lama (md5+sha1) lalu meng-upgrade-nya ke
+     * bcrypt secara transparan pada login pertama yang berhasil.
+     */
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'nis' => ['required', 'string'],
+            'password' => ['required', 'string'],
+        ]);
 
-             $cektim = DB::table('member')
-            ->where('id_siswa',$id_siswa)
-            ->count();
+        $siswa = Siswa::where('nomor_induk', $credentials['nis'])->first();
 
- 
-
-            session(['id_siswa' => $id_siswa]);
-            session(['nis_siswa' => $nis_siswa]);
-            
-            if($cektim != 0){
-                $cekposition = 0; 
-                $id_produk_member = 0;
-                $gettim = DB::table('member')
-                ->select('member.*', 'master_step.step_number', 'track_step.status')
-                ->join('product', 'product.id', 'member.id_produk')
-                ->join('track_step', 'track_step.id_ceo', 'product.id_ceo')
-                ->join('master_step','master_step.id','track_step.id_step')
-                ->where('id_siswa',$id_siswa)
-                ->get();
-
-                
-                foreach($gettim as $tim){
-                    $cekposition = $tim->position;
-                    $id_produk_member = $tim->id_produk;
-                    session(['track' => $tim->step_number]);
-                    session(['track_status' => $tim->status]);
-                }
-
-                
-                
-                session(['id_produk' => $id_produk_member]);
-                
-
-                if($cekposition == 1){
-                    $cektrack = DB::table('track_step')
-                    ->select('master_step.step_number as urutan','track_step.*')
-                    ->join('master_step','master_step.id','track_step.id_step')
-                    ->where('track_step.id_ceo',$id_siswa)
-                    ->get();
-
-                    $track_poin = 0;
-                    $acc_poin = 0;
-                    foreach($cektrack as $datatrack){
-                        $track_poin = $datatrack->urutan;
-                        $acc_poin = $datatrack->status;
-                    }
-
-                    if($track_poin <= 2 && $acc_poin == 0){
-                        $cekroute = DB::table('track_step')
-                        ->select('master_step.route as routing')
-                        ->join('master_step','master_step.id','track_step.id_step')
-                        ->where('track_step.id_ceo',$id_siswa)
-                        ->get();
-                         
-                        foreach($cekroute as $setroute){
-                            return redirect($setroute->routing);
-                        }
-                    }elseif($track_poin <= 2 && $acc_poin == 1){
-                        return redirect('/');                      
-                    }else{
-                        return redirect('/');
-                    }
-                }else{
-                    return redirect('/');             
-
-                }
-            }else{
-                // $track = Session::get('track');
-                // $track_status = Session::get('track_status');
-                
-                // if($track == 1 && $track_status == 1){
-                //     return redirect('/');
-                // }else if ($track == 1 && $track_status == 0){
-                //     session(['track' => '1']);
-                //     session(['track_status' => '0']);
-                //     return redirect('/product_abstract');  
-                // }else{
-                    session(['track' => '1']);
-                    session(['track_status' => '0']);
-                    return redirect('/product_abstract');  
-                // }           
-            }
-
-		}else{
-			 return view('page/login')->with('login_error','Maaf Login Gagal');             
-		}
-    }
-
-
-       // cari siswa berdasarkan nis
-       public function searchByNis(Request $request){
-        $nis = Session::get('nis_siswa');
-
-        $cekdataceo = DB::table('member')
-        ->where('id_siswa',$request->id_siswa)
-        ->where('id_produk', $request->id_produk)
-        ->count();
-
-        if($cekdataceo == 0){
-            $insertceo = DB::table('member')->insert([
-                'id_siswa' =>$request->id_siswa,
-                'id_produk' =>$request->id_produk,
-                'position' => '1'
+        if (! $siswa || ! LegacyPassword::check(
+            $credentials['password'],
+            $siswa->getAuthPassword(),
+            LegacyPassword::SCHEME_SISWA
+        )) {
+            throw ValidationException::withMessages([
+                'nis' => 'Maaf, login gagal. Periksa kembali NIS dan password Anda.',
             ]);
         }
 
-        $ceknis = DB::table('siswa')
-                ->where('nomor_induk',$nis)
-                ->count();
+        if (LegacyPassword::needsRehash($siswa->getAuthPassword())) {
+            $siswa->forceFill(['password' => Hash::make($credentials['password'])])->save();
+        }
 
-                if($nis == $request->nis){
-                    return redirect('/tahap_team')->with('status', 'Maaf itu NIS anda sendiri');
-                }else{
-                    $cekData = DB::table('siswa')
-                            ->where('nomor_induk',$request->nis)
-                            ->count();
-                    if($cekData != 0){
-                        $cek_siswa = DB::table('siswa')
-                        ->where('nomor_induk',$request->nis)
-                        ->get();
+        Auth::guard('siswa')->login($siswa);
+        $request->session()->regenerate();
 
-                        foreach($cek_siswa as $ceksiswa){
-                            $id_ditemukan = $ceksiswa->id;
-                        }
+        return $this->afterLoginRedirect($request, $siswa);
+    }
 
-                        
-                        $cek_siswa_member = DB::table('member')
-                        ->where('id_siswa', $id_ditemukan)
-                        ->count();
+    /**
+     * Seed the legacy session keys the dashboard still relies on, then send the
+     * siswa to the step they left off at.
+     */
+    private function afterLoginRedirect(Request $request, Siswa $siswa)
+    {
+        $request->session()->put([
+            'id_siswa' => $siswa->id,
+            'nis_siswa' => $siswa->nomor_induk,
+        ]);
 
-                      
+        $tim = DB::table('member')
+            ->select('member.position', 'member.id_produk', 'master_step.step_number', 'track_step.status')
+            ->join('product', 'product.id', '=', 'member.id_produk')
+            ->join('track_step', 'track_step.id_ceo', '=', 'product.id_ceo')
+            ->join('master_step', 'master_step.id', '=', 'track_step.id_step')
+            ->where('member.id_siswa', $siswa->id)
+            ->latest('member.id')
+            ->first();
 
-                        if($cek_siswa_member == 0){
-                            $data_member = DB::table('siswa')
-                            ->where('nomor_induk',$request->nis)
-                            ->get();
-                            return redirect('/tahap_team')->with(['data_member'=>  $cek_siswa]);
-                        }else{
-                         return redirect('/tahap_team')->with('status', 'Siswa dengan NIS tersebut sudah menjadi anggota di suatu tim');
-                        }
-                    }else{
-                         return redirect('/tahap_team')->with('status', 'NIS tidak di temukan');
-                    }
-                }
-        
-    } 
+        if (! $tim) {
+            $request->session()->put(['track' => '1', 'track_status' => '0']);
+
+            return redirect('/product_abstract');
+        }
+
+        $request->session()->put([
+            'track' => $tim->step_number,
+            'track_status' => $tim->status,
+            'id_produk' => $tim->id_produk,
+        ]);
+
+        // Hanya CEO (position 1) yang diarahkan langsung ke tahap berjalan.
+        if ((int) $tim->position !== 1) {
+            return redirect('/');
+        }
+
+        $track = DB::table('track_step')
+            ->select('master_step.step_number as urutan', 'master_step.route as routing', 'track_step.status')
+            ->join('master_step', 'master_step.id', '=', 'track_step.id_step')
+            ->where('track_step.id_ceo', $siswa->id)
+            ->latest('track_step.id')
+            ->first();
+
+        if ($track && $track->urutan <= 2 && (int) $track->status === 0 && $track->routing) {
+            return redirect($track->routing);
+        }
+
+        return redirect('/');
+    }
+
+    /**
+     * Cari siswa berdasarkan NIS untuk ditambahkan ke tim.
+     */
+    public function searchByNis(Request $request)
+    {
+        $request->validate([
+            'nis' => ['required', 'string'],
+            'id_produk' => ['required', 'integer'],
+        ]);
+
+        $idSiswa = Auth::guard('siswa')->id();
+        $nisSendiri = $request->session()->get('nis_siswa');
+
+        // Pastikan pencari terdaftar sebagai CEO pada produknya sendiri.
+        $isOwner = DB::table('product')
+            ->where('id', $request->id_produk)
+            ->where('id_ceo', $idSiswa)
+            ->exists();
+
+        if (! $isOwner) {
+            return redirect('/tahap_team')->with('status', 'Anda bukan CEO dari produk ini.');
+        }
+
+        DB::table('member')->updateOrInsert(
+            ['id_siswa' => $idSiswa, 'id_produk' => $request->id_produk],
+            ['position' => '1']
+        );
+
+        if ($nisSendiri == $request->nis) {
+            return redirect('/tahap_team')->with('status', 'Maaf itu NIS anda sendiri');
+        }
+
+        $kandidat = DB::table('siswa')->where('nomor_induk', $request->nis)->first();
+
+        if (! $kandidat) {
+            return redirect('/tahap_team')->with('status', 'NIS tidak ditemukan');
+        }
+
+        $sudahBergabung = DB::table('member')->where('id_siswa', $kandidat->id)->exists();
+
+        if ($sudahBergabung) {
+            return redirect('/tahap_team')
+                ->with('status', 'Siswa dengan NIS tersebut sudah menjadi anggota di suatu tim');
+        }
+
+        return redirect('/tahap_team')->with(['data_member' => collect([$kandidat])]);
+    }
 }

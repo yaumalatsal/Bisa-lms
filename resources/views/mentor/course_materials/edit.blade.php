@@ -73,3 +73,5 @@
         });
     </script>
 @endsection
+
+@include('partials.ckeditor')

@@ -1,64 +1,112 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# BISa — Platform Inkubasi & Monitoring Bisnis Mahasiswa
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplikasi Laravel 9 untuk mendampingi mahasiswa Universitas Negeri Malang menyusun
+konsep bisnis, melaporkan perkembangan penjualan, dan mempertemukannya dengan
+mentor serta investor.
 
-## About Laravel
+## Peran
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+| Peran        | Masuk lewat        | Guard      | Ringkasan |
+|--------------|--------------------|------------|-----------|
+| **Siswa**    | `/login`           | `siswa`    | Membentuk tim, mengisi tahap inkubasi (abstrak → tim → BMC → prototype → publikasi → presentasi), mengirim laporan bulanan, mengikuti course dan kuis. |
+| **Mentor**   | `/mentor/login`    | `mentor`   | Membimbing produk, memvalidasi tahapan, memberi feedback dan nilai, menyetujui laporan bulanan, mengelola course. |
+| **Admin**    | `/admin/login`     | `admin`    | Mengelola produk, siswa, materi, soal kuis dan pertanyaan BMC. |
+| **Investor** | `/investor/login`  | `investor` | Menelusuri produk pameran dan monitoring bisnisnya. |
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Setiap area dilindungi middleware di sisi server (`auth.role:siswa`,
+`auth.role:mentor`, `auth:admin`, `auth:investor`).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Menjalankan secara lokal
 
-## Learning Laravel
+```bash
+composer install
+cp .env.example .env
+php artisan key:generate
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+# Sesuaikan DB_* di .env, lalu:
+php artisan migrate
+php artisan db:seed          # opsional
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+php artisan serve
+```
 
-## Laravel Sponsors
+Unggahan produk (logo, poster) ditulis langsung ke `public/logo_produk` dan
+`public/poster_produk`; unggahan laporan memakai disk `public`, jadi jalankan
+sekali:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+```bash
+php artisan storage:link
+```
 
-### Premium Partners
+## Pengujian
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+Suite memakai MySQL. Buat database kosong bernama `bisa_test` (atau ubah
+`DB_DATABASE` di `phpunit.xml`), lalu:
 
-## Contributing
+```bash
+php vendor/bin/phpunit
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Cakupan saat ini:
 
-## Code of Conduct
+- `tests/Feature/SmokeTest.php` — meminta **setiap** rute GET sebagai peran
+  pemiliknya dan memastikan tidak ada yang error. Ini jaring pengaman utama saat
+  mengubah view atau controller.
+- `tests/Feature/AuthenticationTest.php` — penjagaan area per peran, dan
+  penerimaan password lama beserta peningkatannya ke bcrypt.
+- `tests/Feature/AuthorizationTest.php` — batas antar-tim dan antar-mentor.
+- `tests/Feature/MonitoringStatsTest.php` — perhitungan statistik monitoring.
+- `tests/Unit/EmbedTest.php` — penyaringan tautan video.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Struktur yang perlu diketahui
 
-## Security Vulnerabilities
+### Tampilan
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Seluruh peran memakai **satu** kerangka halaman:
 
-## License
+```
+resources/views/layouts/app.blade.php        kerangka aplikasi (topbar + sidebar)
+resources/views/layouts/guest.blade.php      kerangka halaman login/registrasi
+resources/views/layouts/partials/            topbar, sidebar, flash message
+config/navigation.php                        isi menu tiap peran
+public/css/bisa.css                          design system (token, komponen, dark mode)
+public/js/bisa.js                            perilaku bersama (tema, sidebar, DataTables)
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Berkas `resources/views/{dashboard_template,admin,mentor,investor}/template/index.blade.php`
+kini hanya shim tipis yang menyatakan peran mana yang sedang dirender, sehingga
+view lama tetap bisa `@extends` ke path yang sama.
+
+Fragmen yang dipakai lintas peran:
+
+```
+resources/views/partials/product-detail.blade.php       detail produk (5 peran)
+resources/views/partials/monitoring-dashboard.blade.php monitoring (3 peran)
+resources/views/partials/bmc-result.blade.php           hasil poin BMC (5 peran)
+resources/views/partials/ckeditor.blade.php             editor, hanya bila dibutuhkan
+```
+
+### Logika bersama
+
+```
+app/Services/ProductDetailService.php     query detail produk
+app/Services/MonitoringStatsService.php   statistik monitoring bulanan/tahunan
+app/Services/ProductAssetUploader.php     unggah gambar produk yang tervalidasi
+app/Support/LegacyPassword.php            verifikasi hash lama + upgrade ke bcrypt
+app/Support/Embed.php                     penyaringan tautan video/URL
+```
+
+### Password
+
+Akun siswa lama memakai `md5($p) . sha1($p)` dan mentor lama memakai `md5($p)`.
+Keduanya masih diterima saat login, lalu **otomatis ditulis ulang sebagai bcrypt**
+pada login berhasil pertama. Akun baru selalu bcrypt. Lihat
+`app/Support/LegacyPassword.php`.
+
+## Catatan pemeliharaan
+
+- Menu sidebar diubah lewat `config/navigation.php`, bukan dengan menyunting Blade.
+- Warna, jarak dan radius berasal dari custom property di `public/css/bisa.css`;
+  ubah token di `:root` daripada menambah override per halaman.
+- Status laporan bulanan adalah enum `pending` / `disetujui` / `ditolak` — pakai
+  konstanta `MonthlyReport::STATUS_*`, jangan string literal berkapital.

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\MapelsQuiz;
 use App\Models\QuizHasil;
-use Session;
+use Illuminate\Support\Facades\Session;
 
 class QuizController extends Controller
 {

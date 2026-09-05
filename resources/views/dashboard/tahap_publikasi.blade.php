@@ -38,7 +38,8 @@
                                 dan UI Design yang pernah dibuat di tahap sebelumnya.
                                 <br> <br>
                                 <a class="btn btn-warning">Materi Publikasi Produk <i class="fas fa-book"></i> </a>
-                                <a href="{{url('/submitPublikasi')}}" class="btn btn-primary">Submit Progress <i class="fas fa-arrow-alt-circle-right"></i></a>
+                                <x-action-form :action="url('/submitPublikasi')" class="btn btn-primary"
+                                    confirm="Kirim progress publikasi?">Submit Progress <i class="fas fa-arrow-alt-circle-right"></i></x-action-form>
                             </p>                         
                         </div>
                     </div>               
@@ -91,9 +92,19 @@
                             </div>
 
                             <p>Berikut adalah video produkmu :</p>
-                            <div id="video-area">
-                                
-                            </div>
+                            {{-- Di-render di server sebagai iframe YouTube yang
+                                 sudah divalidasi; dulu HTML mentah dari input
+                                 siswa disuntikkan lewat jQuery .html(). --}}
+                            @if ($playerVideo)
+                                <div id="video-area" class="ratio ratio-16x9" style="max-width:640px">
+                                    <iframe src="{{ $playerVideo }}" title="Video produk"
+                                        allow="accelerometer; encrypted-media; picture-in-picture"
+                                        referrerpolicy="strict-origin-when-cross-origin"
+                                        allowfullscreen loading="lazy"></iframe>
+                                </div>
+                            @else
+                                <p class="text-muted">Link video belum dikenali. Gunakan tautan YouTube.</p>
+                            @endif
                         </div>
                     </div>
                     @endforeach
@@ -215,9 +226,6 @@
         //     "autoWidth": false,
         // });
         
-        @if($countVideo != 0 )
-            $("#video-area").html('@php echo $playerVideo @endphp');
-        @endif
 
         $("#btn-editVideo").click(function(){
            var link_video = $(this).data("video");

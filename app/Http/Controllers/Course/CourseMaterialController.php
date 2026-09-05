@@ -9,11 +9,14 @@ use Illuminate\Http\Request;
 
 class CourseMaterialController extends Controller
 {
-    
+    /**
+     * Daftar materi ditampilkan pada halaman course, bukan halaman terpisah;
+     * view `mentor.course_materials.index` tidak pernah ada sehingga aksi ini
+     * selalu 500. Alihkan saja ke halaman course-nya.
+     */
     public function index(Course $course)
     {
-        $materials = $course->courseMaterials();
-        return view('mentor.course_materials.index', compact('course', 'materials'));
+        return redirect()->route('courses.show', $course->id);
     }
 
     public function create(Course $course)

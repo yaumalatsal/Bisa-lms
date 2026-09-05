@@ -3,13 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Siswa extends Model
+class Siswa extends Authenticatable
 {
     use HasFactory;
 
     protected $table = 'siswa';
+
+    protected $guard = 'siswa';
 
     protected $fillable = [
         'nomor_induk',
@@ -18,10 +20,16 @@ class Siswa extends Model
         'nama',
     ];
 
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
     public function members()
     {
         return $this->hasMany(Member::class, 'id_siswa');
     }
+
     public function courseAnswers()
     {
         return $this->hasMany(CourseAnswer::class);

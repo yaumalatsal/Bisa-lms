@@ -67,7 +67,8 @@
                             untuk segera di review oleh mentor </h5>
                         </div>
                         <div class="col-md-2">
-                            <a href="submit_bmc" class="btn btn-md btn-danger text-white"> Submit BMC <i class=" fas fa-arrow-circle-right"></i> </a>
+                            <x-action-form :action="url('/submit_bmc')" class="btn btn-md btn-danger text-white"
+                                confirm="Kirim BMC untuk ditinjau mentor?">Submit BMC <i class="fas fa-arrow-circle-right"></i></x-action-form>
                         </div>
                     </div>
                 </div>

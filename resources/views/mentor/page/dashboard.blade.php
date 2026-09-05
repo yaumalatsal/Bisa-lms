@@ -34,8 +34,7 @@
                                 <!-- <a href="{{url('/submitDeck')}}" class="btn btn-primary">Submit Progress <i class="fas fa-arrow-alt-circle-right"></i></a> -->
                             </p>                         
                             <p>
-                                @foreach($data as $mentor)
-                                <table class="table">
+                                                                <table class="table">
                                     <tr>
                                         <td>Nama Lengkap </td>
                                         <td> : </td>
@@ -57,7 +56,6 @@
                                         <td>{{$mentor->instansi}}</td>
                                     </tr>
                                 </table>
-                                @endforeach
                             </p>
                         </div>
                     </div>               

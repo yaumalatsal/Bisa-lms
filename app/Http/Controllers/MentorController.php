@@ -2,91 +2,105 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Session;
-use DB;
-use App\Models\Product;
+use App\Models\Mentor;
 use App\Models\MonthlyReport;
+use App\Models\Product;
+use App\Support\LegacyPassword;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class MentorController extends Controller
 {
-    public function index(){
-        $id_mentor = Session::get('id_mentor');
-        $data = DB::table('mentor')
-        ->where('id',$id_mentor)
-        ->get();
-
-        return view('mentor/page/dashboard')->with(compact('data'));
-    } 
-
-    public function login(){
-        return view('mentor/page/login');
+    public function index()
+    {
+        return view('mentor.page.dashboard', [
+            'mentor' => Auth::guard('mentor')->user(),
+        ]);
     }
 
-    public function laporanNilai(){
-         // Ambil ID mentor yang sedang login dari sesi
-    $id_mentor = Session::get('id_mentor');
+    public function login()
+    {
+        return view('mentor.page.login');
+    }
 
-    // Ambil produk yang terkait dengan mentor yang sedang login
-    $products = Product::where('id_mentor', $id_mentor)->get();
+    /**
+     * Laporan bulanan milik produk-produk yang dibimbing mentor ini.
+     */
+    public function laporanNilai()
+    {
+        $monthlyReports = MonthlyReport::with('product')
+            ->whereIn('product_id', Product::where('id_mentor', Auth::guard('mentor')->id())->select('id'))
+            ->latest('report_date')
+            ->get();
 
-    // Ambil laporan bulanan yang terkait dengan produk-produk tersebut
-    $monthlyReports = MonthlyReport::whereIn('product_id', $products->pluck('id'))->get();
-
-    // Tampilkan halaman dengan laporan bulanan dan produk yang difilter
-    return view('mentor.page.laporan_produk', compact('monthlyReports'));
-        
+        return view('mentor.page.laporan_produk', compact('monthlyReports'));
     }
 
     public function approveReport($id)
-{
-    // Cari laporan bulanan berdasarkan ID
-    $report = MonthlyReport::findOrFail($id);
+    {
+        $this->reportForThisMentor($id)->update(['status' => MonthlyReport::STATUS_APPROVED]);
 
-    // Ubah status laporan menjadi disetujui
-    $report->status = 'Disetujui';
-    $report->save();
+        return redirect()->back()->with('success', 'Laporan berhasil disetujui.');
+    }
 
-    return redirect()->back()->with('success', 'Laporan berhasil disetujui.');
-}
+    public function rejectReport($id)
+    {
+        $this->reportForThisMentor($id)->update(['status' => MonthlyReport::STATUS_REJECTED]);
 
-public function rejectReport($id)
-{
-    // Cari laporan bulanan berdasarkan ID
-    $report = MonthlyReport::findOrFail($id);
+        return redirect()->back()->with('error', 'Laporan telah ditolak.');
+    }
 
-    // Ubah status laporan menjadi ditolak
-    $report->status = 'Ditolak';
-    $report->save();
+    /**
+     * Login mentor. Hash md5 lama tetap diterima lalu di-upgrade ke bcrypt.
+     */
+    public function signin(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required', 'string'],
+        ]);
 
-    return redirect()->back()->with('error', 'Laporan telah ditolak.');
-}
+        $mentor = Mentor::where('email', $credentials['email'])->first();
 
-    public function signin(Request $req){
-        $enc =   md5($req->password);
-		$logins = DB::table('mentor')
-		->where('email',$req->email)
-		->where('password',$enc)
-		->count(); 
-
-        if($logins != 0 ){
-            $data = DB::table('mentor')
-            ->where('email',$req->email)
-            ->where('password',$enc)
-            ->get();
-
-            foreach ($data as $val) {
-                $id_mentor =  $val->id;
-            }
-            session(['id_mentor' => $id_mentor]);
-            return redirect('/mentor');
-        }else{
-            return view('mentor/page/login')->with('login_error','Maaf Login Gagal');;
+        if (! $mentor || ! LegacyPassword::check(
+            $credentials['password'],
+            $mentor->getAuthPassword(),
+            LegacyPassword::SCHEME_MENTOR
+        )) {
+            throw ValidationException::withMessages([
+                'email' => 'Maaf, login gagal. Periksa kembali email dan password Anda.',
+            ]);
         }
 
+        if (LegacyPassword::needsRehash($mentor->getAuthPassword())) {
+            $mentor->forceFill(['password' => Hash::make($credentials['password'])])->save();
+        }
+
+        Auth::guard('mentor')->login($mentor);
+        $request->session()->regenerate();
+        $request->session()->put('id_mentor', $mentor->id);
+
+        return redirect('/mentor');
     }
-    public function logout(Request $request){        
-        Session::flush();
+
+    public function logout(Request $request)
+    {
+        Auth::guard('mentor')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
         return redirect('/mentor/login');
+    }
+
+    /**
+     * Ambil laporan hanya jika produknya dibimbing oleh mentor yang login.
+     */
+    private function reportForThisMentor($id): MonthlyReport
+    {
+        return MonthlyReport::whereKey($id)
+            ->whereIn('product_id', Product::where('id_mentor', Auth::guard('mentor')->id())->select('id'))
+            ->firstOrFail();
     }
 }

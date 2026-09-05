@@ -12,7 +12,7 @@
                             <li class="list-group-item {{ $message->id_siswa ? 'message-siswa' : 'message-session' }}">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <strong class="message-sender">{{ $message->siswa->nama ?? $message->mentor->nama }}</strong>
-                                    <small class="text-muted">{{ $message->created_at->diffForHumans() }}</small>
+                                    <small class="text-muted">{{ optional($message->created_at)->diffForHumans() ?? '' }}</small>
                                 </div>
                                 <p class="mb-0">{{ $message->message }}</p>
                             </li>

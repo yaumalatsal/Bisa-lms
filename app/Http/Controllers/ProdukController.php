@@ -2,246 +2,175 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Siswa;
+use App\Models\Mentor;
+use App\Models\Product;
+use App\Services\ProductDetailService;
 use Illuminate\Http\Request;
-use DB;
-use Session;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProdukController extends Controller
 {
-    
-    public function index(){
-        $getmentor = DB::table('mentor')->get();
-        $track = Session::get('track');
-        $track_status = Session::get('track_status');
-        return view('dashboard/tahap_abstract')->with(compact('getmentor'));
-
-        // if($track == 1 && $track_status == 0){
-        // }elseif($track == NULL && $track_status == NULL)
-        //     return view('dashboard/tahap_abstract')->with(compact('getmentor'));        
-        // {
-        //     return redirect('/');
-        // }
-    }
-
-    // pendaftaran produk
-    public function registerProduk(Request $request){
-        $id_ceo = Session::get('id_siswa');
-        $nama_produk = $request->nama_produk;
-        $cek = DB::table('product')
-        ->where('nama_produk',$nama_produk)
-        ->count();
-
-        $siswa = Siswa::with('members','members.produk')->findOrFail($id_ceo);
-
-        
-        if($cek == 0 && $siswa->members->isEmpty()){
-            $input = DB::table('product')->insert([
-                'nama_produk'   => $request->nama_produk,
-                'deskripsi'     => $request->deskripsi,
-                'id_mentor'     => $request->mentor,
-                'id_ceo'        => $id_ceo
-            ]);
-            if($input){
-
-                $getproduk = DB::table('product')
-                ->where('product.nama_produk',$request->nama_produk)
-                ->get();
-                $getidproduk = 0;
-                foreach($getproduk as $prod){
-                    $getidproduk = $prod->id;
-                }
-                
-                $inputceo = DB::table('member')->insert([
-                    'id_siswa'  =>$id_ceo,
-                    'id_produk' => $getidproduk,
-                    'position'  => '1'
-                ]);
-
-
-                $input_track = DB::table('track_step')->insert([
-                    'id_ceo' => $id_ceo,
-                    'id_produk' => $getidproduk,
-                    'id_step'   => '1',
-                    'status'    => '1'
-                ]);                
-                // session(['produk' => $request->nama_produk]);
-                session(['track' => '1']);
-                session(['track_status' => '1']);
-                return redirect('/');
-            } 
-        }else{
-            return redirect('/product_abstract')->with('status', 'Maaf produk sudah ada / Anda tergabung dalam tim');
-        }
-    }
-
-    public function getProduk()
+    public function __construct(private ProductDetailService $details)
     {
-        $id_mentor = Session::get('id_mentor');
-        $produk = DB::table('product')
-            ->select('product.*', 'mentor.*', 'siswa.*', 'product.id as product_id', 'logo_produk.logo_produk', 'mentor.nama as nama_mentor', 'siswa.nama as nama_siswa')
-            ->leftJoin('logo_produk', 'logo_produk.id_produk', 'product.id')
-            ->join('mentor', 'product.id_mentor', 'mentor.id')
-            ->join('siswa', 'product.id_ceo', 'siswa.id')
-            ->where('product.id_mentor', $id_mentor)
-            ->get();
-    
-        // Generate group chat URL for each product
-        foreach ($produk as $item) {
-            $item->group_chat_url = route('mentor.page.groupchat', ['id_produk' => $item->product_id]);
-        }
-    
-        return view('mentor/page/produk')->with(compact('produk'));
-    }
-    
-
-    public function detail_produk($id){
-        $id_mentor = Session::get('id_mentor');
-        $produk = DB::table('product')
-        ->select('product.*','mentor.*','siswa.*','product.id as product_id','logo_produk.logo_produk','mentor.nama as nama_mentor', 'siswa.nama as  nama_siswa')
-        ->leftJoin('logo_produk', 'logo_produk.id_produk','product.id')
-        ->join('mentor', 'product.id_mentor','mentor.id')
-        ->join('siswa', 'product.id_ceo','siswa.id')
-        ->where('product.id_mentor',$id_mentor)
-        ->where('product.id',$id)
-        ->get();
-
-        $member = DB::table('member')
-        ->join('siswa', 'siswa.id','member.id_siswa')
-        ->where('member.id_produk',$id)
-        ->orderBy('member.position','ASC')
-        ->get();
-
-        $bmc = DB::table('master_bmc')->get();
-
-        $track = DB::table('track_step')
-        ->select('master_step.*', 'track_step.*', 'track_step.id as id_track')
-        ->join('master_step','master_step.id','track_step.id_step')
-        ->where('track_step.id_produk',$id)
-        ->get();
-
-        $masterstep = DB::table('master_step')->get();
-
-        $proto = DB::table('protolink')
-        ->where('id_produk',$id)
-        ->get();
-
-        $logo = DB::table('logo_produk')
-        ->where('id_produk',$id)
-        ->get();
-
-        $video = DB::table('video_produk')
-        ->where('id_produk',$id)
-        ->get();
-
-        $poster = DB::table('poster_produk')
-        ->where('id_produk',$id)
-        ->get();
-        
-        $presentasi = DB::table('presentasi')
-        ->where('id_produk',$id)
-        ->get();
-        
-
-        return view('mentor/page/detail_produk')
-        ->with(compact(
-            'produk',
-            'track',
-            'masterstep',
-            'member',
-            'bmc',
-            'proto',
-            'logo',
-            'video',
-            'poster',
-            'presentasi'
-        ));
     }
 
-    public function siswaProduk(){
-        $id = Session::get('id_produk');
-        $produk = DB::table('product')
-        ->select('product.*','mentor.*','siswa.*','product.id as product_id','logo_produk.logo_produk','mentor.nama as nama_mentor', 'siswa.nama as  nama_siswa')
-        ->leftJoin('logo_produk', 'logo_produk.id_produk','product.id')
-        ->join('mentor', 'product.id_mentor','mentor.id')
-        ->join('siswa', 'product.id_ceo','siswa.id')
-        ->where('product.id',$id)
-        ->get();
-
-        $member = DB::table('member')
-        ->join('siswa', 'siswa.id','member.id_siswa')
-        ->where('member.id_produk',$id)
-        ->orderBy('member.position','ASC')
-        ->get();
-
-        $bmc = DB::table('master_bmc')->get();
-
-        $track = DB::table('track_step')
-        ->select('master_step.*', 'track_step.*', 'track_step.id as id_track')
-        ->join('master_step','master_step.id','track_step.id_step')
-        ->where('track_step.id_produk',$id)
-        ->get();
-
-        $masterstep = DB::table('master_step')->get();
-
-        $proto = DB::table('protolink')
-        ->where('id_produk',$id)
-        ->get();
-
-        $logo = DB::table('logo_produk')
-        ->where('id_produk',$id)
-        ->get();
-
-        $video = DB::table('video_produk')
-        ->where('id_produk',$id)
-        ->get();
-
-        $poster = DB::table('poster_produk')
-        ->where('id_produk',$id)
-        ->get();
-        
-        $presentasi = DB::table('presentasi')
-        ->where('id_produk',$id)
-        ->get();
-        
-
-        return view('dashboard/produk')
-        ->with(compact(
-            'produk',
-            'track',
-            'masterstep',
-            'member',
-            'bmc',
-            'proto',
-            'logo',
-            'video',
-            'poster',
-            'presentasi'
-        ));
+    /**
+     * Form pendaftaran produk (tahap abstract).
+     */
+    public function index()
+    {
+        return view('dashboard.tahap_abstract', [
+            'getmentor' => Mentor::orderBy('nama')->get(),
+        ]);
     }
 
-    public function editTrack(Request $req){
-        $id_mentor = Session::get('id_mentor');
-        $update = DB::table('track_step')
-        ->where('id',$req->id_track)
-        ->update([
-            'id_step' => $req->step,
-            'status'  => $req->status
+    /**
+     * Pendaftaran produk baru oleh siswa. Siswa yang sudah tergabung dalam
+     * sebuah tim tidak boleh membuat produk lagi.
+     */
+    public function registerProduk(Request $request)
+    {
+        $validated = $request->validate([
+            'nama_produk' => ['required', 'string', 'max:255'],
+            'deskripsi' => ['required', 'string'],
+            'mentor' => ['required', 'integer', 'exists:mentor,id'],
         ]);
 
-        if($req->feedback != ''){
-            $feeding = DB::table('feedback')->insert([
-                'id_step'   => $req->step,
-                'judul'     => $req->judul_feedback,
-                'komentar'  => $req->feedback, 
-                'id_produk' => $req->id_produk, 
-                'id_mentor' => $id_mentor, 
-            ]);
-            return redirect()->back();
-        }else{
-            return redirect()->back();
+        $idCeo = Auth::guard('siswa')->id();
 
+        $sudahPunyaTim = DB::table('member')->where('id_siswa', $idCeo)->exists();
+        $namaTerpakai = DB::table('product')->where('nama_produk', $validated['nama_produk'])->exists();
+
+        if ($sudahPunyaTim || $namaTerpakai) {
+            return redirect('/product_abstract')
+                ->with('status', 'Maaf produk sudah ada / Anda tergabung dalam tim');
         }
 
+        // Satu transaksi: produk, keanggotaan CEO dan langkah pertama harus
+        // tercipta bersama-sama, atau tidak sama sekali.
+        $productId = DB::transaction(function () use ($validated, $idCeo) {
+            $productId = DB::table('product')->insertGetId([
+                'nama_produk' => $validated['nama_produk'],
+                'deskripsi' => $validated['deskripsi'],
+                'id_mentor' => $validated['mentor'],
+                'id_ceo' => $idCeo,
+            ]);
+
+            DB::table('member')->insert([
+                'id_siswa' => $idCeo,
+                'id_produk' => $productId,
+                'position' => '1',
+            ]);
+
+            DB::table('track_step')->insert([
+                'id_ceo' => $idCeo,
+                'id_produk' => $productId,
+                'id_step' => '1',
+                'status' => '1',
+            ]);
+
+            return $productId;
+        });
+
+        $request->session()->put([
+            'id_produk' => $productId,
+            'track' => '1',
+            'track_status' => '1',
+        ]);
+
+        return redirect('/');
+    }
+
+    /**
+     * Daftar produk yang dibimbing mentor yang sedang login.
+     */
+    public function getProduk()
+    {
+        $produk = DB::table('product')
+            ->select(
+                'product.*',
+                'product.id as product_id',
+                'logo_produk.logo_produk',
+                'mentor.nama as nama_mentor',
+                'siswa.nama as nama_siswa'
+            )
+            ->leftJoin('logo_produk', 'logo_produk.id_produk', '=', 'product.id')
+            ->join('mentor', 'product.id_mentor', '=', 'mentor.id')
+            ->join('siswa', 'product.id_ceo', '=', 'siswa.id')
+            ->where('product.id_mentor', Auth::guard('mentor')->id())
+            ->get()
+            ->each(function ($item) {
+                $item->group_chat_url = route('mentor.page.groupchat', ['id_produk' => $item->product_id]);
+            });
+
+        return view('mentor.page.produk', compact('produk'));
+    }
+
+    /**
+     * Detail produk untuk mentor — dibatasi pada produk bimbingannya sendiri.
+     */
+    public function detail_produk($id)
+    {
+        return view(
+            'mentor.page.detail_produk',
+            $this->details->forProduct($id, Auth::guard('mentor')->id())
+        );
+    }
+
+    /**
+     * Detail produk milik tim siswa yang sedang login.
+     */
+    public function siswaProduk(Request $request)
+    {
+        return view('dashboard.produk', $this->details->forProduct($request->session()->get('id_produk')));
+    }
+
+    /**
+     * Mentor menyetujui / mengembalikan sebuah tahap, dengan feedback opsional.
+     */
+    public function editTrack(Request $request)
+    {
+        $validated = $request->validate([
+            'id_track' => ['required', 'integer'],
+            'id_produk' => ['required', 'integer'],
+            'step' => ['required', 'integer'],
+            'status' => ['required', 'integer'],
+            'judul_feedback' => ['nullable', 'string', 'max:255'],
+            'feedback' => ['nullable', 'string'],
+        ]);
+
+        $idMentor = Auth::guard('mentor')->id();
+
+        // Hanya mentor pembimbing produk ini yang boleh mengubah tahapannya.
+        $membimbing = Product::whereKey($validated['id_produk'])
+            ->where('id_mentor', $idMentor)
+            ->exists();
+
+        if (! $membimbing) {
+            return redirect()->back()->with('error', 'Anda bukan pembimbing produk ini.');
+        }
+
+        DB::transaction(function () use ($validated, $idMentor) {
+            DB::table('track_step')
+                ->where('id', $validated['id_track'])
+                ->where('id_produk', $validated['id_produk'])
+                ->update([
+                    'id_step' => $validated['step'],
+                    'status' => $validated['status'],
+                ]);
+
+            if (! empty($validated['feedback'])) {
+                DB::table('feedback')->insert([
+                    'id_step' => $validated['step'],
+                    'judul' => $validated['judul_feedback'],
+                    'komentar' => $validated['feedback'],
+                    'id_produk' => $validated['id_produk'],
+                    'id_mentor' => $idMentor,
+                ]);
+            }
+        });
+
+        return redirect()->back()->with('success', 'Tahap produk berhasil diperbarui.');
     }
 }

@@ -24,7 +24,8 @@ class Message extends Model
 
     public function produk()
     {
-        return $this->belongsTo(Product::class, 'id_produk');
+        // Kolomnya bernama id_product, bukan id_produk.
+        return $this->belongsTo(Product::class, 'id_product');
     }
 
     public function mentor()

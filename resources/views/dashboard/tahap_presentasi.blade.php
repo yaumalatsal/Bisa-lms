@@ -31,7 +31,8 @@
                             <p>Dalam tahap ini, dilakukan pembuatan file presentasi tentang produk dan konsep bisnis dari tim mu. Perumusan
                                 file presentasi diperlukan untuk mengenalkan dan mempromosikan produk kita pada investor atau pun calon pelanggan.
                                 <br> <br>
-                                <a href="{{url('/submitDeck')}}" class="btn btn-primary">Submit Progress <i class="fas fa-arrow-alt-circle-right"></i></a>
+                                <x-action-form :action="url('/submitDeck')" class="btn btn-primary"
+                                    confirm="Kirim progress presentasi?">Submit Progress <i class="fas fa-arrow-alt-circle-right"></i></x-action-form>
                             </p>                         
                         </div>
                     </div>               

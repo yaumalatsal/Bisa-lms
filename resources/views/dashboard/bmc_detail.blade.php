@@ -94,8 +94,6 @@
             {{csrf_field()}}  
             <input type="hidden" name="id_pertanyaan" id="ed-idpertanyaan" class="form-control">
             <textarea name="jawaban" id="ed-jawaban" cols="30" rows="10" id="ed-jawaban" class="form-control"></textarea>
-            <input type="hidden" name="id_siswa" value="{{Session::get('id_siswa');}}" class="form-control">
-            <input type="hidden" name="id_produk" value="{{Session::get('id_produk');}}" class="form-control">
         </div>
         <div class="modal-footer">
             <button type="submit" class="btn btn-primary">Simpan Jawaban</button>

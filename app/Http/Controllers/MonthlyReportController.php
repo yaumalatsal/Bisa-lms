@@ -3,124 +3,127 @@
 namespace App\Http\Controllers;
 
 use App\Models\MonthlyReport;
-use Illuminate\Http\Request;
 use App\Models\Product;
-use App\Models\Siswa;
-use Session;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class MonthlyReportController extends Controller
 {
     public function index()
     {
-        // Retrieve user_id from the session
-        $user_id = Session::get('id_siswa');
-
-        // Fetch reports for the logged-in user
-        $reports = MonthlyReport::where('user_id', $user_id)->get();
-        return view('dashboard.laporan.index', compact('reports'));
+        return view('dashboard.laporan.index', [
+            'reports' => MonthlyReport::with('product')
+                ->where('user_id', Auth::guard('siswa')->id())
+                ->latest('report_date')
+                ->get(),
+        ]);
     }
 
     public function create()
     {
-        $user_id = Session::get('id_siswa');
-        $products = Product::where('id_ceo', $user_id)->get();
-        return view('dashboard.laporan.create', compact('products'));
+        return view('dashboard.laporan.create', [
+            'products' => $this->ownProducts()->get(),
+        ]);
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'product_id' => 'required|exists:product,id',
-            'total_sales' => 'required|numeric',
-            'report_date' => 'required|date',
-            'revenue' => 'required|numeric',
-            'spending' => 'required|numeric',
-            'file' => 'required|mimes:pdf|max:2048', // Validasi file PDF
-        ]);
+        $validated = $this->validated($request, fileRequired: true);
 
-        // Retrieve user_id from the session
-        $user_id = Session::get('id_siswa');
+        $validated['user_id'] = Auth::guard('siswa')->id();
+        $validated['file_path'] = $request->file('file')->store('uploads', 'public');
+        $validated['status'] = MonthlyReport::STATUS_PENDING;
 
-        if (is_null($user_id)) {
-            return redirect()->back()->withErrors(['user_id' => 'User ID tidak ditemukan di sesi.']);
-        }
-
-        $filePath = $request->file('file')->store('uploads', 'public');
-
-// Proses penyimpanan laporan
-        MonthlyReport::create([
-            'product_id' => $request->product_id,
-            'total_sales' => $request->total_sales,
-            'revenue' => $request->revenue,
-            'spending' => $request->spending,
-            'report_date' => $request->report_date,
-            'user_id' => $user_id,
-            'file_path' => $filePath,
-            'status' => 'pending', // Set status sebagai 'pending'
-        ]);
+        MonthlyReport::create($validated);
 
         return redirect()->route('dashboard.laporan.index')->with('success', 'Laporan berhasil dibuat.');
-
-      }
+    }
 
     public function edit($id)
     {
-        $report = MonthlyReport::findOrFail($id);
-        $products = Product::all();
-        return view('dashboard.laporan.edit', compact('report', 'products'));
-    }
-
-    public function update(Request $request, $id)
-{
-    // Validasi data yang masuk
-    $validated = $request->validate([
-        'product_id' => 'required|exists:product,id',
-        'total_sales' => 'required|integer',
-        'revenue' => 'required|numeric',
-        'spending' => 'required|numeric',
-        'report_date' => 'required|date',
-        'file' => 'nullable|mimes:pdf|max:2048', // Validasi file PDF jika ada
-        
-    ]);
-
-    // Temukan laporan berdasarkan ID
-    $report = MonthlyReport::findOrFail($id);
-
-    // Perbarui data laporan
-    $report->update([
-        'product_id' => $validated['product_id'],
-        'total_sales' => $validated['total_sales'],
-        'revenue' => $validated['revenue'],
-        'spending' => $validated['spending'],
-        'report_date' => $validated['report_date'],
-        
-    ]);
-
-    // Cek apakah ada file PDF yang diunggah
-    if ($request->hasFile('file')) {
-        // Hapus file PDF lama jika ada
-        
-
-        // Simpan file PDF baru
-        $path = $request->file('file')->store('reports', 'public');
-        $report->update([
-            'file_path' => $path,
+        return view('dashboard.laporan.edit', [
+            'report' => $this->ownReport($id),
+            'products' => $this->ownProducts()->get(),
         ]);
     }
 
-    // Redirect kembali ke halaman laporan dengan pesan sukses
-    return redirect()->route('dashboard.laporan.index')
-        ->with('success', 'Laporan bulanan berhasil diperbarui.');
-}
+    public function update(Request $request, $id)
+    {
+        $report = $this->ownReport($id);
+        $validated = $this->validated($request, fileRequired: false);
 
+        if ($request->hasFile('file')) {
+            $old = $report->file_path;
+            $validated['file_path'] = $request->file('file')->store('reports', 'public');
 
-    // Redirect to the reports index page with a success message
+            if ($old) {
+                Storage::disk('public')->delete($old);
+            }
+        }
 
-public function destroy($id)
-{
-    $report = MonthlyReport::findOrFail($id);
-    $report->delete();
+        // Mengubah angka setelah disetujui harus mengembalikan laporan ke
+        // antrean review; dulu status persetujuan tetap melekat.
+        if ($report->status !== MonthlyReport::STATUS_PENDING) {
+            $validated['status'] = MonthlyReport::STATUS_PENDING;
+        }
 
-    return redirect()->route('dashboard.laporan.index')->with('success', 'Laporan Bulanan Berhasil di Hapus');
-}
+        $report->update($validated);
+
+        return redirect()->route('dashboard.laporan.index')
+            ->with('success', 'Laporan bulanan berhasil diperbarui.');
+    }
+
+    public function destroy($id)
+    {
+        $report = $this->ownReport($id);
+
+        if ($report->file_path) {
+            Storage::disk('public')->delete($report->file_path);
+        }
+
+        $report->delete();
+
+        return redirect()->route('dashboard.laporan.index')
+            ->with('success', 'Laporan bulanan berhasil dihapus.');
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function validated(Request $request, bool $fileRequired): array
+    {
+        return $request->validate([
+            // `exists` saja tidak cukup: produk harus milik siswa ini, kalau
+            // tidak laporan bisa dilampirkan ke produk tim lain.
+            'product_id' => ['required', 'integer', $this->ownProductRule()],
+            'total_sales' => ['required', 'integer', 'min:0'],
+            'revenue' => ['required', 'numeric', 'min:0'],
+            'spending' => ['required', 'numeric', 'min:0'],
+            'report_date' => ['required', 'date'],
+            'file' => [$fileRequired ? 'required' : 'nullable', 'file', 'mimes:pdf', 'max:2048'],
+        ]);
+    }
+
+    private function ownProductRule(): \Illuminate\Validation\Rules\Exists
+    {
+        return \Illuminate\Validation\Rule::exists('product', 'id')
+            ->where('id_ceo', Auth::guard('siswa')->id());
+    }
+
+    private function ownProducts()
+    {
+        return Product::where('id_ceo', Auth::guard('siswa')->id());
+    }
+
+    /**
+     * Laporan milik siswa yang login — sebelumnya findOrFail($id) tanpa
+     * pembatasan, sehingga laporan tim lain bisa dibuka, diubah dan dihapus.
+     */
+    private function ownReport($id): MonthlyReport
+    {
+        return MonthlyReport::whereKey($id)
+            ->where('user_id', Auth::guard('siswa')->id())
+            ->firstOrFail();
+    }
 }

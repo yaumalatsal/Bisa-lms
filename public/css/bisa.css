@@ -1,0 +1,1221 @@
+/* ==========================================================================
+   BISa design system
+   --------------------------------------------------------------------------
+   Loaded after the vendor theme (matrix/dist/css/style.min.css) and shared by
+   every role: siswa, mentor, admin, investor. Previously each role rendered
+   the vendor theme with its own drifted copy of the shell, and two screens
+   layered a second UI kit on top. This file is the single source of visual
+   truth; the vendor CSS is now only a reset/grid substrate underneath it.
+
+   Contents
+     1.  Tokens
+     2.  Base & typography
+     3.  App shell: topbar, sidebar, page wrapper
+     4.  Cards & surfaces
+     5.  Buttons
+     6.  Forms
+     7.  Tables
+     8.  Alerts, badges & status
+     9.  Modals, tabs, dropdowns
+     10. Composite components (stat cards, page header, empty state, timeline)
+     11. Utilities
+     12. Responsive
+     13. Print & reduced motion
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Tokens
+   -------------------------------------------------------------------------- */
+
+:root {
+    /* Brand ramp */
+    --bisa-primary-50: #eef2ff;
+    --bisa-primary-100: #e0e7ff;
+    --bisa-primary-200: #c7d2fe;
+    --bisa-primary-300: #a5b4fc;
+    --bisa-primary-400: #818cf8;
+    --bisa-primary-500: #6366f1;
+    --bisa-primary-600: #4f46e5;
+    --bisa-primary-700: #4338ca;
+    --bisa-primary-800: #3730a3;
+    --bisa-primary-900: #312e81;
+
+    --bisa-primary: var(--bisa-primary-600);
+    --bisa-primary-hover: var(--bisa-primary-700);
+    --bisa-primary-soft: var(--bisa-primary-50);
+    --bisa-on-primary: #ffffff;
+
+    /* Semantic */
+    --bisa-success: #059669;
+    --bisa-success-soft: #ecfdf5;
+    --bisa-warning: #d97706;
+    --bisa-warning-soft: #fffbeb;
+    --bisa-danger: #e11d48;
+    --bisa-danger-soft: #fff1f2;
+    --bisa-info: #0891b2;
+    --bisa-info-soft: #ecfeff;
+
+    /* Neutrals */
+    --bisa-bg: #f6f7fb;
+    --bisa-surface: #ffffff;
+    --bisa-surface-alt: #fafbfd;
+    --bisa-border: #e5e7eb;
+    --bisa-border-strong: #d1d5db;
+    --bisa-text: #111827;
+    --bisa-text-muted: #6b7280;
+    --bisa-text-subtle: #9ca3af;
+
+    /* Shell */
+    --bisa-sidebar-bg: #1e1b4b;
+    --bisa-sidebar-text: #c7d2fe;
+    --bisa-sidebar-text-active: #ffffff;
+    --bisa-sidebar-active: rgba(255, 255, 255, 0.12);
+    --bisa-sidebar-width: 260px;
+    --bisa-sidebar-width-mini: 72px;
+    --bisa-topbar-bg: #ffffff;
+    --bisa-topbar-height: 64px;
+
+    /* Shape & depth */
+    --bisa-radius-sm: 6px;
+    --bisa-radius: 10px;
+    --bisa-radius-lg: 16px;
+    --bisa-radius-pill: 999px;
+
+    --bisa-shadow-xs: 0 1px 2px rgba(16, 24, 40, 0.05);
+    --bisa-shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.08), 0 1px 2px rgba(16, 24, 40, 0.04);
+    --bisa-shadow: 0 4px 12px rgba(16, 24, 40, 0.07), 0 2px 4px rgba(16, 24, 40, 0.04);
+    --bisa-shadow-lg: 0 12px 32px rgba(16, 24, 40, 0.12);
+
+    /* Rhythm */
+    --bisa-space-1: 4px;
+    --bisa-space-2: 8px;
+    --bisa-space-3: 12px;
+    --bisa-space-4: 16px;
+    --bisa-space-5: 24px;
+    --bisa-space-6: 32px;
+    --bisa-space-7: 48px;
+
+    --bisa-font: "Nunito Sans", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    --bisa-transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Bridge the vendor theme's Bootstrap variables onto our ramp so any
+       component we have not explicitly restyled still lands on-brand. */
+    --bs-primary: var(--bisa-primary);
+    --bs-primary-rgb: 79, 70, 229;
+    --bs-body-bg: var(--bisa-bg);
+    --bs-body-color: var(--bisa-text);
+    --bs-border-color: var(--bisa-border);
+    --bs-border-radius: var(--bisa-radius);
+    --bs-font-sans-serif: var(--bisa-font);
+    --bs-link-color: var(--bisa-primary);
+    --bs-link-hover-color: var(--bisa-primary-hover);
+}
+
+/* Dark mode: honour an explicit choice, otherwise follow the OS. */
+:root[data-theme="dark"],
+html.dark-theme {
+    color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        color-scheme: dark;
+
+        --bisa-bg: #0f1117;
+        --bisa-surface: #171a23;
+        --bisa-surface-alt: #1d212c;
+        --bisa-border: #272c39;
+        --bisa-border-strong: #363d4e;
+        --bisa-text: #e5e7eb;
+        --bisa-text-muted: #9ca3af;
+        --bisa-text-subtle: #6b7280;
+
+        --bisa-primary: var(--bisa-primary-500);
+        --bisa-primary-hover: var(--bisa-primary-400);
+        --bisa-primary-soft: rgba(99, 102, 241, 0.16);
+
+        --bisa-success-soft: rgba(5, 150, 105, 0.16);
+        --bisa-warning-soft: rgba(217, 119, 6, 0.16);
+        --bisa-danger-soft: rgba(225, 29, 72, 0.16);
+        --bisa-info-soft: rgba(8, 145, 178, 0.16);
+
+        --bisa-sidebar-bg: #12141c;
+        --bisa-topbar-bg: #171a23;
+
+        --bisa-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
+        --bisa-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.45);
+        --bisa-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+        --bisa-shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.55);
+
+        --bs-body-bg: var(--bisa-bg);
+        --bs-body-color: var(--bisa-text);
+        --bs-border-color: var(--bisa-border);
+    }
+}
+
+:root[data-theme="dark"] {
+    --bisa-bg: #0f1117;
+    --bisa-surface: #171a23;
+    --bisa-surface-alt: #1d212c;
+    --bisa-border: #272c39;
+    --bisa-border-strong: #363d4e;
+    --bisa-text: #e5e7eb;
+    --bisa-text-muted: #9ca3af;
+    --bisa-text-subtle: #6b7280;
+
+    --bisa-primary: var(--bisa-primary-500);
+    --bisa-primary-hover: var(--bisa-primary-400);
+    --bisa-primary-soft: rgba(99, 102, 241, 0.16);
+
+    --bisa-success-soft: rgba(5, 150, 105, 0.16);
+    --bisa-warning-soft: rgba(217, 119, 6, 0.16);
+    --bisa-danger-soft: rgba(225, 29, 72, 0.16);
+    --bisa-info-soft: rgba(8, 145, 178, 0.16);
+
+    --bisa-sidebar-bg: #12141c;
+    --bisa-topbar-bg: #171a23;
+
+    --bisa-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --bisa-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.45);
+    --bisa-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+    --bisa-shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.55);
+
+    --bs-body-bg: var(--bisa-bg);
+    --bs-body-color: var(--bisa-text);
+    --bs-border-color: var(--bisa-border);
+}
+
+/* --------------------------------------------------------------------------
+   2. Base & typography
+   -------------------------------------------------------------------------- */
+
+body {
+    background-color: var(--bisa-bg) !important;
+    color: var(--bisa-text);
+    font-family: var(--bisa-font);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    color: var(--bisa-text);
+    font-weight: 700;
+    letter-spacing: -0.011em;
+    line-height: 1.25;
+}
+
+h1, .h1 { font-size: 1.875rem; }
+h2, .h2 { font-size: 1.5rem; }
+h3, .h3 { font-size: 1.25rem; }
+h4, .h4 { font-size: 1.125rem; }
+h5, .h5 { font-size: 1rem; }
+h6, .h6 { font-size: 0.875rem; }
+
+a {
+    color: var(--bisa-primary);
+    text-decoration: none;
+    transition: color var(--bisa-transition);
+}
+
+a:hover { color: var(--bisa-primary-hover); }
+
+.text-muted { color: var(--bisa-text-muted) !important; }
+
+hr {
+    border: 0;
+    border-top: 1px solid var(--bisa-border);
+    opacity: 1;
+}
+
+code, kbd, pre, samp {
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.875em;
+}
+
+/* A single, consistent focus ring everywhere. The vendor theme removed
+   outlines entirely, which made the app unusable by keyboard. */
+:focus-visible {
+    outline: 2px solid var(--bisa-primary);
+    outline-offset: 2px;
+    border-radius: var(--bisa-radius-sm);
+}
+
+/* --------------------------------------------------------------------------
+   3. App shell
+   -------------------------------------------------------------------------- */
+
+/* The vendor theme positions the shell with attribute selectors keyed to a
+   hardcoded 250px (#main-wrapper[data-sidebartype="full"] .page-wrapper). We
+   own the geometry here instead, so the widths come from the tokens above and
+   the layout no longer depends on an attribute being set by JavaScript. */
+
+#main-wrapper {
+    position: relative;
+    min-height: 100vh;
+}
+
+.page-wrapper,
+#main-wrapper[data-sidebartype="full"] .page-wrapper {
+    background-color: var(--bisa-bg);
+    margin-left: var(--bisa-sidebar-width);
+    min-height: calc(100vh - var(--bisa-topbar-height));
+    transition: margin-left var(--bisa-transition);
+}
+
+.page-wrapper > .container-fluid {
+    padding: var(--bisa-space-5);
+    max-width: 1440px;
+}
+
+/* Topbar ------------------------------------------------------------------ */
+
+.topbar {
+    background: var(--bisa-topbar-bg) !important;
+    border-bottom: 1px solid var(--bisa-border);
+    box-shadow: var(--bisa-shadow-xs);
+    height: var(--bisa-topbar-height);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+.topbar .top-navbar .navbar-collapse { margin-left: var(--bisa-sidebar-width); }
+
+.topbar .top-navbar .navbar-header .navbar-brand {
+    width: auto;
+    background: transparent;
+}
+
+.topbar .top-navbar .navbar-nav > .nav-item > .nav-link {
+    line-height: 1.4;
+    height: auto;
+}
+
+.topbar .top-navbar .navbar-nav > .nav-item:hover { background: transparent; }
+
+.topbar .nav-toggler,
+.topbar .topbartoggler { color: var(--bisa-text-muted); }
+
+.topbar .top-navbar {
+    min-height: var(--bisa-topbar-height);
+    padding: 0 var(--bisa-space-4);
+}
+
+.topbar .navbar-header {
+    background: transparent !important;
+    display: flex;
+    align-items: center;
+    width: var(--bisa-sidebar-width);
+    transition: width var(--bisa-transition);
+}
+
+.topbar .navbar-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--bisa-space-2);
+    padding: 0;
+}
+
+.topbar .navbar-brand img { max-height: 34px; width: auto; }
+
+.topbar .nav-link {
+    color: var(--bisa-text-muted) !important;
+    border-radius: var(--bisa-radius);
+    padding: var(--bisa-space-2) var(--bisa-space-3) !important;
+    transition: background-color var(--bisa-transition), color var(--bisa-transition);
+}
+
+.topbar .nav-link:hover,
+.topbar .nav-link:focus-visible {
+    background-color: var(--bisa-primary-soft);
+    color: var(--bisa-primary) !important;
+}
+
+/* The role chip in the topbar tells you which app you are in — the four
+   role areas used to be visually indistinguishable. */
+.bisa-role-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--bisa-space-2);
+    background: var(--bisa-primary-soft);
+    color: var(--bisa-primary);
+    border-radius: var(--bisa-radius-pill);
+    padding: var(--bisa-space-1) var(--bisa-space-3);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.bisa-user-name {
+    color: var(--bisa-text);
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.bisa-user-role {
+    color: var(--bisa-text-subtle);
+    font-size: 0.75rem;
+    line-height: 1.2;
+}
+
+.bisa-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--bisa-radius-pill);
+    background: var(--bisa-primary);
+    color: var(--bisa-on-primary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.875rem;
+    flex-shrink: 0;
+}
+
+/* Sidebar ----------------------------------------------------------------- */
+
+.left-sidebar,
+#main-wrapper .left-sidebar[data-sidebarbg="skin5"],
+#main-wrapper .left-sidebar[data-sidebarbg="skin5"] ul {
+    background: var(--bisa-sidebar-bg) !important;
+}
+
+.left-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 40;
+    width: var(--bisa-sidebar-width);
+    padding-top: var(--bisa-topbar-height);
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: none;
+    transition: width var(--bisa-transition), left var(--bisa-transition);
+}
+
+.left-sidebar .scroll-sidebar {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.left-sidebar .scroll-sidebar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+.sidebar-nav ul#sidebarnav {
+    padding: var(--bisa-space-3) var(--bisa-space-3) var(--bisa-space-6);
+}
+
+.sidebar-nav .nav-small-cap {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: var(--bisa-space-5) var(--bisa-space-3) var(--bisa-space-2);
+}
+
+.sidebar-nav ul#sidebarnav li.sidebar-item {
+    margin-bottom: 2px;
+    width: 100%;
+}
+
+.sidebar-nav ul#sidebarnav li.sidebar-item .sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: var(--bisa-space-3);
+    color: var(--bisa-sidebar-text);
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: var(--bisa-radius);
+    padding: 10px var(--bisa-space-3);
+    opacity: 1;
+    transition: background-color var(--bisa-transition), color var(--bisa-transition);
+}
+
+.sidebar-nav ul#sidebarnav li.sidebar-item .sidebar-link i {
+    font-size: 1.125rem;
+    width: 22px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.sidebar-nav ul#sidebarnav li.sidebar-item .sidebar-link:hover,
+.sidebar-nav ul#sidebarnav li.sidebar-item .sidebar-link:focus-visible {
+    background-color: rgba(255, 255, 255, 0.07);
+    color: var(--bisa-sidebar-text-active);
+}
+
+.sidebar-nav ul#sidebarnav li.sidebar-item.selected > .sidebar-link,
+.sidebar-nav ul#sidebarnav li.sidebar-item > .sidebar-link.active,
+.sidebar-nav ul#sidebarnav li.sidebar-item > .sidebar-link[aria-current="page"] {
+    background-color: var(--bisa-sidebar-active);
+    color: var(--bisa-sidebar-text-active);
+    font-weight: 600;
+    position: relative;
+}
+
+.sidebar-nav ul#sidebarnav li.sidebar-item.selected > .sidebar-link::before,
+.sidebar-nav ul#sidebarnav li.sidebar-item > .sidebar-link.active::before,
+.sidebar-nav ul#sidebarnav li.sidebar-item > .sidebar-link[aria-current="page"]::before {
+    content: "";
+    position: absolute;
+    left: calc(var(--bisa-space-3) * -1);
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 22px;
+    border-radius: 0 3px 3px 0;
+    background: var(--bisa-primary-300);
+}
+
+/* Collapsed ("mini") sidebar */
+#main-wrapper.mini-sidebar .left-sidebar { width: var(--bisa-sidebar-width-mini); }
+
+#main-wrapper.mini-sidebar .page-wrapper,
+#main-wrapper[data-sidebartype="mini-sidebar"] .page-wrapper {
+    margin-left: var(--bisa-sidebar-width-mini);
+}
+
+#main-wrapper.mini-sidebar .topbar .top-navbar .navbar-collapse {
+    margin-left: var(--bisa-sidebar-width-mini);
+}
+
+#main-wrapper.mini-sidebar .sidebar-nav .hide-menu,
+#main-wrapper.mini-sidebar .sidebar-nav .nav-small-cap { display: none; }
+
+#main-wrapper.mini-sidebar .sidebar-nav ul#sidebarnav li.sidebar-item .sidebar-link {
+    justify-content: center;
+}
+
+/* --------------------------------------------------------------------------
+   4. Cards & surfaces
+   -------------------------------------------------------------------------- */
+
+.card {
+    background-color: var(--bisa-surface);
+    border: 1px solid var(--bisa-border);
+    border-radius: var(--bisa-radius-lg);
+    box-shadow: var(--bisa-shadow-sm);
+    margin-bottom: var(--bisa-space-5);
+    transition: box-shadow var(--bisa-transition), border-color var(--bisa-transition);
+}
+
+/* Only lift cards that are actually interactive. */
+.card.card-hover:hover,
+a > .card:hover {
+    box-shadow: var(--bisa-shadow);
+    border-color: var(--bisa-border-strong);
+}
+
+.card-body { padding: var(--bisa-space-5); }
+
+.card-header,
+.card-footer {
+    background-color: transparent;
+    border-color: var(--bisa-border);
+    padding: var(--bisa-space-4) var(--bisa-space-5);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--bisa-space-3);
+    flex-wrap: wrap;
+}
+
+.card-title {
+    color: var(--bisa-text);
+    font-size: 1.0625rem;
+    font-weight: 700;
+    margin-bottom: var(--bisa-space-1);
+}
+
+.card-subtitle {
+    color: var(--bisa-text-muted);
+    font-size: 0.875rem;
+    margin-bottom: 0;
+}
+
+/* --------------------------------------------------------------------------
+   5. Buttons
+   -------------------------------------------------------------------------- */
+
+.btn {
+    --bisa-btn-bg: var(--bisa-surface);
+    --bisa-btn-fg: var(--bisa-text);
+    --bisa-btn-border: var(--bisa-border-strong);
+    --bisa-btn-bg-hover: var(--bisa-surface-alt);
+
+    background-color: var(--bisa-btn-bg);
+    color: var(--bisa-btn-fg);
+    border: 1px solid var(--bisa-btn-border);
+    border-radius: var(--bisa-radius);
+    padding: 9px 16px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--bisa-space-2);
+    box-shadow: var(--bisa-shadow-xs);
+    transition: background-color var(--bisa-transition), border-color var(--bisa-transition),
+        color var(--bisa-transition), box-shadow var(--bisa-transition), transform var(--bisa-transition);
+}
+
+.btn:hover {
+    background-color: var(--bisa-btn-bg-hover);
+    color: var(--bisa-btn-fg);
+}
+
+.btn:active { transform: translateY(1px); }
+
+.btn:disabled,
+.btn.disabled {
+    opacity: 0.55;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+.btn-sm { padding: 6px 12px; font-size: 0.8125rem; border-radius: var(--bisa-radius-sm); }
+.btn-lg { padding: 12px 22px; font-size: 1rem; }
+
+.btn-primary {
+    --bisa-btn-bg: var(--bisa-primary);
+    --bisa-btn-fg: var(--bisa-on-primary);
+    --bisa-btn-border: var(--bisa-primary);
+    --bisa-btn-bg-hover: var(--bisa-primary-hover);
+}
+
+.btn-primary:hover { border-color: var(--bisa-primary-hover); color: var(--bisa-on-primary); }
+
+.btn-success {
+    --bisa-btn-bg: var(--bisa-success);
+    --bisa-btn-fg: #ffffff;
+    --bisa-btn-border: var(--bisa-success);
+    --bisa-btn-bg-hover: #047857;
+}
+
+.btn-danger {
+    --bisa-btn-bg: var(--bisa-danger);
+    --bisa-btn-fg: #ffffff;
+    --bisa-btn-border: var(--bisa-danger);
+    --bisa-btn-bg-hover: #be123c;
+}
+
+.btn-warning {
+    --bisa-btn-bg: var(--bisa-warning);
+    --bisa-btn-fg: #ffffff;
+    --bisa-btn-border: var(--bisa-warning);
+    --bisa-btn-bg-hover: #b45309;
+}
+
+.btn-info {
+    --bisa-btn-bg: var(--bisa-info);
+    --bisa-btn-fg: #ffffff;
+    --bisa-btn-border: var(--bisa-info);
+    --bisa-btn-bg-hover: #0e7490;
+}
+
+.btn-secondary {
+    --bisa-btn-bg: var(--bisa-surface-alt);
+    --bisa-btn-fg: var(--bisa-text);
+    --bisa-btn-border: var(--bisa-border-strong);
+}
+
+/* Views set `.btn-success.text-white` etc. — keep those legible. */
+.btn-primary.text-white,
+.btn-success.text-white,
+.btn-danger.text-white,
+.btn-warning.text-white,
+.btn-info.text-white { color: #fff !important; }
+
+.btn-outline-primary {
+    --bisa-btn-bg: transparent;
+    --bisa-btn-fg: var(--bisa-primary);
+    --bisa-btn-border: var(--bisa-primary);
+    --bisa-btn-bg-hover: var(--bisa-primary-soft);
+}
+
+.btn-link {
+    --bisa-btn-bg: transparent;
+    --bisa-btn-fg: var(--bisa-primary);
+    --bisa-btn-border: transparent;
+    --bisa-btn-bg-hover: var(--bisa-primary-soft);
+    box-shadow: none;
+}
+
+/* --------------------------------------------------------------------------
+   6. Forms
+   -------------------------------------------------------------------------- */
+
+.form-label,
+label.form-label,
+.form-group > label {
+    color: var(--bisa-text);
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: var(--bisa-space-2);
+    display: inline-block;
+}
+
+.form-group { margin-bottom: var(--bisa-space-4); }
+
+.form-control,
+.form-select,
+textarea.form-control {
+    background-color: var(--bisa-surface);
+    color: var(--bisa-text);
+    border: 1px solid var(--bisa-border-strong);
+    border-radius: var(--bisa-radius);
+    padding: 10px var(--bisa-space-3);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    box-shadow: none;
+    transition: border-color var(--bisa-transition), box-shadow var(--bisa-transition);
+}
+
+.form-control::placeholder { color: var(--bisa-text-subtle); }
+
+.form-control:focus,
+.form-select:focus {
+    background-color: var(--bisa-surface);
+    color: var(--bisa-text);
+    border-color: var(--bisa-primary);
+    box-shadow: 0 0 0 3px var(--bisa-primary-soft);
+    outline: none;
+}
+
+.form-control:disabled,
+.form-control[readonly] {
+    background-color: var(--bisa-surface-alt);
+    color: var(--bisa-text-muted);
+}
+
+.form-control.is-invalid,
+.form-select.is-invalid { border-color: var(--bisa-danger); }
+
+.form-control.is-invalid:focus { box-shadow: 0 0 0 3px var(--bisa-danger-soft); }
+
+.invalid-feedback,
+.text-danger.small {
+    color: var(--bisa-danger);
+    font-size: 0.8125rem;
+}
+
+.form-check-input:checked {
+    background-color: var(--bisa-primary);
+    border-color: var(--bisa-primary);
+}
+
+.form-check-input:focus { box-shadow: 0 0 0 3px var(--bisa-primary-soft); }
+
+.input-group > .form-control { border-radius: var(--bisa-radius) 0 0 var(--bisa-radius); }
+.input-group > .input-group-append > .btn,
+.input-group > .btn { border-radius: 0 var(--bisa-radius) var(--bisa-radius) 0; }
+
+/* --------------------------------------------------------------------------
+   7. Tables
+   -------------------------------------------------------------------------- */
+
+.table {
+    --bs-table-bg: transparent;
+    color: var(--bisa-text);
+    margin-bottom: 0;
+    border-color: var(--bisa-border);
+}
+
+.table > thead > tr > th {
+    background-color: var(--bisa-surface-alt);
+    color: var(--bisa-text-muted);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--bisa-border);
+    padding: var(--bisa-space-3) var(--bisa-space-4);
+    white-space: nowrap;
+}
+
+.table > tbody > tr > td {
+    border-bottom: 1px solid var(--bisa-border);
+    padding: var(--bisa-space-3) var(--bisa-space-4);
+    vertical-align: middle;
+}
+
+.table > tbody > tr:last-child > td { border-bottom: 0; }
+
+.table > tbody > tr { transition: background-color var(--bisa-transition); }
+.table > tbody > tr:hover { background-color: var(--bisa-surface-alt); }
+
+.table-bordered,
+.table-bordered > :not(caption) > * > * { border-color: var(--bisa-border); }
+
+/* Wide tables scroll inside their own box rather than the page. */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: var(--bisa-radius);
+}
+
+/* DataTables controls, so they match the rest of the form styling. */
+.dataTables_wrapper .dataTables_filter input,
+.dataTables_wrapper .dataTables_length select {
+    background-color: var(--bisa-surface);
+    color: var(--bisa-text);
+    border: 1px solid var(--bisa-border-strong);
+    border-radius: var(--bisa-radius);
+    padding: 6px var(--bisa-space-3);
+    margin-left: var(--bisa-space-2);
+}
+
+.dataTables_wrapper .dataTables_filter input:focus {
+    border-color: var(--bisa-primary);
+    box-shadow: 0 0 0 3px var(--bisa-primary-soft);
+    outline: none;
+}
+
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter { color: var(--bisa-text-muted); font-size: 0.875rem; }
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    border-radius: var(--bisa-radius-sm) !important;
+    border: 1px solid transparent !important;
+    color: var(--bisa-text-muted) !important;
+    padding: 5px 11px !important;
+    margin: 0 2px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background: var(--bisa-primary-soft) !important;
+    border-color: transparent !important;
+    color: var(--bisa-primary) !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background: var(--bisa-primary) !important;
+    border-color: var(--bisa-primary) !important;
+    color: #fff !important;
+}
+
+/* --------------------------------------------------------------------------
+   8. Alerts, badges & status
+   -------------------------------------------------------------------------- */
+
+.alert {
+    border: 1px solid transparent;
+    border-radius: var(--bisa-radius);
+    padding: var(--bisa-space-3) var(--bisa-space-4);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--bisa-space-3);
+}
+
+.alert-success { background: var(--bisa-success-soft); border-color: var(--bisa-success); color: var(--bisa-success); }
+.alert-danger  { background: var(--bisa-danger-soft);  border-color: var(--bisa-danger);  color: var(--bisa-danger); }
+.alert-warning { background: var(--bisa-warning-soft); border-color: var(--bisa-warning); color: var(--bisa-warning); }
+.alert-info    { background: var(--bisa-info-soft);    border-color: var(--bisa-info);    color: var(--bisa-info); }
+
+.badge {
+    border-radius: var(--bisa-radius-pill);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    padding: 4px 10px;
+}
+
+/* Status pills used by laporan / track screens. */
+.bisa-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: var(--bisa-radius-pill);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    white-space: nowrap;
+}
+
+.bisa-status::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.bisa-status--approved { background: var(--bisa-success-soft); color: var(--bisa-success); }
+.bisa-status--rejected { background: var(--bisa-danger-soft);  color: var(--bisa-danger); }
+.bisa-status--pending  { background: var(--bisa-warning-soft); color: var(--bisa-warning); }
+.bisa-status--neutral  { background: var(--bisa-surface-alt);  color: var(--bisa-text-muted); }
+
+/* --------------------------------------------------------------------------
+   9. Modals, tabs, dropdowns
+   -------------------------------------------------------------------------- */
+
+.modal-content {
+    background-color: var(--bisa-surface);
+    border: 1px solid var(--bisa-border);
+    border-radius: var(--bisa-radius-lg);
+    box-shadow: var(--bisa-shadow-lg);
+}
+
+.modal-header,
+.modal-footer {
+    border-color: var(--bisa-border);
+    padding: var(--bisa-space-4) var(--bisa-space-5);
+}
+
+.modal-body { padding: var(--bisa-space-5); }
+.modal-title { font-size: 1.0625rem; font-weight: 700; }
+
+.nav-tabs {
+    border-bottom: 1px solid var(--bisa-border);
+    gap: var(--bisa-space-1);
+}
+
+.nav-tabs .nav-link {
+    border: 0;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    color: var(--bisa-text-muted);
+    font-weight: 600;
+    padding: var(--bisa-space-3) var(--bisa-space-4);
+    transition: color var(--bisa-transition), border-color var(--bisa-transition);
+}
+
+.nav-tabs .nav-link:hover { color: var(--bisa-text); border-bottom-color: var(--bisa-border-strong); }
+
+.nav-tabs .nav-link.active {
+    background: transparent;
+    color: var(--bisa-primary);
+    border-bottom-color: var(--bisa-primary);
+}
+
+.dropdown-menu {
+    background-color: var(--bisa-surface);
+    border: 1px solid var(--bisa-border);
+    border-radius: var(--bisa-radius);
+    box-shadow: var(--bisa-shadow);
+    padding: var(--bisa-space-2);
+    min-width: 200px;
+}
+
+.dropdown-item {
+    border-radius: var(--bisa-radius-sm);
+    color: var(--bisa-text);
+    display: flex;
+    align-items: center;
+    gap: var(--bisa-space-2);
+    font-size: 0.9rem;
+    padding: var(--bisa-space-2) var(--bisa-space-3);
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus-visible {
+    background-color: var(--bisa-primary-soft);
+    color: var(--bisa-primary);
+}
+
+.dropdown-divider { border-color: var(--bisa-border); }
+
+/* --------------------------------------------------------------------------
+   10. Composite components
+   -------------------------------------------------------------------------- */
+
+/* Page header ------------------------------------------------------------- */
+
+.bisa-page-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--bisa-space-4);
+    flex-wrap: wrap;
+    margin-bottom: var(--bisa-space-5);
+}
+
+.bisa-page-header__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 var(--bisa-space-1);
+}
+
+.bisa-page-header__subtitle {
+    color: var(--bisa-text-muted);
+    font-size: 0.9375rem;
+    margin: 0;
+}
+
+.breadcrumb {
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    font-size: 0.8125rem;
+}
+
+.breadcrumb-item,
+.breadcrumb-item a { color: var(--bisa-text-muted); }
+.breadcrumb-item.active { color: var(--bisa-text); font-weight: 600; }
+
+/* Stat cards -------------------------------------------------------------- */
+
+.bisa-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--bisa-space-4);
+    margin-bottom: var(--bisa-space-5);
+}
+
+.bisa-stat {
+    background: var(--bisa-surface);
+    border: 1px solid var(--bisa-border);
+    border-radius: var(--bisa-radius-lg);
+    box-shadow: var(--bisa-shadow-sm);
+    padding: var(--bisa-space-4) var(--bisa-space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--bisa-space-2);
+}
+
+.bisa-stat__label {
+    color: var(--bisa-text-muted);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: var(--bisa-space-2);
+}
+
+.bisa-stat__icon {
+    width: 28px;
+    height: 28px;
+    border-radius: var(--bisa-radius-sm);
+    background: var(--bisa-primary-soft);
+    color: var(--bisa-primary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+}
+
+.bisa-stat__value {
+    /* Tabular figures keep columns of currency aligned. */
+    font-feature-settings: "tnum" 1;
+    font-size: 1.625rem;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+}
+
+.bisa-stat__delta {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+}
+
+.bisa-stat__delta--up { color: var(--bisa-success); }
+.bisa-stat__delta--down { color: var(--bisa-danger); }
+.bisa-stat__delta--flat { color: var(--bisa-text-subtle); }
+
+/* Empty state ------------------------------------------------------------- */
+
+.bisa-empty {
+    text-align: center;
+    padding: var(--bisa-space-7) var(--bisa-space-5);
+    color: var(--bisa-text-muted);
+}
+
+.bisa-empty__icon {
+    font-size: 2.5rem;
+    color: var(--bisa-text-subtle);
+    margin-bottom: var(--bisa-space-3);
+    display: block;
+}
+
+.bisa-empty__title {
+    color: var(--bisa-text);
+    font-size: 1.0625rem;
+    font-weight: 700;
+    margin-bottom: var(--bisa-space-2);
+}
+
+.bisa-empty__body { margin: 0 auto var(--bisa-space-4); max-width: 44ch; }
+
+/* Step / track timeline --------------------------------------------------- */
+
+.bisa-steps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--bisa-space-3);
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--bisa-space-5);
+}
+
+.bisa-step {
+    flex: 1 1 160px;
+    background: var(--bisa-surface);
+    border: 1px solid var(--bisa-border);
+    border-left: 3px solid var(--bisa-border-strong);
+    border-radius: var(--bisa-radius);
+    padding: var(--bisa-space-3) var(--bisa-space-4);
+}
+
+.bisa-step--done { border-left-color: var(--bisa-success); }
+.bisa-step--current { border-left-color: var(--bisa-primary); box-shadow: var(--bisa-shadow-sm); }
+
+.bisa-step__index {
+    color: var(--bisa-text-subtle);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.bisa-step__name { font-weight: 600; }
+
+/* Chat -------------------------------------------------------------------- */
+
+.bisa-chat { display: flex; flex-direction: column; gap: var(--bisa-space-3); }
+
+.bisa-chat__bubble {
+    align-self: flex-start;
+    max-width: min(72ch, 80%);
+    background: var(--bisa-surface-alt);
+    border: 1px solid var(--bisa-border);
+    border-radius: var(--bisa-radius-lg);
+    padding: var(--bisa-space-3) var(--bisa-space-4);
+}
+
+.bisa-chat__bubble--mine {
+    align-self: flex-end;
+    background: var(--bisa-primary);
+    border-color: var(--bisa-primary);
+    color: var(--bisa-on-primary);
+}
+
+.bisa-chat__meta { font-size: 0.75rem; opacity: 0.75; margin-bottom: 2px; }
+
+/* --------------------------------------------------------------------------
+   11. Utilities
+   -------------------------------------------------------------------------- */
+
+.bisa-surface { background: var(--bisa-surface); border: 1px solid var(--bisa-border); border-radius: var(--bisa-radius-lg); }
+.bisa-muted { color: var(--bisa-text-muted); }
+.bisa-numeric { font-feature-settings: "tnum" 1; }
+
+/* Give screen-reader users a way past the sidebar. */
+.bisa-skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 1080;
+    background: var(--bisa-primary);
+    color: var(--bisa-on-primary);
+    padding: var(--bisa-space-3) var(--bisa-space-4);
+    border-radius: 0 0 var(--bisa-radius) 0;
+    font-weight: 600;
+}
+
+.bisa-skip-link:focus {
+    left: 0;
+    color: var(--bisa-on-primary);
+}
+
+/* Images should never blow out their container. */
+img { max-width: 100%; height: auto; }
+
+/* --------------------------------------------------------------------------
+   12. Responsive
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 991.98px) {
+    /* Off-canvas sidebar. The vendor theme shipped almost no rules for this
+       state, so on a phone the sidebar sat on top of the content. */
+    .left-sidebar {
+        left: calc(var(--bisa-sidebar-width) * -1);
+        box-shadow: var(--bisa-shadow-lg);
+    }
+
+    #main-wrapper.show-sidebar .left-sidebar { left: 0; }
+
+    .page-wrapper,
+    #main-wrapper[data-sidebartype="full"] .page-wrapper,
+    #main-wrapper.mini-sidebar .page-wrapper { margin-left: 0; }
+
+    .topbar .top-navbar .navbar-collapse,
+    #main-wrapper.mini-sidebar .topbar .top-navbar .navbar-collapse { margin-left: 0; }
+
+    .topbar .navbar-header {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    /* Dim the page behind the open drawer. */
+    #main-wrapper.show-sidebar .page-wrapper::after {
+        content: "";
+        position: fixed;
+        inset: var(--bisa-topbar-height) 0 0 0;
+        background: rgba(15, 17, 23, 0.45);
+        z-index: 30;
+    }
+
+    .page-wrapper > .container-fluid { padding: var(--bisa-space-4); }
+
+    .bisa-page-header { flex-direction: column; align-items: stretch; }
+
+    .card-body { padding: var(--bisa-space-4); }
+
+    .bisa-stat__value { font-size: 1.375rem; }
+}
+
+@media (max-width: 575.98px) {
+    body { font-size: 0.9rem; }
+
+    .bisa-stat-grid { grid-template-columns: 1fr; }
+
+    /* Stacked buttons are easier to hit than a wrapped row of them. */
+    .bisa-actions { display: flex; flex-direction: column; gap: var(--bisa-space-2); }
+    .bisa-actions > .btn { width: 100%; }
+}
+
+/* --------------------------------------------------------------------------
+   13. Print & reduced motion
+   -------------------------------------------------------------------------- */
+
+@media print {
+    .topbar,
+    .left-sidebar,
+    .bisa-actions,
+    .btn,
+    .dataTables_filter,
+    .dataTables_paginate { display: none !important; }
+
+    .page-wrapper { margin-left: 0 !important; }
+    .card { border: 1px solid #ccc; box-shadow: none; break-inside: avoid; }
+    body { background: #fff; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

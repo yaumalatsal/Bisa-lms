@@ -11,9 +11,18 @@ class QuizSoalController extends Controller
     public function index(Request $request)
     {
         $mapelId = $request->query('mapel_id');
-        $soals = QuizSoal::where('mapel_id', $mapelId)->get();
-        $mapel = MapelsQuiz::findOrFail($mapelId);
-        return view('admin.quiz_soals.index', compact('soals', 'mapel'));
+
+        // Tanpa ?mapel_id halaman ini dulu berakhir 404 karena findOrFail(null);
+        // kirim pengguna ke daftar mapel dengan pesan yang jelas.
+        if (! $mapelId) {
+            return redirect()->route('admin.mapels.index')
+                ->with('status', 'Pilih mata pelajaran terlebih dahulu untuk melihat soalnya.');
+        }
+
+        return view('admin.quiz_soals.index', [
+            'mapel' => MapelsQuiz::findOrFail($mapelId),
+            'soals' => QuizSoal::where('mapel_id', $mapelId)->get(),
+        ]);
     }
 
     public function create(Request $request)

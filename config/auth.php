@@ -45,6 +45,11 @@ return [
             'provider' => 'siswa',
         ],
 
+        'mentor' => [
+            'driver' => 'session',
+            'provider' => 'mentors',
+        ],
+
         'investor' => [
             'driver' => 'session',
             'provider' => 'investors',
@@ -80,6 +85,11 @@ return [
         'siswa' => [
             'driver' => 'eloquent',
             'model' => App\Models\Siswa::class,
+        ],
+
+        'mentors' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Mentor::class,
         ],
 
         'investors' => [

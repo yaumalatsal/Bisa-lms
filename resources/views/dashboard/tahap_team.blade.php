@@ -70,7 +70,6 @@
                                 @foreach($getproduk as $dataproduk)        
                                     <input type="hidden" value="{{$dataproduk->id}}" name="id_produk">
                                 @endforeach
-                                <input type="hidden" value="{{Session::get('id_siswa');}}" name="id_siswa">
                                 <input type="number" name="nis" class="form-control" placeholder="Nomor Induk Siswa" aria-label="Recipient's username" aria-describedby="basic-addon2">
                                 <div class="input-group-append">
                                     <button class="btn btn-warning" type="submit"> <span class="fa fa-search"></span> Cari Anggota</button>
@@ -250,8 +249,12 @@
       <div class="modal-body p-5">
             <center>
                 <h1>Anda Yakin Menghapus Member ini ?</h1>
-                <a href="#" class="btn btn-success btn-lg text-white bt-confirm-delete clr-white">Ya</a>
-                <button class="btn  btn-danger  btn-lg text-white"  data-bs-dismiss="modal" >Tidak</button>
+                <form id="form-delete-member" action="" method="POST" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-success btn-lg text-white clr-white">Ya</button>
+                </form>
+                <button type="button" class="btn btn-danger btn-lg text-white" data-bs-dismiss="modal">Tidak</button>
             </center>
       </div>
         </form>
@@ -278,7 +281,7 @@
 
         $(".btn-delete-member").click(function(){
             var id = $(this).data('id');
-            $(".bt-confirm-delete").attr("href","delete_member/"+id);
+            $("#form-delete-member").attr("action", "{{ url('/delete_member') }}/" + id);
         });
 
 

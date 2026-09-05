@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Session;
-use DB;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 use App\Models\artikelInkubasi;
 
 class DashboardController extends Controller
@@ -180,8 +180,4 @@ class DashboardController extends Controller
         return view('page/register_siswa');
     }
 
-    function register_mentor()
-    {
-        return view('page/register_mentor');
-    }
 }

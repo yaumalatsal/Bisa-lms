@@ -11,6 +11,17 @@ class MonthlyReport extends Model
 
     protected $table = 'monthly_reports';
 
+    /*
+     | The `status` column is enum('pending','disetujui','ditolak'). The approve
+     | and reject actions used to write 'Disetujui' / 'Ditolak' with a capital
+     | letter, which MySQL rejects in strict mode and truncates to '' otherwise —
+     | so an approved report never matched the lowercase value the views and the
+     | monitoring queries compare against. Use these constants instead.
+     */
+    public const STATUS_PENDING = 'pending';
+    public const STATUS_APPROVED = 'disetujui';
+    public const STATUS_REJECTED = 'ditolak';
+
     protected $fillable = [
         'product_id',
         'total_sales',

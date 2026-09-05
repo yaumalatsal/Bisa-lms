@@ -30,7 +30,8 @@
                             <h2 class="mt-5"> <strong>Selamat Datang Tahap di Prototyping dan Branding Logo </strong></h2>        
                             <p>Dalam tahap ini, silahkan membuat protoyping dari produk dalam bisnis ini.Dalam pembuatan prototyping ini yang digunakan 
                             adalah Figma.<</p>
-                            <a href="{{url('/submitProto')}}" class="btn btn-primary text-white"> Submit Progress &nbsp;<i class="fas fa-arrow-circle-right"></i> </a>
+                            <x-action-form :action="url('/submitProto')" class="btn btn-primary text-white"
+                                confirm="Kirim progress prototype?">Submit Progress <i class="fas fa-arrow-circle-right"></i></x-action-form>
                         </div>    
                     </div>
         
