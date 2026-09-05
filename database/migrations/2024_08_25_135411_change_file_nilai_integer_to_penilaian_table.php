@@ -17,7 +17,7 @@ return new class extends Migration
         DB::table('penilaian')
             ->whereRaw('NOT file_nilai REGEXP "^[0-9]+$"')
             ->update(['file_nilai' => 0]);
-        
+
         Schema::table('penilaian', function (Blueprint $table) {
             $table->integer('file_nilai')->default(0)->change();
         });

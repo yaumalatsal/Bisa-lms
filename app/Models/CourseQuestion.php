@@ -11,13 +11,16 @@ class CourseQuestion extends Model
 
     protected $fillable = [
         'course_id',
-        'question_text'
+        'question_text',
     ];
 
-    public function course(){
+    public function course()
+    {
         return $this->belongsTo(Course::class);
     }
-    public function courseAnswers(){
+
+    public function courseAnswers()
+    {
         return $this->hasMany(CourseAnswer::class);
     }
 }

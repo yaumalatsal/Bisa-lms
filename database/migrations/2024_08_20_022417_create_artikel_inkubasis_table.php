@@ -14,15 +14,15 @@ return new class extends Migration
     public function up()
     {
         Schema::create('artikel_inkubasis', function (Blueprint $table) {
-           
-                $table->id();
-                $table->string('judul');
-                $table->enum('kategori', ['bmc', 'ide bisnis', 'cara memulai bisnis']);
-                $table->enum('bentuk_kategori', ['artikel', 'video']);
-                $table->string('link')->nullable();
-                $table->string('thumbnail')->nullable();
-                $table->timestamps();
-            
+
+            $table->id();
+            $table->string('judul');
+            $table->enum('kategori', ['bmc', 'ide bisnis', 'cara memulai bisnis']);
+            $table->enum('bentuk_kategori', ['artikel', 'video']);
+            $table->string('link')->nullable();
+            $table->string('thumbnail')->nullable();
+            $table->timestamps();
+
         });
     }
 

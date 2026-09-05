@@ -30,22 +30,6 @@
     .form-group {
         margin-bottom: 20px;
     }
-    .form-label {
-        font-weight: 500;
-        color: #333;
-        margin-bottom: 10px;
-    }
-    .form-control {
-        height: 45px;
-        border-radius: 5px;
-        border: 1px solid #ddd;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        transition: all 0.3s ease;
-    }
-    .form-control:focus {
-        border-color: #6e8efb;
-        box-shadow: 0 4px 12px rgba(110, 142, 251, 0.3);
-    }
 
     /* Button Styles */
     .btn-primary {
@@ -56,10 +40,6 @@
         padding: 12px 20px;
         font-size: 16px;
         border-radius: 5px;
-    }
-    .btn-primary:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 15px rgba(110, 142, 251, 0.6);
     }
 
     /* File Input */

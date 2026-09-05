@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::table('master_step', function (Blueprint $table) {
-            if (!Schema::hasColumn('master_step','deskripsi')) {
-                $table->string('deskripsi',100)->after('nama_step');
-            } 
+            if (! Schema::hasColumn('master_step', 'deskripsi')) {
+                $table->string('deskripsi', 100)->after('nama_step');
+            }
         });
     }
 

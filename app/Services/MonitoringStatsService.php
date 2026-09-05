@@ -24,7 +24,7 @@ class MonitoringStatsService
     private const STATUS_APPROVED = MonthlyReport::STATUS_APPROVED;
 
     /**
-     * @return array<string, mixed>|null  null bila produk belum punya laporan disetujui.
+     * @return array<string, mixed>|null null bila produk belum punya laporan disetujui.
      */
     public function forProduct($productId): ?array
     {

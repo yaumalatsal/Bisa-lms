@@ -6,31 +6,6 @@
 
 @section('css')
     <style>
-        .container-fluid {
-            background: linear-gradient(to right, #f0f2f5, #ffffff);
-            padding: 2rem;
-        }
-
-        .card-step {
-            min-height: 350px;
-        }
-
-        .card-step .deskripsi-step {
-            height: 90px;
-        }
-
-        .card {
-            border: none;
-            border-radius: 15px;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-        }
-
-        .card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
 
         .card-img-top {
             height: 14rem;
@@ -40,14 +15,6 @@
 
         .card-img-top:hover {
             opacity: 0.8;
-        }
-
-        .card-body {
-            background-color: #ffffff;
-            padding: 1.5rem;
-            border-top: 3px solid #007bff;
-            position: relative;
-            overflow: hidden;
         }
 
         .card-body::before {
@@ -66,26 +33,6 @@
         .card-body:hover::before {
             transform: scaleX(1);
             transform-origin: bottom left;
-        }
-
-        .card-title {
-            margin-bottom: 1rem;
-            font-size: 1.25rem;
-            color: #333;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #004085;
         }
 
         .completed-tag {
@@ -107,7 +54,7 @@
         <div class="card-body">
             <div class="row p-4">
                 <div class="col-md-5">
-                    <center><img src="{{asset('assets/images/ilustration/step/mentor.gif')}}" style="width:80%" alt=""></center>
+                    <div class="text-center"><img src="{{asset('assets/images/ilustration/step/mentor.gif')}}" style="width:80%" alt=""></div>
                 </div>
                 <div class="col-md-6">
                     <br>

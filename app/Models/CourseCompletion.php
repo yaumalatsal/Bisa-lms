@@ -16,11 +16,13 @@ class CourseCompletion extends Model
         'score',
     ];
 
-    public function course(){
+    public function course()
+    {
         return $this->belongsTo(Course::class);
     }
 
-    public function siswa(){
+    public function siswa()
+    {
         return $this->belongsTo(Siswa::class);
     }
 }

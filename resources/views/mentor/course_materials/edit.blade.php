@@ -4,13 +4,6 @@
 
 @section('css')
     <style>
-        .card-step {
-            min-height: 350px;
-        }
-
-        .card-step .deskripsi-step {
-            height: 90px;
-        }
 
         .ck-editor__editable {
             min-height: 200px; /* Set your desired height */
@@ -43,16 +36,16 @@
                 @endif
                 <div class="form-group">
                     <label for="title">Title</label>
-                    <input type="text" name="title" class="form-control"
+                    <input id="title" type="text" name="title" class="form-control"
                         value="{{ isset($material) ? $material->title : '' }}" required>
                 </div>
                 <div class="form-group">
-                    <label for="content">Content</label>
+                    <label for="editor">Content</label>
                     <textarea name="content" class="form-control" id="editor" rows="4">{{ isset($material) ? $material->content : '' }}</textarea>
                 </div>
                 <div class="form-group">
                     <label for="status">Status</label>
-                    <select name="status" class="form-control">
+                    <select id="status" name="status" class="form-control">
                         <option value="1" {{ isset($material) && $material->status == 1 ? 'selected' : '' }}>Active
                         </option>
                         <option value="0" {{ isset($material) && $material->status == 0 ? 'selected' : '' }}>Inactive

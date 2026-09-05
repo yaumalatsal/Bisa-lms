@@ -1087,6 +1087,87 @@ textarea.form-control {
 
 .bisa-step__name { font-weight: 600; }
 
+/* Step / material cards ---------------------------------------------------
+   `.card-step` was redefined in 17 different views, with the definitions
+   drifting apart (three different min-heights, two different hover effects).
+   This is the canonical one. */
+
+.card-step {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 320px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.card-step .card-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bisa-space-2);
+    flex: 1;
+}
+
+.card-step img {
+    width: auto;
+    max-height: 96px;
+    margin: 0 auto var(--bisa-space-2);
+    object-fit: contain;
+}
+
+.card-step h5,
+.card-step .card-step__title {
+    font-size: 1rem;
+    margin: 0;
+}
+
+/* Clamp to three lines instead of a fixed 90px, which cut text mid-glyph. */
+.card-step .deskripsi-step {
+    color: var(--bisa-text-muted);
+    font-size: 0.875rem;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Push the action to the bottom so a row of cards lines up. */
+.card-step .btn,
+.card-step .card-step__action { margin-top: auto; }
+
+.card-step .read-more {
+    display: block;
+    margin-top: var(--bisa-space-2);
+    color: var(--bisa-primary);
+    font-size: 0.875rem;
+}
+
+/* Wide modals ------------------------------------------------------------- */
+
+/* Several screens set `.modal-dialog { max-width: 75% }` inline. Bootstrap's
+   own `.modal-lg`/`.modal-xl` cover this; `.modal-wide` is here for the pages
+   that genuinely need a near-full-width dialog. */
+.modal-wide { max-width: min(1100px, 92vw); }
+
+@media (max-width: 720px) {
+    .modal-wide,
+    .modal-dialog.modal-lg,
+    .modal-dialog.modal-xl { max-width: 100%; margin: var(--bisa-space-3); }
+}
+
+/* Entrance animation ------------------------------------------------------
+   Views hand-rolled several near-identical @keyframes; this is the shared one.
+   It is disabled wholesale by the reduced-motion block at the end of the file. */
+
+@keyframes bisa-fade-in-up {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: none; }
+}
+
+.bisa-fade-in,
+.animated.fadeInUp { animation: bisa-fade-in-up 320ms ease-out both; }
+
 /* Chat -------------------------------------------------------------------- */
 
 .bisa-chat { display: flex; flex-direction: column; gap: var(--bisa-space-3); }

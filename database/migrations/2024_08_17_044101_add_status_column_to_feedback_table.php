@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('feedback', function (Blueprint $table) {
-            if (!Schema::hasColumn('feedback', 'komentar')) {
+            if (! Schema::hasColumn('feedback', 'komentar')) {
                 $table->integer('status')->after('komentar');
             }
         });

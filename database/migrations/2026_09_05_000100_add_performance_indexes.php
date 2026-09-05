@@ -70,7 +70,7 @@ return new class extends Migration
             }
 
             Schema::table($table, function (Blueprint $blueprint) use ($table, $columns) {
-                $blueprint->unique($columns, $this->indexName($table, $columns) . '_unique');
+                $blueprint->unique($columns, $this->indexName($table, $columns).'_unique');
             });
         }
     }
@@ -99,7 +99,7 @@ return new class extends Migration
             }
 
             Schema::table($table, function (Blueprint $blueprint) use ($table, $columns) {
-                $blueprint->dropUnique($this->indexName($table, $columns) . '_unique');
+                $blueprint->dropUnique($this->indexName($table, $columns).'_unique');
             });
         }
     }
@@ -126,6 +126,6 @@ return new class extends Migration
 
     private function indexName(string $table, array $columns): string
     {
-        return $table . '_' . implode('_', $columns) . '_idx';
+        return $table.'_'.implode('_', $columns).'_idx';
     }
 };

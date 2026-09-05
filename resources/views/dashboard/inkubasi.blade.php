@@ -2,18 +2,6 @@
     Inkubasi
 @endsection
 
-@section('css')
-    <style>
-        .card-step {
-            min-height: 350px;
-        }
-
-        .card-step .deskripsi-step {
-            height: 90px;
-        }
-    </style>
-@endsection
-
 @extends('dashboard_template/index')
 @section('content')
     <div class="container-fluid">
@@ -28,24 +16,39 @@
         <br>
         <div class="row p-30">
             @foreach ($tampilan_tahap as $data)
-                <div class="col-md-2 col-sm-4">
+                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-4">
+                    @php
+                        // Every step stays open — that is deliberate. The status
+                        // is shown alongside instead of replacing the button, so
+                        // the progress information is not lost.
+                        $statusPill = match ((int) ($data->status ?? -1)) {
+                            0 => ['Sedang dikerjakan', 'bisa-status--pending'],
+                            1 => ['Menunggu validasi', 'bisa-status--neutral'],
+                            2 => ['Selesai', 'bisa-status--approved'],
+                            3 => ['Perlu revisi', 'bisa-status--rejected'],
+                            default => null,
+                        };
+                    @endphp
+
                     <div class="card card-step">
                         <div class="card-body">
-                            <img src="{{ asset('assets/images/' . $data->gambar) }}" alt="" class="w-50 mt-2">
-                            <h5 class="mt-3"><br>{{ $data->nama_step }} </h5>
-                            <p class="deskripsi-step">{{ $data->deskripsi }} </p>
-                            @if(true)
-                                <a href="{{ url($data->route) }}" class="w-100 btn btn-warning">MULAI</a>
-                            @elseif ($data->status == '' || $data->status == 2)
-                                    <a href="#" class="w-100 btn btn-info text-white"><i
-                                            class="fas fa-check-circle"></i> SELESAI</a>
-                            @elseif($data->status == 1)
-                                <a href="#" class="w-100 btn btn-success text-white"><i class="fas fa-edit"></i>
-                                    PROSES VALIDASI</a>
-                            @elseif($data->status == 3)
-                                <a href="#" class="w-100 btn btn-danger text-white"><i
-                                        class="fas fa-exclamation-circle"></i> REVISI (Silahkan cek feedback)</a>
+                            <img src="{{ asset('assets/images/' . $data->gambar) }}"
+                                alt="Ilustrasi {{ $data->nama_step }}">
+                            <h5 class="card-step__title">{{ $data->step_number }}. {{ $data->nama_step }}</h5>
+
+                            @if ($statusPill)
+                                <span class="bisa-status {{ $statusPill[1] }}">{{ $statusPill[0] }}</span>
                             @endif
+
+                            <p class="deskripsi-step">{{ $data->deskripsi }}</p>
+
+                            <a href="{{ url($data->route) }}" class="w-100 btn btn-primary card-step__action">
+                                @if ((int) ($data->status ?? -1) === 2)
+                                    Lihat <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                                @else
+                                    Mulai <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                                @endif
+                            </a>
                         </div>
                     </div>
                 </div>

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('file_path')->nullable()->after('date'); // Add file_path column
         });
     }
+
     /**
      * Reverse the migrations.
      *

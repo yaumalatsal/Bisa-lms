@@ -19,7 +19,9 @@ class AuthorizationTest extends TestCase
     use RefreshDatabase;
 
     private Siswa $ceoA;
+
     private Siswa $ceoB;
+
     private Siswa $anggotaB;
 
     protected function setUp(): void

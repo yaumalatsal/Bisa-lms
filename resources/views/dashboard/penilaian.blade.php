@@ -17,31 +17,9 @@
         transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     }
 
-    .card-step:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    .card-step .deskripsi-step {
-        height: 90px;
-    }
-
     /* Gaya untuk tabel */
     .table thead {
         background-color: #f8f9fa;
-    }
-
-    .table th {
-        font-weight: bold;
-        text-transform: uppercase;
-    }
-
-    .table tbody tr {
-        transition: background-color 0.3s ease;
-    }
-
-    .table tbody tr:hover {
-        background-color: #f1f1f1;
     }
 
     /* Gaya animasi untuk judul */
@@ -52,17 +30,6 @@
         color: #333;
         margin-bottom: 30px;
         animation: fadeInDown 1s ease-in-out;
-    }
-
-    @keyframes fadeInDown {
-        from {
-            opacity: 0;
-            transform: translateY(-20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
     }
 </style>
 @endsection

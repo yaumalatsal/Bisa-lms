@@ -37,7 +37,6 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
         function startQuiz(mapelId) {
@@ -159,33 +158,6 @@
 
         .text-cyan {
             color: #d40000 !important;
-        }
-
-        .card {
-            border-radius: 20px;
-            overflow: hidden;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-            background-color: #ffffff;
-        }
-
-        .card-body {
-            padding: 2rem;
-        }
-
-        .card:hover {
-            transform: translateY(-10px) scale(1.05);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn-primary {
-            background-color: #d40000 !important;
-            border-color: red;
-            color: #fff;
-        }
-
-        .btn-primary:hover {
-            background-color: #a70000;
-            border-color: #0097a7;
         }
 
         .icon-container img {

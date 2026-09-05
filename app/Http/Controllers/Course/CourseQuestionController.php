@@ -6,9 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\CourseAnswer;
 use App\Models\CourseQuestion;
-use App\Models\Siswa;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class CourseQuestionController extends Controller
 {
@@ -25,12 +23,6 @@ class CourseQuestionController extends Controller
         return view('mentor.course_questions.index', compact('course', 'questions'));
     }
 
-    // public function create($course_id)
-    // {
-    //     $course = Course::findOrFail($course_id);
-    //     return view('mentor.course_questions.create', compact('course'));
-    // }
-
     public function store(Request $request, $course_id)
     {
         $request->validate([
@@ -45,11 +37,6 @@ class CourseQuestionController extends Controller
         return redirect()->route('course.questions.index', $course_id)
             ->with('success', 'Question added successfully.');
     }
-
-    // public function edit($course_id, $id)
-    // {
-    //     $course = Course::findOrFail($course_id);
-    //     $question = CourseQuestion::findOrFail($id);
 
     //     return view('mentor.course_questions.edit', compact('course', 'question'));
     // }
@@ -78,7 +65,6 @@ class CourseQuestionController extends Controller
             ->with('success', 'Question deleted successfully.');
     }
 
-
     public function showQuestions($courseId)
     {
         $course = Course::with('courseQuestions')->findOrFail($courseId);
@@ -94,7 +80,8 @@ class CourseQuestionController extends Controller
                 $query->where('course_id', $courseId);
             })
             ->get();
-        return view('mentor.courses.show-answer', compact('answers', "courseId"));
+
+        return view('mentor.courses.show-answer', compact('answers', 'courseId'));
     }
 
     public function updateScore(Request $request, $courseId, $answerId)

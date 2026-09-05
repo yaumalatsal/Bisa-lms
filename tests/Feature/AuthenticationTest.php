@@ -52,7 +52,7 @@ class AuthenticationTest extends TestCase
 
         $siswa = Siswa::create([
             'nomor_induk' => '3001',
-            'password' => md5($plain) . sha1($plain),
+            'password' => md5($plain).sha1($plain),
             'tanggal_lahir' => '2000-01-01',
             'nama' => 'Legacy Siswa',
         ]);
@@ -123,6 +123,6 @@ class AuthenticationTest extends TestCase
         $stored = Siswa::where('nomor_induk', '6001')->value('password');
 
         $this->assertTrue(LegacyPassword::isModern($stored));
-        $this->assertNotSame(md5('secret123') . sha1('secret123'), $stored);
+        $this->assertNotSame(md5('secret123').sha1('secret123'), $stored);
     }
 }

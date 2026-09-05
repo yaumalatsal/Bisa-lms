@@ -18,11 +18,11 @@ return new class extends Migration
             // $table->unsignedBigInteger('user_id');
             // $table->foreignId('siswa_id')->references('id')->on('siswa')->onDelete('cascade');
             $table->unsignedInteger('user_id');
-    
+
             // Add foreign key constraint
             $table->foreign('user_id')->references('id')->on('siswa')->onDelete('cascade');
             $table->unsignedBigInteger('mapel_id');
-            $table->foreign('mapel_id')->references('id')->on('mapels_quiz')->onDelete('cascade');;
+            $table->foreign('mapel_id')->references('id')->on('mapels_quiz')->onDelete('cascade');
             $table->integer('nilai');
             $table->timestamps();
         });

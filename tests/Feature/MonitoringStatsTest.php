@@ -14,6 +14,7 @@ class MonitoringStatsTest extends TestCase
     use RefreshDatabase;
 
     private MonitoringStatsService $stats;
+
     private int $siswaId;
 
     protected function setUp(): void
@@ -33,7 +34,7 @@ class MonitoringStatsTest extends TestCase
     {
         // The old code computed (($thisYear - $lastYear) / $lastYear) with no
         // guard, so the very first year of trading threw DivisionByZeroError.
-        $this->report(date('Y') . '-03-01', sales: 40, revenue: 4_000_000, spending: 1_000_000);
+        $this->report(date('Y').'-03-01', sales: 40, revenue: 4_000_000, spending: 1_000_000);
 
         $data = $this->stats->forProduct(1);
 
@@ -45,7 +46,7 @@ class MonitoringStatsTest extends TestCase
     /** @test */
     public function it_returns_null_when_there_are_no_approved_reports(): void
     {
-        $this->report(date('Y') . '-03-01', sales: 40, revenue: 100, spending: 10, status: MonthlyReport::STATUS_PENDING);
+        $this->report(date('Y').'-03-01', sales: 40, revenue: 100, spending: 10, status: MonthlyReport::STATUS_PENDING);
 
         $this->assertNull($this->stats->forProduct(1));
     }
@@ -53,8 +54,8 @@ class MonitoringStatsTest extends TestCase
     /** @test */
     public function only_approved_reports_are_counted(): void
     {
-        $this->report(date('Y') . '-01-01', sales: 10, revenue: 1000, spending: 400);
-        $this->report(date('Y') . '-02-01', sales: 99, revenue: 9999, spending: 1, status: MonthlyReport::STATUS_PENDING);
+        $this->report(date('Y').'-01-01', sales: 10, revenue: 1000, spending: 400);
+        $this->report(date('Y').'-02-01', sales: 99, revenue: 9999, spending: 1, status: MonthlyReport::STATUS_PENDING);
 
         $data = $this->stats->forProduct(1);
 
@@ -65,8 +66,8 @@ class MonitoringStatsTest extends TestCase
     /** @test */
     public function monthly_series_always_has_twelve_entries_in_calendar_order(): void
     {
-        $this->report(date('Y') . '-03-01', sales: 5, revenue: 100, spending: 40);
-        $this->report(date('Y') . '-11-01', sales: 7, revenue: 200, spending: 50);
+        $this->report(date('Y').'-03-01', sales: 5, revenue: 100, spending: 40);
+        $this->report(date('Y').'-11-01', sales: 7, revenue: 200, spending: 50);
 
         $data = $this->stats->forProduct(1);
 
@@ -84,8 +85,8 @@ class MonitoringStatsTest extends TestCase
     /** @test */
     public function prior_year_sales_are_negated_for_the_mirrored_chart(): void
     {
-        $this->report((date('Y') - 1) . '-05-01', sales: 12, revenue: 100, spending: 10);
-        $this->report(date('Y') . '-05-01', sales: 20, revenue: 300, spending: 10);
+        $this->report((date('Y') - 1).'-05-01', sales: 12, revenue: 100, spending: 10);
+        $this->report(date('Y').'-05-01', sales: 20, revenue: 300, spending: 10);
 
         $data = $this->stats->forProduct(1);
 

@@ -10,9 +10,7 @@ class ProtoController extends Controller
 {
     private const LOGO_DIR = 'logo_produk';
 
-    public function __construct(private ProductAssetUploader $uploader)
-    {
-    }
+    public function __construct(private ProductAssetUploader $uploader) {}
 
     public function index(Request $request)
     {

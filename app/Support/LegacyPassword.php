@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Hash;
 class LegacyPassword
 {
     public const SCHEME_SISWA = 'siswa';
+
     public const SCHEME_MENTOR = 'mentor';
 
     /**
@@ -56,7 +57,7 @@ class LegacyPassword
     public static function legacyHash(string $plain, string $scheme): string
     {
         return $scheme === self::SCHEME_SISWA
-            ? md5($plain) . sha1($plain)
+            ? md5($plain).sha1($plain)
             : md5($plain);
     }
 }

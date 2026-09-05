@@ -74,7 +74,7 @@ class TeamController extends Controller
                 ?? ((int) $validated['position'] === 2 ? 'HIPSTER' : 'HACKER');
 
             return redirect('/tahap_team')
-                ->with('status', 'Role ' . $namaPosisi . ' sudah ada di tim anda');
+                ->with('status', 'Role '.$namaPosisi.' sudah ada di tim anda');
         }
 
         DB::table('member')->insert([

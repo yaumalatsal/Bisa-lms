@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::table('logo_produk', function (Blueprint $table) {
-            if (!Schema::hasColumn('logo_produk','deskripsi')) {
-                $table->text('deskripsi',100)->after('id_produk');
-            } 
+            if (! Schema::hasColumn('logo_produk', 'deskripsi')) {
+                $table->text('deskripsi', 100)->after('id_produk');
+            }
         });
     }
 

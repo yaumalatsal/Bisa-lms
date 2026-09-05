@@ -7,7 +7,6 @@ use App\Models\Course;
 use App\Models\CourseAnswer;
 use App\Models\CourseCompletion;
 use App\Models\CourseMaterial;
-use App\Models\CourseMaterialStudent;
 use App\Models\CourseQuestion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -36,19 +35,20 @@ class CourseSiswaController extends Controller
         $courseMaterials = $course->courseMaterials->map(function ($material) {
             $material->is_read = optional($material->materialStudents->first())->is_read;
             $material->read_at = optional($material->materialStudents->first())->created_at;
+
             return $material;
         });
-        
+
         // Filter the materials where is_read = 1
         $filteredMaterials = $courseMaterials->filter(function ($material) {
             return $material->status == 1;
         });
-        
+
         // Check if all the filtered materials have been read
         $allMaterialsRead = $filteredMaterials->every(function ($material) {
             return $material->is_read;
         });
-        
+
         $materials = $filteredMaterials;
 
         $questions = $allMaterialsRead ? CourseQuestion::where('course_id', $courseId)->get() : [];
@@ -68,13 +68,12 @@ class CourseSiswaController extends Controller
         return view('dashboard.courses.show', compact('course', 'materials', 'allMaterialsRead', 'questions', 'answers'));
     }
 
-
     public function showMaterial($materialId)
     {
         $siswa_id = Session::get('id_siswa');
 
         // Fetch the current material and course
-        $material = CourseMaterial::with('course')->where('status',1)->findOrFail($materialId);
+        $material = CourseMaterial::with('course')->where('status', 1)->findOrFail($materialId);
 
         // Get all materials for the course
         $course = Course::with(['courseMaterials.materialStudents' => function ($query) use ($siswa_id) {
@@ -88,7 +87,6 @@ class CourseSiswaController extends Controller
         // Determine current material position
         $materials = $filteredMaterials;
 
-
         $currentIndex = $materials->search(function ($item) use ($materialId) {
             return $item->id == $materialId;
         });
@@ -96,13 +94,13 @@ class CourseSiswaController extends Controller
         $courseMaterials = $course->courseMaterials->map(function ($material) {
             $material->is_read = optional($material->materialStudents->first())->is_read;
             $material->read_at = optional($material->materialStudents->first())->created_at;
+
             return $material;
         });
 
         $allMaterialsRead = $courseMaterials->every(function ($material) {
             return $material->is_read;
         });
-
 
         // Determine next and previous materials
         $previousMaterial = $currentIndex > 0 ? $materials[$currentIndex - 1] : null;
@@ -114,13 +112,12 @@ class CourseSiswaController extends Controller
             ['is_read' => true, 'created_at' => now()]
         );
 
-        $completion = CourseCompletion::where('siswa_id', $siswa_id)->where('course_id',$material->course_id)->first();
+        $completion = CourseCompletion::where('siswa_id', $siswa_id)->where('course_id', $material->course_id)->first();
 
         // dd($completion);
 
         return view('dashboard.courses.show-materi', compact('course', 'materials', 'material', 'previousMaterial', 'nextMaterial', 'allMaterialsRead', 'completion'));
     }
-
 
     public function markMaterialAsRead($materialId)
     {
@@ -129,7 +126,7 @@ class CourseSiswaController extends Controller
         DB::table('course_material_students')->updateOrInsert(
             [
                 'course_material_id' => $materialId,
-                'siswa_id' => $siswa_id
+                'siswa_id' => $siswa_id,
             ],
             ['is_read' => true],
             ['created_at' => now()]
@@ -147,12 +144,12 @@ class CourseSiswaController extends Controller
             DB::table('course_answers')->updateOrInsert(
                 [
                     'question_id' => $questionId,
-                    'siswa_id' => $siswa_id
+                    'siswa_id' => $siswa_id,
                 ],
                 [
                     'answer_text' => $answerText,
                     'created_at' => now(),
-                    'updated_at' => now()
+                    'updated_at' => now(),
                 ]
             );
         }
@@ -160,7 +157,7 @@ class CourseSiswaController extends Controller
         CourseCompletion::updateOrCreate(
             [
                 'course_id' => $courseId,
-                'siswa_id' => $siswa_id
+                'siswa_id' => $siswa_id,
             ],
             [
                 'score' => 10,

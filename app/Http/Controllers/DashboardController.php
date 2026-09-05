@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\DB;
 use App\Models\artikelInkubasi;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class DashboardController extends Controller
 {
-
     public function __construct() {}
 
     public function showMateriBMC()
@@ -68,22 +66,21 @@ class DashboardController extends Controller
         $id_produk = Session::get('id_produk');
         $masterstep = DB::table('master_step')->get();
 
-
         $nilai = DB::table('penilaian')
             ->select('master_step.*', 'master_step.id as id_step', 'penilaian.*', 'penilaian.id as penilaian_id')
-            ->join('master_step', 'penilaian.id_step', 'master_step.id' , 'penilaian')
+            ->join('master_step', 'penilaian.id_step', 'master_step.id', 'penilaian')
             ->where('penilaian.id_produk', $id_produk)
             ->get();
 
         return view('dashboard.dashboard')->with(compact('masterstep', 'nilai'));
     }
 
-    function laporan()
+    public function laporan()
     {
         return view('dashboard.laporan');
     }
 
-    function inkubasi()
+    public function inkubasi()
     {
         $track = Session::get('track');
         $track_status = Session::get('track_status');
@@ -109,13 +106,16 @@ class DashboardController extends Controller
                 } else {
                     session(['track' => '1']);
                     session(['track_status' => '1']);
+
                     return view('dashboard/ongoing');
                 }
             } elseif ($track == 1 && $track_status == 0) {
                 session()->forget('id_produk');
+
                 return redirect('/product_abstract');
             } elseif ($track == 1 && $track_status == 2) {
                 session()->forget('id_produk');
+
                 return redirect('dashboard/ongoing');
             } else {
                 $id_produk = Session::get('id_produk');
@@ -143,7 +143,7 @@ class DashboardController extends Controller
                 $tampilan_tahap = DB::table('master_step')
                     ->select('master_step.*', 'virtualtable.*')
                     ->leftJoin(
-                        DB::raw('(SELECT * FROM track_step WHERE id_produk =' . $id_produk . ') virtualtable'),
+                        DB::raw('(SELECT * FROM track_step WHERE id_produk ='.$id_produk.') virtualtable'),
                         function ($join) {
                             $join->on('master_step.id', '=', 'virtualtable.id_step');
                         }
@@ -157,7 +157,6 @@ class DashboardController extends Controller
                 $track = Session::get('track');
                 $track_status = Session::get('track_status');
 
-
                 if ($track == 1 && $track_status == 0) {
                     return redirect('/product_abstract');
                 } else {
@@ -170,14 +169,13 @@ class DashboardController extends Controller
         }
     }
 
-    function login()
+    public function login()
     {
         return view('page/login');
     }
 
-    function register_siswa()
+    public function register_siswa()
     {
         return view('page/register_siswa');
     }
-
 }

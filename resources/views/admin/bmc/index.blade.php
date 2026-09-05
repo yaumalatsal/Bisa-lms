@@ -48,11 +48,11 @@
                 </tr>
                 
                 <!-- Pop-up Konfirmasi Hapus -->
-                <div class="modal fade" id="deleteModal-{{ $bmc->id }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                <div class="modal fade" id="deleteModal-{{ $bmc->id }}" tabindex="-1" aria-labelledby="deleteModalLabel-{{ $bmc->id }}" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Hapus</h5>
+                                <h5 class="modal-title" id="deleteModalLabel-{{ $bmc->id }}">Konfirmasi Hapus</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -64,8 +64,8 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Hapus</button>
-                                </form>
-                            </div>
+            </div>
+        </form>
                         </div>
                     </div>
                 </div>

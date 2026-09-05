@@ -32,10 +32,10 @@ class CourseMaterialController extends Controller
             'status' => 'required|integer',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-    
+
         // Save the material
         $material = $course->courseMaterials()->create($request->only('title', 'content', 'status'));
-    
+
         // Handle image uploads
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
@@ -45,11 +45,10 @@ class CourseMaterialController extends Controller
                 $material->materialImages()->create(['image_path' => $path]);
             }
         }
-    
+
         return redirect()->route('courses.show', $course->id)
             ->with('success', 'Material added successfully.');
     }
-    
 
     public function edit(Course $course, CourseMaterial $material)
     {

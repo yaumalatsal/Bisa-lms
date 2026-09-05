@@ -22,12 +22,10 @@ use App\Http\Controllers\PeringkatController;
 use App\Http\Controllers\PresentasiController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\Profile\ProfileController;
-use App\Http\Controllers\ProfilBisnisController;
 use App\Http\Controllers\ProtoController;
 use App\Http\Controllers\PublikasiController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\QuizSoalController;
-use App\Http\Controllers\RankingController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
@@ -52,8 +50,6 @@ Route::post('/signin', [SiswaController::class, 'login'])->middleware('throttle:
 Route::get('/register_siswa', [DashboardController::class, 'register_siswa'])->name('register');
 Route::post('/pendaftaran_siswa', [SiswaController::class, 'register_siswa'])->middleware('throttle:10,1');
 Route::get('/logout_siswa', [SiswaController::class, 'logout']);
-
-Route::view('/artikel/bmc', 'artikel.bmc')->name('artikel.bmc');
 
 /*
 |--------------------------------------------------------------------------
@@ -99,11 +95,6 @@ Route::middleware('auth.role:siswa')->group(function () {
 
     // Monitoring bisnis
     Route::get('/monitoring', [MonitoringController::class, 'index'])->name('monitoring.index');
-    Route::post('/monitoringstore', [MonitoringController::class, 'store'])->name('monitoring.store');
-
-    // Ranking
-    Route::get('/ranking', [RankingController::class, 'index'])->name('ranking.index');
-    Route::post('/rankingstore', [RankingController::class, 'store'])->name('ranking.store');
 
     // Produk
     Route::get('/produk', [ProdukController::class, 'siswaProduk'])->name('dashboard.produk');
@@ -118,7 +109,6 @@ Route::middleware('auth.role:siswa')->group(function () {
     Route::post('/tambah_member', [TeamController::class, 'tambah_member'])->name('dashboard.team.add');
     Route::delete('/delete_member/{id}', [TeamController::class, 'delete_member'])->name('dashboard.team.delete');
     Route::post('/lock_team', [TeamController::class, 'lock_team'])->name('dashboard.team.lock');
-    Route::get('/tahap_profil', [ProfilBisnisController::class, 'index'])->name('dashboard.tahap_profil');
 
     // Tahap: BMC
     Route::get('/bmc', [BmcController::class, 'index'])->name('dashboard.bmc');

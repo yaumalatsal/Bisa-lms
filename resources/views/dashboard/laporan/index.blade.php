@@ -11,13 +11,6 @@
         font-family: 'Poppins', sans-serif;
         background-color: #f4f7f6;
     }
-    .container-fluid {
-        padding: 20px;
-    }
-    .card, .table {
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
 
     /* Button Styles */
     .btn-primary {
@@ -26,10 +19,6 @@
         box-shadow: 0 4px 12px rgba(255, 87, 34, 0.4);
         transition: all 0.3s ease;
         border-radius: 20px;
-    }
-    .btn-primary:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 15px rgba(255, 87, 34, 0.6);
     }
 
     /* Alert Styles */
@@ -43,19 +32,6 @@
     .table {
         border-collapse: separate;
         border-spacing: 0 10px;
-    }
-    .table thead th {
-        background-color: #343a40;
-        color: #fff;
-    }
-    .table tbody tr {
-        transition: all 0.3s ease;
-        border-radius: 8px;
-    }
-    .table tbody tr:hover {
-        background-color: #f2f4ff;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(110, 142, 251, 0.1);
     }
 
     /* Status Badges */

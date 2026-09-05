@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ArtikelInkubasi;
+use App\Models\MasterBMC;
+use App\Models\Member;
+use App\Models\PertanyaanBMC;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
-use App\Models\ArtikelInkubasi;
-use App\Models\Member;
-use Illuminate\Support\Facades\Log;
-use App\Models\MasterBMC;
-use App\Models\PertanyaanBMC;
 
 class AdminController extends Controller
 {
@@ -18,6 +17,7 @@ class AdminController extends Controller
     {
         $bmc = MasterBMC::findOrFail($id);
         $soals = PertanyaanBMC::where('id_poin_bmc', $id)->get();
+
         return view('admin.bmc.soal.index', compact('bmc', 'soals'));
     }
 
@@ -25,6 +25,7 @@ class AdminController extends Controller
     public function soalCreate($id)
     {
         $bmc = MasterBMC::findOrFail($id);
+
         return view('admin.bmc.soal.create', compact('bmc'));
     }
 
@@ -50,6 +51,7 @@ class AdminController extends Controller
     {
         $bmc = MasterBMC::findOrFail($id);
         $soal = PertanyaanBMC::findOrFail($soalId);
+
         return view('admin.bmc.soal.edit', compact('bmc', 'soal'));
     }
 
@@ -78,10 +80,11 @@ class AdminController extends Controller
 
         return redirect()->route('admin.bmc.soal.index', $id)->with('success', 'Soal berhasil dihapus.');
     }
-    
+
     public function bmc()
     {
         $bmcs = MasterBMC::all(); // Mengambil semua data BMC dari database
+
         return view('admin.bmc.index', compact('bmcs'));
     }
 
@@ -110,6 +113,7 @@ class AdminController extends Controller
     public function bmcEdit($id)
     {
         $bmc = MasterBMC::findOrFail($id);
+
         return view('admin.bmc.edit', compact('bmc'));
     }
 
@@ -139,14 +143,6 @@ class AdminController extends Controller
         return redirect()->route('admin.bmc.index')->with('success', 'BMC berhasil dihapus.');
     }
 
-    // Mengelola sub soal untuk BMC tertentu
-    // public function bmcSubsoal($id)
-    // {
-    //     $bmc = MasterBMC::findOrFail($id);
-    //     // Logic untuk menampilkan dan mengelola sub soal bisa ditambahkan di sini
-    //     return view('admin.bmc.subsoal', compact('bmc'));
-    // }
-
     public function showMateri()
     {
         $materi = artikelInkubasi::all();
@@ -154,17 +150,16 @@ class AdminController extends Controller
         // Kirim data materi ke view
         return view('admin.materi.index', compact('materi'));
     }
+
     public function showLoginForm()
     {
         return view('admin.page.login');
     }
 
-
     public function index()
     {
         return view('admin.page.dashboard');
     }
-
 
     public function showSiswa()
     {
@@ -205,7 +200,6 @@ class AdminController extends Controller
         return redirect()->route('admin.siswa')->with('success', 'Siswa deleted successfully.');
     }
 
-
     public function login(Request $request)
     {
         $request->validate([
@@ -230,8 +224,6 @@ class AdminController extends Controller
 
         return redirect()->route('admin.login')->with('status', 'Logged out successfully.');
     }
-
-
 
     public function createMateri()
     {
@@ -263,6 +255,7 @@ class AdminController extends Controller
     public function editMateri($id)
     {
         $materi = artikelInkubasi::findOrFail($id);
+
         return view('admin.materi.edit', compact('materi'));
     }
 

@@ -3,9 +3,6 @@
 @endsection
 @section('css')
     <style>
-        .modal-dialog{
-            max-width:50%;
-        }
 
         .table-result{
             background-color:#ffff;
@@ -64,19 +61,24 @@
                             </h4>
                             <div class="member-area">
                                 
-                                <form action="{{url('/cari_member')}}" method="post">
-                                {{csrf_field()}}    
-                                <div class="input-group mb-3">
-                                @foreach($getproduk as $dataproduk)        
-                                    <input type="hidden" value="{{$dataproduk->id}}" name="id_produk">
-                                @endforeach
-                                <input type="number" name="nis" class="form-control" placeholder="Nomor Induk Siswa" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                <div class="input-group-append">
-                                    <button class="btn btn-warning" type="submit"> <span class="fa fa-search"></span> Cari Anggota</button>
-                                </div>
-                                
-                                
-                            </form>
+                                {{-- The two <div>s below used to be opened inside the form and
+                                     closed after </form>, which left the parsed document
+                                     mis-nested and dropped this form out of the DOM entirely. --}}
+                                <form action="{{ url('/cari_member') }}" method="post">
+                                    @csrf
+                                    @foreach ($getproduk as $dataproduk)
+                                        <input type="hidden" value="{{ $dataproduk->id }}" name="id_produk">
+                                    @endforeach
+
+                                    <label class="form-label" for="cari-nis">Nomor Induk Siswa</label>
+                                    <div class="input-group mb-3">
+                                        <input type="number" id="cari-nis" name="nis" class="form-control"
+                                            placeholder="Masukkan NIS anggota">
+                                        <button class="btn btn-warning" type="submit">
+                                            <span class="fa fa-search" aria-hidden="true"></span> Cari Anggota
+                                        </button>
+                                    </div>
+                                </form>
                                 <?php $data = Session::get('data_member') ?>
                                 <div class="table-responsive" style="width:100%;">
                                 @if(isset($data))
@@ -114,7 +116,7 @@
                             <br>
                     @else
                         <div class="col-md-5">
-                            <center><img src="{{asset('assets/images/ilustration/step/team.gif')}}" style="width:60%" class="m-5" alt=""></center>
+                            <div class="text-center"><img src="{{asset('assets/images/ilustration/step/team.gif')}}" style="width:60%" class="m-5" alt=""></div>
                         </div>
                         <div class="col-md-6">
                             <h2 class="mt-5">Tim Sudah Terbentuk</h2>
@@ -126,7 +128,6 @@
                             @foreach($getproduk as $dataproduk)
                             <input type="hidden" value="{{$dataproduk->id}}" name="id_produk">                                
                             @endforeach
-                            <input type="hidden" value="{{Session('id_siswa')}}" name="id_siswa">                                
 
                                 <button type="submit" class="btn btn-lg btn-info text-white">Lanjutkan ke Pembuatan Profil Bisnis &nbsp;<span class="fas chevron-right"></span></button>
                             </form>
@@ -134,7 +135,7 @@
                     @endif
 
                             @if(isset($status_hapus))
-                            <div class="alert mt-5alert-warning alert-dismissible fade show" role="alert">
+                            <div class="alert mt-5 alert-warning alert-dismissible fade show" role="alert">
                                    <strong>Sukses Menghapus.</strong> Member terpilih sudah tidak menajadi bagian dari tim anda.
                                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
@@ -198,43 +199,49 @@
 </div>
 
 <!-- Modal Add Anggota-->
-<div class="modal fade" id="PositionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+{{-- The <form> used to open inside .modal-body and close after .modal-footer,
+     straddling a </div>. The parser resolved that by closing the form early, so
+     the submit button ended up outside it. The form now wraps the whole dialog,
+     which is the shape Bootstrap expects. --}}
+<div class="modal fade" id="PositionModal" tabindex="-1" aria-labelledby="positionModalTitle" aria-hidden="true">
+  <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Role Member</h5>
-        
-      </div>
-      <div class="modal-body">
-        <p><strong>Nama :</strong> <span class="nama-member"></span></p>
-        <p><strong> Nomor Induk Siswa :</strong> <span id="nis-member"></span></p>
-        <br>
-        <p>Tentukan role (bagian) untuk memudahkan pembagian jobdesk dalam 
-            pengembangan produkmu.
-            <br>
-            Jadikan <strong><span class="nama-member"></span></strong> sebagai :
-        </p>
-        <br>
-        <form action="tambah_member" method="post" id="form_invite">
-            {{csrf_field()}}  
-            <select name="position" id="" class="form-control">
-                @foreach($position as $data_posisi)
-                <option value="{{$data_posisi->id}}">{{$data_posisi->posisi}}</option>
-                @endforeach
+      <form action="{{ url('/tambah_member') }}" method="post" id="form-invite">
+        @csrf
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="positionModalTitle">Role Member</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+        </div>
+
+        <div class="modal-body">
+          <p><strong>Nama:</strong> <span class="nama-member"></span></p>
+          <p><strong>Nomor Induk Siswa:</strong> <span id="nis-member"></span></p>
+
+          <p>Tentukan role (bagian) untuk memudahkan pembagian jobdesk dalam
+            pengembangan produkmu. Jadikan
+            <strong><span class="nama-member"></span></strong> sebagai:</p>
+
+          @php($id_produk = optional($getproduk->last())->id ?? 0)
+
+          <div class="form-group">
+            <label class="form-label" for="invite-position">Role</label>
+            <select name="position" id="invite-position" class="form-control">
+              @foreach ($position as $data_posisi)
+                <option value="{{ $data_posisi->id }}">{{ $data_posisi->posisi }}</option>
+              @endforeach
             </select>
-            @php $id_produk = 0;@endphp
-            @foreach($getproduk as $dataproduk)
-            @php $id_produk = $dataproduk->id @endphp
-            @endforeach
+          </div>
 
-            <input type="hidden" name="id_siswa" id="id_user">
-            <input type="hidden" value="{{$id_produk}}" name="id_produk">
+          <input type="hidden" name="id_siswa" id="id_user">
+          <input type="hidden" name="id_produk" value="{{ $id_produk }}">
+        </div>
 
-      </div>
-      <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Simpan </button>
-        </form>
-      </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
+          <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -243,11 +250,11 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Konfirmasi</h5>
+        <h5 class="modal-title" id="exampleModalLabel-2">Konfirmasi</h5>
         
       </div>
       <div class="modal-body p-5">
-            <center>
+            <div class="text-center">
                 <h1>Anda Yakin Menghapus Member ini ?</h1>
                 <form id="form-delete-member" action="" method="POST" class="d-inline">
                     @csrf
@@ -255,7 +262,7 @@
                     <button type="submit" class="btn btn-success btn-lg text-white clr-white">Ya</button>
                 </form>
                 <button type="button" class="btn btn-danger btn-lg text-white" data-bs-dismiss="modal">Tidak</button>
-            </center>
+            </div>
       </div>
         </form>
     </div>
@@ -276,7 +283,6 @@
             $(".nama-member").text(nama);
             $("#id_user").val(id);
             $("#nis-member").text(nis);
-            $("#form-invite").attr('action','tambah_member');
         });
 
         $(".btn-delete-member").click(function(){

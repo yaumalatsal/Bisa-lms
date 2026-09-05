@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             // $table->unsignedBigInteger('mapel_id');
             $table->foreignId('mapel_id')->references('id')->on('mapels_quiz')->onDelete('cascade');
-     
+
             $table->text('question');
             $table->text('option_a');
             $table->text('option_b');

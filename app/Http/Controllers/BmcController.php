@@ -9,9 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class BmcController extends Controller
 {
-    public function __construct(private ProductDetailService $details)
-    {
-    }
+    public function __construct(private ProductDetailService $details) {}
 
     public function index()
     {

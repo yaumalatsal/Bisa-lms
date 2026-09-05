@@ -19,7 +19,9 @@ class MonthlyReport extends Model
      | monitoring queries compare against. Use these constants instead.
      */
     public const STATUS_PENDING = 'pending';
+
     public const STATUS_APPROVED = 'disetujui';
+
     public const STATUS_REJECTED = 'ditolak';
 
     protected $fillable = [
@@ -37,7 +39,9 @@ class MonthlyReport extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
     protected $dates = ['report_date'];
+
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id');
@@ -45,12 +49,12 @@ class MonthlyReport extends Model
 
     public function getFormattedRevenueAttribute()
     {
-        return 'Rp ' . number_format($this->revenue, 0, ',', '.');
+        return 'Rp '.number_format($this->revenue, 0, ',', '.');
     }
 
     public function getFormattedSpendingAttribute()
     {
-        return 'Rp ' . number_format($this->spending, 0, ',', '.');
+        return 'Rp '.number_format($this->spending, 0, ',', '.');
     }
 
     public function getProfitAttribute()
@@ -63,18 +67,14 @@ class MonthlyReport extends Model
         $profit = $this->profit;
         if ($profit > 0) {
             return '<span class="text-success">
-                    <i class="fas fa-arrow-up"></i> Rp.  ' . number_format($profit, 2) . 
+                    <i class="fas fa-arrow-up"></i> Rp.  '.number_format($profit, 2).
                 '</span>';
         } elseif ($profit < 0) {
             return '<span class="text-danger">
-                    <i class="fas fa-arrow-down"></i> Rp.  ' . number_format($profit, 2) . 
+                    <i class="fas fa-arrow-down"></i> Rp.  '.number_format($profit, 2).
                 '</span>';
         } else {
             return number_format($profit, 2);
         }
     }
-
-
-
 }
-

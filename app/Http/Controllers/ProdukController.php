@@ -11,9 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class ProdukController extends Controller
 {
-    public function __construct(private ProductDetailService $details)
-    {
-    }
+    public function __construct(private ProductDetailService $details) {}
 
     /**
      * Form pendaftaran produk (tahap abstract).

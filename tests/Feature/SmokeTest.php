@@ -6,10 +6,10 @@ use App\Models\Admin;
 use App\Models\Investor;
 use App\Models\Mentor;
 use App\Models\Siswa;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 /**
@@ -56,7 +56,7 @@ class SmokeTest extends TestCase
                 continue;
             }
 
-            $path = '/' . rtrim(strtr($uri, $substitutions), '/');
+            $path = '/'.rtrim(strtr($uri, $substitutions), '/');
             $role = $this->roleFor($route->gatherMiddleware());
 
             $request = $this->withoutExceptionHandling();
@@ -75,16 +75,24 @@ class SmokeTest extends TestCase
             }
         }
 
-        $this->assertSame([], $failures, "Routes that failed:\n" . implode("\n", $failures));
+        $this->assertSame([], $failures, "Routes that failed:\n".implode("\n", $failures));
     }
 
     private function roleFor(array $middleware): ?string
     {
         foreach ($middleware as $m) {
-            if ($m === 'auth.role:siswa') return 'siswa';
-            if ($m === 'auth.role:mentor') return 'mentor';
-            if ($m === 'auth:admin') return 'admin';
-            if ($m === 'auth:investor') return 'investor';
+            if ($m === 'auth.role:siswa') {
+                return 'siswa';
+            }
+            if ($m === 'auth.role:mentor') {
+                return 'mentor';
+            }
+            if ($m === 'auth:admin') {
+                return 'admin';
+            }
+            if ($m === 'auth:investor') {
+                return 'investor';
+            }
         }
 
         return null;
@@ -126,8 +134,8 @@ class SmokeTest extends TestCase
         DB::table('poster_produk')->insert(['id' => 1, 'poster_produk' => 'p.png', 'id_produk' => 1]);
         DB::table('presentasi')->insert(['id' => 1, 'deck' => 'https://slides.com/x', 'id_produk' => 1]);
         DB::table('monthly_reports')->insert([
-            ['id' => 1, 'product_id' => 1, 'total_sales' => 50, 'report_date' => date('Y') . '-01-15', 'revenue' => 5000000, 'spending' => 2000000, 'status' => 'disetujui', 'user_id' => $siswaId],
-            ['id' => 2, 'product_id' => 1, 'total_sales' => 30, 'report_date' => (date('Y') - 1) . '-02-15', 'revenue' => 3000000, 'spending' => 1000000, 'status' => 'disetujui', 'user_id' => $siswaId],
+            ['id' => 1, 'product_id' => 1, 'total_sales' => 50, 'report_date' => date('Y').'-01-15', 'revenue' => 5000000, 'spending' => 2000000, 'status' => 'disetujui', 'user_id' => $siswaId],
+            ['id' => 2, 'product_id' => 1, 'total_sales' => 30, 'report_date' => (date('Y') - 1).'-02-15', 'revenue' => 3000000, 'spending' => 1000000, 'status' => 'disetujui', 'user_id' => $siswaId],
         ]);
         DB::table('mapels_quiz')->insert(['id' => 1, 'name' => 'Kewirausahaan', 'durasi' => 30]);
         DB::table('quiz_soals')->insert(['id' => 1, 'mapel_id' => 1, 'question' => 'Apa itu BMC?', 'option_a' => 'a', 'option_b' => 'b', 'option_c' => 'c', 'option_d' => 'd', 'key' => 'a']);

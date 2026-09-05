@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\QuizHasil;
 use App\Models\MapelsQuiz;
+use App\Models\QuizHasil;
 use App\Models\Siswa;
-use Illuminate\Support\Facades\DB;
 
 class PeringkatController extends Controller
 {
     public function index()
     {
         $mapels = MapelsQuiz::all(); // Ambil semua mata pelajaran
+
         return view('dashboard.ranking.index', compact('mapels'));
     }
 
@@ -55,15 +54,13 @@ class PeringkatController extends Controller
                     'totalAnswerScore' => $totalAnswerScore,
                     'totalPenilaian' => $totalPenilaian,
                     'totalQuizScore' => $totalQuizScore,
-                    'total_score' => $totalScore
+                    'total_score' => $totalScore,
                 ];
             })
             ->filter(function ($item) {
                 return $item['total_score'] > 0;
             })
             ->sortByDesc('total_score');
-
-
 
         // dd($rankings);
         return view('dashboard.ranking.point-rank', compact('rankings'));

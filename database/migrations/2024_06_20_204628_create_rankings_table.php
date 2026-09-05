@@ -12,15 +12,14 @@ return new class extends Migration
      * @return void
      */
     public function up()
-{
-    Schema::create('rankings', function (Blueprint $table) {
-        $table->id();
-        $table->string('name');
-        $table->integer('score');
-        $table->timestamps();
-    });
-}
-
+    {
+        Schema::create('rankings', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->integer('score');
+            $table->timestamps();
+        });
+    }
 
     /**
      * Reverse the migrations.

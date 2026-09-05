@@ -3,18 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Member;
-use App\Models\Monitoring;
-use App\Models\Product;
 use App\Models\Siswa;
 use App\Services\MonitoringStatsService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class MonitoringController extends Controller
 {
-    public function __construct(private MonitoringStatsService $stats)
-    {
-    }
+    public function __construct(private MonitoringStatsService $stats) {}
 
     /**
      * Monitoring bisnis untuk tim siswa yang sedang login.
@@ -72,30 +67,5 @@ class MonitoringController extends Controller
         }
 
         return view('mentor.pameran.monitoring', $data);
-    }
-
-    /**
-     * Simpan satu catatan monitoring harian milik tim siswa yang login.
-     */
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'business_process' => ['required', 'string', 'max:255'],
-            'value' => ['required', 'numeric'],
-            'product' => ['required', 'string', 'max:255'],
-            'quantity' => ['required', 'integer', 'min:0'],
-            'price' => ['required', 'numeric', 'min:0'],
-            'date' => ['required', 'date'],
-            'file' => ['nullable', 'file', 'mimes:jpg,jpeg,png,pdf,doc,docx', 'max:5120'],
-        ]);
-
-        if ($request->hasFile('file')) {
-            $validated['file_path'] = $request->file('file')->store('uploads', 'public');
-        }
-
-        Monitoring::create($validated);
-
-        return redirect()->route('monitoring.index')
-            ->with('success', 'Data monitoring berhasil ditambahkan.');
     }
 }

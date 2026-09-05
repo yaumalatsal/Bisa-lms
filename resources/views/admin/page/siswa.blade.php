@@ -2,18 +2,6 @@
     Dashboard Admin
 @endsection
 
-@section('css')
-    <style>
-        .card-step {
-            min-height: 350px;
-        }
-
-        .card-step .deskripsi-step {
-            height: 90px;
-        }
-    </style>
-@endsection
-
 @extends('admin/template/index')
 @section('content')
     <div class="container-fluid">
@@ -56,7 +44,7 @@
                                                     <i class="fas fa-trash"></i>
                                                 </a>
 
-                                                <form id="delete-form-{{ $data->id }}"
+                                                <form data-submitted-by="js" id="delete-form-{{ $data->id }}"
                                                     action="{{ route('admin.siswa.destroy', $data->id) }}" method="POST"
                                                     style="display: none;">
                                                     @csrf

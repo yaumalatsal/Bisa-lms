@@ -3,9 +3,6 @@
 @endsection
 @section('css')
     <style>
-        .modal-dialog{
-            max-width:75%;
-        }
         
 
         @media only screen and (max-width:720px){
@@ -24,7 +21,7 @@
                 <div class="card-body">
                     <div class="row p-4">
                         <div class="col-md-5">
-                            <center><img src="{{asset('assets/images/ilustration/step/presen.gif')}}" style="width:80%" alt=""></center>
+                            <div class="text-center"><img src="{{asset('assets/images/ilustration/step/presen.gif')}}" style="width:80%" alt=""></div>
                         </div>
                         <div class="col-md-6">
                             <h2>Selamat Datang di Tahap Presentasi Produk ( Pitch Deck )</h2>
@@ -100,8 +97,8 @@
                     </p>
                     <form action="{{url('/setPitchDeck')}}" method="post">
                         {{csrf_field()}}
-                        <label for="">Link Pitch Deck</label>
-                        <input type="text" name="deck" class="form-control">
+                        <label for="f-deck">Link Pitch Deck</label>
+                        <input id="f-deck" type="text" name="deck" class="form-control">
                         <br>
                         <button type="submit" class="btn btn-primary">Simpan <i class="fas fa-save"></i> </button>
                     </form>
@@ -123,15 +120,15 @@
       <div class="modal-body">
         <form action="{{url('/setPitchDeck')}}" method="post" >
             {{csrf_field()}}   
-            <label for="" style="font-size:12px;">Link Google Slide</label>
+            <label for="ed-deck" style="font-size:12px;">Link Google Slide</label>
             <br> 
             <input type="text" name="deck" id="ed-deck" class="form-control">
             <br>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Simpan</button>
                 <button type="button"  class="btn btn-danger text-white" data-bs-dismiss="modal">Batalkan</button>
-        </form>
             </div>
+        </form>
         </div>
     </div>
   </div>

@@ -3,9 +3,6 @@
 @endsection
 @section('css')
     <style>
-        .modal-dialog{
-            max-width:75%;
-        }
         .blok-jawaban{
             background-color:#ededed;
             font-size:13px;
@@ -36,7 +33,7 @@
                     <div class="row">
                     <div class="col-md-5">
                         @foreach($getmasterbmc as $dataz)
-                            <center><img src="{{asset('assets/images/'.$dataz->icon)}}" style="width:40%" class="m-5" alt=""></center>
+                            <div class="text-center"><img src="{{asset('assets/images/'.$dataz->icon)}}" style="width:40%" class="m-5" alt=""></div>
                         </div>
                         <div class="col-md-6">
                             <h2 class="mt-5"> <strong>{{$dataz->judul}} </strong></h2>
@@ -82,24 +79,32 @@
     </div>
 </div>
 
-<div class="modal fade" id="modalJawaban" tabindex="-1">
+{{-- The form opened in .modal-body and closed after .modal-footer, so the
+     parsed document put the submit button outside the form. It now wraps the
+     dialog. The heading placeholder ("pulupulupulu") is filled in by the JS
+     that opens the modal. --}}
+<div class="modal fade" id="modalJawaban" tabindex="-1" aria-labelledby="modalJawabanTitle" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title" id="ed-pertanyaan">pulupulupulu</h3>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form action="{{url('/update_jawaban')}}" method="post">
-            {{csrf_field()}}  
-            <input type="hidden" name="id_pertanyaan" id="ed-idpertanyaan" class="form-control">
-            <textarea name="jawaban" id="ed-jawaban" cols="30" rows="10" id="ed-jawaban" class="form-control"></textarea>
+      <form action="{{ url('/update_jawaban') }}" method="post">
+        @csrf
+
+        <div class="modal-header">
+          <h3 class="modal-title" id="modalJawabanTitle">Jawaban</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
         </div>
+
+        <div class="modal-body">
+          <input type="hidden" name="id_pertanyaan" id="ed-idpertanyaan">
+          <label class="form-label" for="ed-jawaban">Jawaban Anda</label>
+          <textarea name="jawaban" id="ed-jawaban" rows="10" class="form-control"></textarea>
+        </div>
+
         <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Simpan Jawaban</button>
-            <button type="button"  class="btn btn-danger text-white" data-bs-dismiss="modal">Batalkan</button>
-        </form>
-      </div>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
+          <button type="submit" class="btn btn-primary">Simpan Jawaban</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -113,7 +118,20 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
         <div class="modal-body ytiframe">
-            @php echo htmlspecialchars_decode($dataz->video) @endphp
+            {{-- The `video` column stores a pasted <iframe>. Echoing it as raw
+                 HTML made every stored value executable markup; we extract the
+                 video id and build the embed ourselves instead. --}}
+            @php($materiVideo = \App\Support\Embed::youtubeEmbedUrl($dataz->video ?? null))
+            @if ($materiVideo)
+                <div class="ratio ratio-16x9">
+                    <iframe src="{{ $materiVideo }}" title="Video penjelasan {{ $dataz->judul }}"
+                        allow="accelerometer; encrypted-media; picture-in-picture"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen loading="lazy"></iframe>
+                </div>
+            @else
+                <p class="text-muted mb-0">Belum ada video penjelasan untuk poin ini.</p>
+            @endif
         </div>
         <div class="modal-footer">
             <button type="button"  class="pauseYt btn btn-danger text-white" data-bs-dismiss="modal">Tutup</button>
@@ -133,7 +151,7 @@
             var pertanyaan   = $(this).data('pertanyaan');
             var idpertanyaan = $(this).data('idpertanyaan');
             var jawaban = $(this).data('jawaban');
-            $('#ed-pertanyaan').text(pertanyaan);
+            $('#modalJawabanTitle').text(pertanyaan);
             $('#ed-idpertanyaan').val(idpertanyaan);            
             $('#ed-jawaban').val(jawaban);
         });

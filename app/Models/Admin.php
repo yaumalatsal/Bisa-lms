@@ -13,11 +13,10 @@ class Admin extends Authenticatable
     protected $guard = 'admin'; // Define guard for this model
 
     protected $fillable = [
-        'nama', 'email', 'password' // Add other fields as necessary
+        'nama', 'email', 'password', // Add other fields as necessary
     ];
 
     protected $hidden = [
-        'password'
+        'password',
     ];
-
 }

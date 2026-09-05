@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('pertanyaan');
             $table->string('keterangan');
             $table->string('id_poin_bmc');
-            $table->timestamps(); 
+            $table->timestamps();
         });
     }
 

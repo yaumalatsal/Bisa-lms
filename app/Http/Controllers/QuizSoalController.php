@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\QuizSoal;
 use App\Models\MapelsQuiz;
+use App\Models\QuizSoal;
+use Illuminate\Http\Request;
 
 class QuizSoalController extends Controller
 {
@@ -28,6 +28,7 @@ class QuizSoalController extends Controller
     public function create(Request $request)
     {
         $mapelId = $request->query('mapel_id');
+
         return view('admin.quiz_soals.create', compact('mapelId'));
     }
 
@@ -49,29 +50,30 @@ class QuizSoalController extends Controller
     }
 
     public function edit($id)
-{
-    $soal = QuizSoal::findOrFail($id);
-    $mapelId = $soal->mapel_id;
-    return view('admin.quiz_soals.edit', compact('soal', 'mapelId'));
-}
+    {
+        $soal = QuizSoal::findOrFail($id);
+        $mapelId = $soal->mapel_id;
 
-public function update(Request $request, $id)
-{
-    $validated = $request->validate([
-        'mapel_id' => 'required|exists:mapels_quiz,id',
-        'question' => 'required|string',
-        'option_a' => 'required|string',
-        'option_b' => 'required|string',
-        'option_c' => 'required|string',
-        'option_d' => 'required|string',
-        'key' => 'required|string',
-    ]);
+        return view('admin.quiz_soals.edit', compact('soal', 'mapelId'));
+    }
 
-    $soal = QuizSoal::findOrFail($id);
-    $soal->update($validated);
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'mapel_id' => 'required|exists:mapels_quiz,id',
+            'question' => 'required|string',
+            'option_a' => 'required|string',
+            'option_b' => 'required|string',
+            'option_c' => 'required|string',
+            'option_d' => 'required|string',
+            'key' => 'required|string',
+        ]);
 
-    return redirect()->route('admin.quiz_soals.index', ['mapel_id' => $validated['mapel_id']])->with('success', 'Soal berhasil diupdate!');
-}
+        $soal = QuizSoal::findOrFail($id);
+        $soal->update($validated);
+
+        return redirect()->route('admin.quiz_soals.index', ['mapel_id' => $validated['mapel_id']])->with('success', 'Soal berhasil diupdate!');
+    }
 
     public function destroy($id)
     {

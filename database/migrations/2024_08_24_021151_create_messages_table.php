@@ -18,7 +18,6 @@ class CreateMessagesTable extends Migration
             $table->unsignedInteger('id_product');
             $table->foreign('id_product')->references('id')->on('product')->onDelete('cascade');
 
-
             $table->text('message');
             $table->timestamps();
         });
@@ -29,4 +28,3 @@ class CreateMessagesTable extends Migration
         Schema::dropIfExists('messages');
     }
 }
-

@@ -223,33 +223,6 @@
         border-left: 5px solid #cd7f32;
     }
 
-    @keyframes fadeInDown {
-        from {
-            opacity: 0;
-            transform: translateY(-20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .animated {
-        animation-duration: 0.8s;
-        animation-fill-mode: both;
-    }
-
     .fadeInDown {
         animation-name: fadeInDown;
     }

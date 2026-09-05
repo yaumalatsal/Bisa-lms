@@ -4,9 +4,6 @@
 
 @section('css')
     <style>
-        .modal-dialog{
-            max-width:75%;
-        }
 
         .table-result{
             background-color:#fff;
@@ -54,32 +51,51 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        <form id="productForm" action="register_produk" method="post">
-                            {{csrf_field()}}
-                            <h4> <span class="fas fa-archive"></span>&nbsp; Nama Produk <br>
-                            <small>Nama produk bisa berasal dari singkatan atau istilah yang berhubungan dengan produkmu</small>
-                            </h4>
-                            <input type="text" name="nama_produk" class="form-control">
-                      
-                            <br>
-                            <h4><span class="fas fa-align-left"></span>&nbsp;Deskripsi Singkat Produk <br>
-                            <small>Deskripsikan produkmu secara singkat. Deskripsi dapat mencakup 
-                            bidang yang dinanungi, sasaran pasar, bentuk produk, alur singkat penggunaan produk,
-                            dan hal lain yang berhubungan dengan penggambaran awal produkmu.
-                            </small>
-                            </h4>
-                            <textarea name="deskripsi"  class="form-control" rows="10"></textarea>
-                            <br>
-                            <h4><span class="fas fa-user"></span>&nbsp; Mentor <br>
-                            <small>Mentor yang dipilih adalah wirausaha sukses yang telah memiliki pengalaman dan wawasan yang luas mengenai kewirausahaan.</small>
-                            </h4>
-                            <select name="mentor" id="" class="form-control">
-                                @foreach($getmentor as $data)
-                                <option value="{{$data->id}}">{{$data->nama}}</option>
-                                @endforeach
-                            </select>
-                            <br>
-                            <button class="btn btn-primary float-end" type="submit">Selanjutnya <span class="fas fa-chevron-right"></span></button>
+                        {{-- The field captions were <h4> headings, so nothing was
+                             actually labelled: clicking a caption did not focus its
+                             field and assistive tech announced them as unnamed. --}}
+                        <form id="productForm" action="{{ url('/register_produk') }}" method="post">
+                            @csrf
+
+                            <div class="form-group">
+                                <label class="form-label h5 d-block" for="nama_produk">
+                                    <span class="fas fa-archive" aria-hidden="true"></span> Nama Produk
+                                </label>
+                                <p class="text-muted mb-2">Nama produk bisa berasal dari singkatan atau istilah
+                                    yang berhubungan dengan produkmu.</p>
+                                <input type="text" id="nama_produk" name="nama_produk" class="form-control"
+                                    value="{{ old('nama_produk') }}" required maxlength="255">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label h5 d-block" for="deskripsi">
+                                    <span class="fas fa-align-left" aria-hidden="true"></span> Deskripsi Singkat Produk
+                                </label>
+                                <p class="text-muted mb-2">Deskripsikan produkmu secara singkat: bidang yang
+                                    dinaungi, sasaran pasar, bentuk produk, alur singkat penggunaan produk, dan hal
+                                    lain yang menggambarkan produkmu.</p>
+                                <textarea id="deskripsi" name="deskripsi" class="form-control" rows="10"
+                                    required>{{ old('deskripsi') }}</textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label h5 d-block" for="mentor">
+                                    <span class="fas fa-user" aria-hidden="true"></span> Mentor
+                                </label>
+                                <p class="text-muted mb-2">Mentor yang dipilih adalah wirausaha berpengalaman yang
+                                    akan mendampingi pengembangan produkmu.</p>
+                                <select id="mentor" name="mentor" class="form-control" required>
+                                    @foreach ($getmentor as $data)
+                                        <option value="{{ $data->id }}" @selected(old('mentor') == $data->id)>
+                                            {{ $data->nama }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <button class="btn btn-primary float-end" type="submit">
+                                Selanjutnya <span class="fas fa-chevron-right" aria-hidden="true"></span>
+                            </button>
                         </form>
                     </div>             
                 </div>
@@ -90,7 +106,6 @@
 @endsection
 
 @section('js')
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(function(){
         // SweetAlert sebelum submit form
@@ -113,27 +128,6 @@
             });
         });
 
-        $("#fotoproduk").change(function(){
-            readURL(this,'#img-prev');
-        });        
-        $("#edit-fotoproduk").change(function(){
-            readURL(this,'#ed-foto-produk');
-        });
-        
-        $(".produk-edit").click(function(){
-            var id   = $(this).data('id');
-            var nama = $(this).data('nama');
-            var namafile = $(this).data('foto');
-            var foto = '{{asset('cover_produk/')}}/'+namafile;
-            var harga = $(this).data('harga');
-            var kategori = $(this).data('kategori');
-            var deskripsi = $(this).data('deskripsi');
-            $('#ed-nama-produk').val(nama);
-            $('#ed-harga-produk').val(harga);
-            $('#ed-deskripsi-produk').val(deskripsi);
-            $('#ed-id-produk').val(id);            
-            $('#ed-foto-produk').attr('src',foto);
-        });
     });
 </script>
 @endsection

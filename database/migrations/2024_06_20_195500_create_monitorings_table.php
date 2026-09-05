@@ -12,20 +12,19 @@ return new class extends Migration
      * @return void
      */
     public function up()
-{
-    Schema::create('monitorings', function (Blueprint $table) {
-        $table->id();
-        $table->string('product')->nullable();
-        $table->integer('profit')->nullable();
-        $table->string ('income')->nullable();
-        $table->string ('expenses')->nullable();
-        $table->integer('quantity')->nullable();
-        $table->string('order')->nullable();
-        $table->date('date');
-        $table->timestamps();
-    });
-}
-
+    {
+        Schema::create('monitorings', function (Blueprint $table) {
+            $table->id();
+            $table->string('product')->nullable();
+            $table->integer('profit')->nullable();
+            $table->string('income')->nullable();
+            $table->string('expenses')->nullable();
+            $table->integer('quantity')->nullable();
+            $table->string('order')->nullable();
+            $table->date('date');
+            $table->timestamps();
+        });
+    }
 
     /**
      * Reverse the migrations.

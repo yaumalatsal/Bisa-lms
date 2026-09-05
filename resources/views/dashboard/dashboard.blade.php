@@ -7,50 +7,6 @@
 @section('css')
 <style>
 
-
-    .card-step {
-        min-height: 350px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .card-step:hover {
-        transform: scale(1.03);
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    }
-
-    .card-step .card-body {
-        padding: 20px;
-    }
-
-    .card-step img {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-        border-bottom: 1px solid #ddd;
-    }
-
-    .card-step .deskripsi-step {
-        height: 90px;
-        overflow: hidden;
-        color: #555;
-    }
-
-    .card-step .btn {
-        margin-top: 10px;
-    }
-
-    .card-step .read-more {
-        display: block;
-        margin-top: 10px;
-        text-align: center;
-        color: #007bff;
-        text-decoration: none;
-    }
-
     h4 {
         color: #ff0000;
         font-weight: bold;
@@ -86,9 +42,6 @@
     .dataTables_wrapper .dataTables_filter input {
         margin: 0;
         padding: 5px;
-    }
-    .btn-primary{
-        background-color: #ff0000;
     }
 </style>
 @endsection

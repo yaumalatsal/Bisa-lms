@@ -7,9 +7,7 @@ use App\Services\ProductDetailService;
 
 class AdminProdukController extends Controller
 {
-    public function __construct(private ProductDetailService $details)
-    {
-    }
+    public function __construct(private ProductDetailService $details) {}
 
     public function index()
     {

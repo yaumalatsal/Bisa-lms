@@ -3,9 +3,6 @@
 @endsection
 @section('css')
     <style>
-        .modal-dialog{
-            max-width:75%;
-        }
         
 
         @media only screen and (max-width:720px){
@@ -24,7 +21,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-5">
-                            <center><img src="{{asset('assets/images/ilustration/step/bmc.gif')}}" style="width:60%" class="m-5" alt=""></center>
+                            <div class="text-center"><img src="{{asset('assets/images/ilustration/step/bmc.gif')}}" style="width:60%" class="m-5" alt=""></div>
                         </div>
                         <div class="col-md-6">
                             <h2 class="mt-5"> <strong>Selamat Datang di Tahap BMC </strong></h2>
@@ -43,12 +40,12 @@
                 <div class="col-md-3">
                     <div class="card">
                         <div class="card-body">
-                            <center>
+                            <div class="text-center">
                             <img src="{{asset('assets/images/'.$data->icon)}}" alt="" class="w-50 mt-2">
                             <h4 class="mt-3" >{{$data->judul}}</h4>
                             <br>
                             <a href="{{url('detail_bmc/'.$data->id)}}" class="btn btn-primary w-100">Lengkapi Data <i class="fas fa-arrow-right"></i> </a>
-                            </center>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -104,27 +101,6 @@
         //     "autoWidth": false,
         // });
 
-        $("#fotoproduk").change(function(){
-            readURL(this,'#img-prev');
-        });        
-        $("#edit-fotoproduk").change(function(){
-            readURL(this,'#ed-foto-produk');
-        });
-        
-        $(".produk-edit").click(function(){
-            var id   = $(this).data('id');
-            var nama = $(this).data('nama');
-            var namafile = $(this).data('foto');
-            var foto = '{{asset('cover_produk/')}}/'+namafile;
-            var harga = $(this).data('harga');
-            var kategori = $(this).data('kategori');
-            var deskripsi = $(this).data('deskripsi');
-            $('#ed-nama-produk').val(nama);
-            $('#ed-harga-produk').val(harga);
-            $('#ed-deskripsi-produk').val(deskripsi);
-            $('#ed-id-produk').val(id);            
-            $('#ed-foto-produk').attr('src',foto);
-        });
     });
 </script>
 @endsection

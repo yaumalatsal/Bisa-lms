@@ -13,12 +13,14 @@ class CourseController extends Controller
     {
         $id_mentor = Session::get('id_mentor');
         $courses = Course::where('mentor_id', $id_mentor)->get();
+
         return view('mentor.courses.index', compact('courses'));
     }
 
     public function show($id)
     {
         $course = Course::with('courseMaterials')->findOrFail($id);
+
         return view('mentor.courses.show', compact('course'));
     }
 
@@ -53,6 +55,7 @@ class CourseController extends Controller
     public function edit($id)
     {
         $course = Course::findOrFail($id);
+
         return view('mentor.courses.edit', compact('course'));
     }
 

@@ -2,18 +2,6 @@
     Dashboard Siswa
 @endsection
 
-@section('css')
-    <style>
-        .card-step {
-            min-height: 350px;
-        }
-
-        .card-step .deskripsi-step {
-            height: 90px;
-        }
-    </style>
-@endsection
-
 @extends('dashboard_template/index')
 @section('content')
     <div class="container-fluid">

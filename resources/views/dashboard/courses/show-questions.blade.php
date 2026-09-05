@@ -6,14 +6,6 @@
 
 @section('css')
     <style>
-        .container-fluid {
-            background-color: #f0f3f5;
-            padding: 2rem;
-        }
-
-        .alert {
-            margin-bottom: 1rem;
-        }
 
         .quiz-container {
             background-color: #ffffff;

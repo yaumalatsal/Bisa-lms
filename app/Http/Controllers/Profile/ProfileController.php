@@ -22,8 +22,6 @@ class ProfileController extends Controller
             }])
             ->findOrFail($siswa_id);
 
-            
-        
         $produk_id = $siswa->members[0]->id_produk ?? 0;
 
         $total_penilaian = Penilaian::where('id_produk', $produk_id)->sum('file_nilai') ?? 0;
@@ -42,8 +40,6 @@ class ProfileController extends Controller
 
         $level = intval($totalScore / 100);
 
-
-
         return view('dashboard.profile.index', compact('siswa', 'totalScore', 'level'));
     }
 
@@ -53,7 +49,7 @@ class ProfileController extends Controller
 
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:siswa,email,' . $siswa_id,
+            'email' => 'required|email|max:255|unique:siswa,email,'.$siswa_id,
             // Add other validation rules as needed
         ]);
 

@@ -7,9 +7,7 @@ use App\Services\ProductDetailService;
 
 class InvestorProdukController extends Controller
 {
-    public function __construct(private ProductDetailService $details)
-    {
-    }
+    public function __construct(private ProductDetailService $details) {}
 
     public function index()
     {

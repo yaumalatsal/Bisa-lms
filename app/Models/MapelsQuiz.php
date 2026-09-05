@@ -15,13 +15,11 @@ class MapelsQuiz extends Model
     // Daftar atribut yang bisa diisi massal (mass assignable)
     protected $fillable = [
         'name',
-        'durasi'
+        'durasi',
     ];
 
     public function quizSoals()
     {
         return $this->hasMany(QuizSoal::class, 'mapel_id');
     }
-
-
 }

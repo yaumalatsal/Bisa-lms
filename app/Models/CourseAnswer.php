@@ -13,14 +13,16 @@ class CourseAnswer extends Model
         'question_id',
         'siswa_id',
         'answer_text',
-        'score'
+        'score',
     ];
 
-    public function courseQuestion(){
+    public function courseQuestion()
+    {
         return $this->belongsTo(CourseQuestion::class, 'question_id');
     }
 
-    public function siswa(){
+    public function siswa()
+    {
         return $this->belongsTo(Siswa::class);
     }
 }

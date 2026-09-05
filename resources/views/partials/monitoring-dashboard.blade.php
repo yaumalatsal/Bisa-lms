@@ -149,7 +149,7 @@
     {{-- Hanya ApexCharts. Tumpukan tema kedua (jQuery, popper, perfect-scrollbar,
          menu.js, main.js) dan skrip pihak ketiga buttons.github.io yang ikut
          terbawa dari demo tema sudah tidak dimuat lagi. --}}
-    <script src="{{ asset('sneat/assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
+    <script src="{{ asset('js/vendor/apexcharts.js') }}"></script>
     <script>
         (function () {
             if (typeof ApexCharts === 'undefined') {

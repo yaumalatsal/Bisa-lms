@@ -14,10 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::table('mentor', function (Blueprint $table) {
-            if (!Schema::hasColumn('mentor', 'password')) {
+            if (! Schema::hasColumn('mentor', 'password')) {
                 $table->string('password', 255)->nullable(false)->after('email');
             }
-            if (!Schema::hasColumn('mentor', 'instansi')) {
+            if (! Schema::hasColumn('mentor', 'instansi')) {
                 $table->string('instansi', 100)->nullable(false)->after('umur');
             }
         });

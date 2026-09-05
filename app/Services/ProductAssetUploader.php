@@ -48,7 +48,7 @@ class ProductAssetUploader
             return null;
         }
 
-        $name = Str::uuid() . '.' . $extension;
+        $name = Str::uuid().'.'.$extension;
         $file->move(public_path($directory), $name);
 
         return $name;
@@ -65,7 +65,7 @@ class ProductAssetUploader
             return;
         }
 
-        $path = public_path($directory . DIRECTORY_SEPARATOR . $name);
+        $path = public_path($directory.DIRECTORY_SEPARATOR.$name);
 
         if (is_file($path)) {
             @unlink($path);

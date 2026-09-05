@@ -14,3 +14,22 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+
+# Product uploads are user content; they belong on the server, not in the repo.
+# (A handful of historical files are already tracked and stay that way.)
+/public/logo_produk/*
+/public/poster_produk/*
+!/public/logo_produk/.gitkeep
+!/public/poster_produk/.gitkeep
+
+# Published by `php artisan telescope:install` / vendor:publish.
+/public/vendor
+
+# Stray editor and OS files.
+.DS_Store
+Thumbs.db
+
+# Never commit database dumps: they carry real student names, NISs, dates of
+# birth and password hashes.
+*.sql
+/Database Incube

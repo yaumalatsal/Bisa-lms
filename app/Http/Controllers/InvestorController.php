@@ -6,17 +6,15 @@ use App\Models\Investor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 
 class InvestorController extends Controller
 {
-    
     public function showLoginForm()
     {
         return view('investor.page.login');
     }
-    
+
     public function showRegisterForm()
     {
         return view('investor.page.register');
@@ -30,7 +28,7 @@ class InvestorController extends Controller
         ]);
 
         $credentials = $request->only('email', 'password');
-        
+
         if (Auth::guard('investor')->attempt($credentials)) {
             return redirect()->route('investor.index');
         }
@@ -51,8 +49,7 @@ class InvestorController extends Controller
 
         Investor::create($validated);
 
-        return redirect('/investor/login')->with('success','Registrasi Berhasil, Silahkan Login');
-
+        return redirect('/investor/login')->with('success', 'Registrasi Berhasil, Silahkan Login');
 
         // Auth::guard('investor')->login($investor);
 
@@ -62,6 +59,7 @@ class InvestorController extends Controller
     public function logout(Request $request)
     {
         Auth::guard('investor')->logout();
+
         return redirect()->route('investor.login');
     }
 
@@ -69,6 +67,4 @@ class InvestorController extends Controller
     {
         return view('investor.page.dashboard');
     }
-
-    
 }

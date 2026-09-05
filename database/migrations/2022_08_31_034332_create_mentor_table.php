@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('mentor', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nama',50);
-            $table->string('email',50);
-            $table->string('nomor_telepon',50);
+            $table->string('nama', 50);
+            $table->string('email', 50);
+            $table->string('nomor_telepon', 50);
             $table->integer('umur');
             $table->timestamps();
         });

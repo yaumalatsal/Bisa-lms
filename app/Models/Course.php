@@ -14,26 +14,26 @@ class Course extends Model
         'description',
         'mentor_id',
         'status',
-        'image'
+        'image',
     ];
 
-    public function courseMaterials(){
+    public function courseMaterials()
+    {
         return $this->hasMany(CourseMaterial::class);
     }
 
-    public function courseQuestions(){
+    public function courseQuestions()
+    {
         return $this->hasMany(CourseQuestion::class);
     }
 
-    public function mentor(){
+    public function mentor()
+    {
         return $this->belongsTo(Mentor::class);
     }
 
-    public function courseCompletions(){
-        return $this->hasMany(CourseCompletion::class); 
+    public function courseCompletions()
+    {
+        return $this->hasMany(CourseCompletion::class);
     }
-
-
-
-    
 }

@@ -3,9 +3,6 @@
 @endsection
 @section('css')
     <style>
-        .modal-dialog{
-            max-width:75%;
-        }
         
 
         @media only screen and (max-width:720px){
@@ -24,7 +21,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-5">
-                            <center><img src="{{asset('assets/images/ilustration/step/proto.gif')}}" style="width:60%" class="m-5" alt=""></center>
+                            <div class="text-center"><img src="{{asset('assets/images/ilustration/step/proto.gif')}}" style="width:60%" class="m-5" alt=""></div>
                         </div>
                         <div class="col-md-6">
                             <h2 class="mt-5"> <strong>Selamat Datang Tahap di Prototyping dan Branding Logo </strong></h2>        
@@ -72,9 +69,9 @@
                         <div class="m-1">
                             <form action="{{url('/setFigma')}}" method="post" >
                             {{csrf_field()}}   
-                            <label for="" style="font-size:12px;">Shared Link Figma</label>
+                            <label for="f-link_figma" style="font-size:12px;">Shared Link Figma</label>
                             <br> 
-                            <input type="text" name="link_figma" id="" class="form-control" required="required">
+                            <input type="text" name="link_figma" id="f-link_figma" class="form-control" required="required">
                             <br>
                             <button type="submit" class="btn btn-primary">Simpan</button>
                             </form>
@@ -124,14 +121,16 @@
                     
                     @if($countLogo == 0)
                     Jangan lupa uplad foto dari logomu sebagai bukti progress kepada mentor
-                    <center>
+                    <div class="text-center">
                         <img class="w-70" src="{{asset('assets/images/noimage.png')}}" alt="">
-                    </center>
+                    </div>
                     <form action="{{url('/setLogo')}}" method="post" enctype='multipart/form-data'>
                     {{csrf_field()}}  
-                        <input type="file" name="logo_produk" class="form-control" required="required" accept=".jpg,.png">
-                        <label for="deskripsi">Deskripsi singkat dan Makna logo :</label>
-                        <textarea name="deskripsi" class="form-control" id="" cols="30" rows="4"></textarea>
+                        <label class="form-label" for="logo-produk-baru">Berkas logo (PNG, JPG atau WebP)</label>
+                        <input type="file" id="logo-produk-baru" name="logo_produk" class="form-control"
+                            required accept=".jpg,.jpeg,.png,.webp">
+                        <label class="form-label mt-3" for="logo-deskripsi-baru">Deskripsi singkat dan makna logo</label>
+                        <textarea id="logo-deskripsi-baru" name="deskripsi" class="form-control" rows="4"></textarea>
                         <button class="btn btn-primary" type="submit">Simpan</button>
                     </form>
                     @else
@@ -143,9 +142,9 @@
                             Edit Logo &nbsp;<i class="fas fa-edit"></i>
                             </button>
                         </h4>
-                        <center>
+                        <div class="text-center">
                         <img class="m-5" style="width:200px" id="logo-awal-produk" src="{{asset('/logo_produk/'.$logo->logo_produk)}}" alt="">
-                        </center>
+                        </div>
                         <br>
                         Deskripsi singkat Logo :
                         <div class="alert alert-success">
@@ -174,15 +173,15 @@
       <div class="modal-body">
         <form action="{{url('/setFigma')}}" method="post" >
             {{csrf_field()}}   
-            <label for="" style="font-size:12px;">Shared Link Figma</label>
+            <label for="ed-link" style="font-size:12px;">Shared Link Figma</label>
             <br> 
             <input type="text" name="link_figma" id="ed-link" class="form-control" required="required">
             <br>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Simpan</button>
                 <button type="button"  class="btn btn-danger text-white" data-bs-dismiss="modal">Batalkan</button>
-        </form>
             </div>
+        </form>
         </div>
     </div>
   </div>
@@ -194,7 +193,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="ed-pertanyaan">Edit Link Prorotype Figma</h3>
+        <h3 class="modal-title" id="ed-pertanyaan-2">Edit Link Prorotype Figma</h3>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -202,15 +201,17 @@
             {{csrf_field()}}   
             <img src="" id="ed-logo" alt="" style="width:200px;">
             <br><br>
-            <input type="file" name="logo_produk"  class="form-control" required="required" accept=".png,.jpeg">
-            <label for="deskripsi">Deskripsi singkat dan Makna logo :</label>
-            <textarea name="deskripsi" class="form-control" id="ed-deskripsi-logo" required="required" cols="30" rows="4"></textarea>
+            <label class="form-label" for="ed-logo-file">Berkas logo (PNG, JPG atau WebP)</label>
+            <input type="file" id="ed-logo-file" name="logo_produk" class="form-control"
+                required accept=".jpg,.jpeg,.png,.webp">
+            <label class="form-label mt-3" for="ed-deskripsi-logo">Deskripsi singkat dan makna logo</label>
+            <textarea id="ed-deskripsi-logo" name="deskripsi" class="form-control" rows="4" required></textarea>
 
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Simpan</button>
                 <button type="button"  class="btn btn-danger text-white" data-bs-dismiss="modal">Batalkan</button>
-        </form>
             </div>
+        </form>
         </div>
     </div>
   </div>
@@ -222,7 +223,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="ed-pertanyaan">Pentingnya Logo Produk</h3>
+        <h3 class="modal-title" id="ed-pertanyaan-3">Pentingnya Logo Produk</h3>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -241,7 +242,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="ed-pertanyaan">Video Pembelajaran Prototyping Produk dengan Figma</h3>
+        <h3 class="modal-title" id="ed-pertanyaan-4">Video Pembelajaran Prototyping Produk dengan Figma</h3>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">

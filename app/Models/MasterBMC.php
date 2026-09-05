@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class MasterBMC extends Model
 {
     use HasFactory;
+
     protected $table = 'master_bmc';
 
     protected $fillable = [

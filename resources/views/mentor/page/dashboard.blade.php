@@ -2,17 +2,6 @@
     Dashboard Mentor
 @endsection
 
-@section('css')
-<style>
-    .card-step{
-        min-height:350px;
-    }
-    .card-step .deskripsi-step{
-        height:90px;
-    }
-</style>
-@endsection
-
 @extends('mentor/template/index')
 @section('content')
 <div class="container-fluid">
@@ -22,7 +11,7 @@
                 <div class="card-body">
                     <div class="row p-4">
                         <div class="col-md-5">
-                            <center><img src="{{asset('assets/images/ilustration/step/mentor.gif')}}" style="width:80%" alt=""></center>
+                            <div class="text-center"><img src="{{asset('assets/images/ilustration/step/mentor.gif')}}" style="width:80%" alt=""></div>
                         </div>
                         <div class="col-md-6">
                             <br>

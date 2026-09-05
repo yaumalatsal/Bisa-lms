@@ -3,9 +3,6 @@
 @endsection
 @section('css')
     <style>
-        .modal-dialog{
-            max-width:75%;
-        }
         
         #video-area iframe{
             width:100%;
@@ -28,7 +25,7 @@
                 <div class="card-body">
                     <div class="row p-4">
                         <div class="col-md-5">
-                            <center><img src="{{asset('assets/images/ilustration/step/publis.gif')}}" style="width:60%" class="m-5" alt=""></center>
+                            <div class="text-center"><img src="{{asset('assets/images/ilustration/step/publis.gif')}}" style="width:60%" class="m-5" alt=""></div>
                         </div>
                         <div class="col-md-6">
                             <h2>Selamat Datang di Tahap Publikasi Produk</h2>
@@ -72,9 +69,9 @@
                         </p>
                         <form action="{{url('/setVideo')}}" method="post" enctype="multipart/form-data">
                             {{csrf_field()}}
-                            <label for="" style="font-size:12px;"> Link Video Produk</label>
+                            <label for="f-link_video" style="font-size:12px;"> Link Video Produk</label>
                             <br>  
-                            <input type="text" name="link_video" id="" class="form-control" placeholder="Link Embed Youtube">
+                            <input type="text" name="link_video" id="f-link_video" class="form-control" placeholder="Link Embed Youtube">
                             <br>
                             <button class="btn btn-primary">Simpan</button>
                         </form>
@@ -88,7 +85,7 @@
 
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <strong>Video Sudah Terupload.</strong> Kamu harus submit progress agar mentor dapat mereview videomu. Klik <strong>Edit Link</strong> apabila ingin mengganti Embed Code Video <br><br>
-                            <button data-video="{{$datas->link_video}}"class="btn btn-warning" id="btn-editVideo" data-bs-toggle="modal" data-bs-target="#modalEditVideo">Edit Link Video <span class="fas fa-edit"></span></button>
+                            <button data-video="{{ $datas->link_video }}" class="btn btn-warning" id="btn-editVideo" data-bs-toggle="modal" data-bs-target="#modalEditVideo">Edit Link Video <span class="fas fa-edit"></span></button>
                             </div>
 
                             <p>Berikut adalah video produkmu :</p>
@@ -120,9 +117,9 @@
                         <p>
                             Berikut adalah contoh poster produk yang bergerak di bidang jasa konultan bisnis: <br>
                         </p>  
-                        <center>
+                        <div class="text-center">
                             <img class="w-100" src="https://unblast.com/wp-content/uploads/2020/01/Mobile-App-Promotion-Flyer-Template.jpg" alt="">
-                        </center>
+                        </div>
                     </div>  
                     <div class="row p-3">
                         <p>
@@ -150,7 +147,7 @@
                             <h3> Tugas Poster Produk</h3>
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <strong>Video Sudah Terupload.</strong> Kamu harus submit progress agar mentor dapat mereview videomu. Klik <strong>Edit Link</strong> apabila ingin mengganti Embed Code Video <br><br>
-                            <button data-poster="{{$poster->poster_produk}}"class="btn btn-warning" id="btn-editVideo" data-bs-toggle="modal" data-bs-target="#modalEditPoster">Edit Poster <span class="fas fa-edit"></span></button>
+                            <button data-poster="{{ $poster->poster_produk }}" class="btn btn-warning" id="btn-editPoster" data-bs-toggle="modal" data-bs-target="#modalEditPoster">Edit Poster <span class="fas fa-edit"></span></button>
                             </div>
                             <br>
                             <img src="{{asset('poster_produk/'.$poster->poster_produk)}}" alt="">
@@ -175,15 +172,15 @@
       <div class="modal-body">
         <form action="{{url('/setVideo')}}" method="post" >
             {{csrf_field()}}   
-            <label for="" style="font-size:12px;">Embed Code</label>
+            <label for="ed-link" style="font-size:12px;">Embed Code</label>
             <br> 
             <input type="text" name="link_video" id="ed-link" class="form-control">
             <br>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Simpan</button>
                 <button type="button"  class="btn btn-danger text-white" data-bs-dismiss="modal">Batalkan</button>
-        </form>
             </div>
+        </form>
         </div>
     </div>
   </div>
@@ -194,21 +191,21 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="ed-pertanyaan">Edit Poster</h3>
+        <h3 class="modal-title" id="ed-pertanyaan-2">Edit Poster</h3>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form action="{{url('/setPoster')}}" method="post" enctype="multipart/form-data">
             {{csrf_field()}}   
-            <label for="" style="font-size:12px;">File Poster</label>
+            <label for="f-poster_produk" style="font-size:12px;">File Poster</label>
             <br> 
-            <input type="file" name="poster_produk"  class="form-control" required="required">
+            <input id="f-poster_produk" type="file" name="poster_produk"  class="form-control" required="required">
             <br>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Simpan</button>
                 <button type="button"  class="btn btn-danger text-white" data-bs-dismiss="modal">Batalkan</button>
-        </form>
             </div>
+        </form>
         </div>
     </div>
   </div>

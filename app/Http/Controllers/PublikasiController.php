@@ -11,9 +11,7 @@ class PublikasiController extends Controller
 {
     private const POSTER_DIR = 'poster_produk';
 
-    public function __construct(private ProductAssetUploader $uploader)
-    {
-    }
+    public function __construct(private ProductAssetUploader $uploader) {}
 
     public function index(Request $request)
     {

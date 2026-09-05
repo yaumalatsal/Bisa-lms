@@ -17,9 +17,9 @@ return new class extends Migration
             $table->increments('id');
             $table->string('judul');
             $table->string('deskripsi');
-            $table->string('route',50);
+            $table->string('route', 50);
             $table->string('video');
-            $table->timestamps(); 
+            $table->timestamps();
         });
     }
 

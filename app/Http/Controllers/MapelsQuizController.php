@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\MapelsQuiz;
+use Illuminate\Http\Request;
 
 class MapelsQuizController extends Controller
 {
     public function index()
     {
         $mapels = MapelsQuiz::all();
+
         return view('admin.mapels.index', compact('mapels'));
     }
 
@@ -33,6 +34,7 @@ class MapelsQuizController extends Controller
     public function edit($id)
     {
         $mapel = MapelsQuiz::findOrFail($id);
+
         return view('admin.mapels.edit', compact('mapel'));
     }
 

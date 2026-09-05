@@ -8,21 +8,11 @@
     .modal-dialog{
         max-width: 75%;
     }
-    .card-step {
-        min-height: 350px;
-        border-radius: 15px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    }
 
     /* Gaya hover pada kartu */
     .card-step:hover {
         transform: translateY(-10px);
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    .card-step .deskripsi-step {
-        height: 90px;
     }
 
     /* Responsivitas untuk perangkat kecil */
@@ -38,18 +28,6 @@
         text-transform: uppercase;
     }
 
-    .table th {
-        font-weight: bold;
-    }
-
-    .table tbody tr {
-        transition: background-color 0.3s ease;
-    }
-
-    .table tbody tr:hover {
-        background-color: #f1f1f1;
-    }
-
     /* Animasi untuk judul dan konten */
     h3 {
         font-size: 24px;
@@ -63,36 +41,9 @@
         animation: fadeInUp 1s ease-in-out;
     }
 
-    @keyframes fadeInDown {
-        from {
-            opacity: 0;
-            transform: translateY(-20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
     /* Gaya untuk tombol aksi */
     .btn-warning {
         transition: background-color 0.3s ease;
-    }
-
-    .btn-warning:hover {
-        background-color: #f39c12;
-        color: white;
     }
 </style>
 @endsection
@@ -188,8 +139,8 @@
                     <input type="hidden" id="ed-idfeedback" name="id_feed">
                     <button class="btn btn-success" type="submit">Konfirmasi</button>
                     <button class="btn btn-danger" data-bs-dismiss="modal" type="button">Batal</button>
-                </form>
             </div>
+        </form>
         </div>
     </div>
 </div>

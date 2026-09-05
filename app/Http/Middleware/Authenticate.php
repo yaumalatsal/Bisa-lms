@@ -17,9 +17,10 @@ class Authenticate extends Middleware
         if (! $request->expectsJson()) {
             if ($request->is('investor*')) {
                 return route('investor.login');
-            }else if($request->is('admin*')){
+            } elseif ($request->is('admin*')) {
                 return route('admin.login');
             }
+
             return route('login');
         }
     }

@@ -4,15 +4,6 @@
 
 @section('css')
 <style>
-      .modal-dialog{
-            max-width:75%;
-        }
-    .card-step{
-        min-height:350px;
-    }
-    .card-step .deskripsi-step{
-        height:90px;
-    }
 
     @media(max-width:420px){
         .modal-dialog{
@@ -114,16 +105,16 @@
         <form action="{{url('/mentor/inputFeed')}}" method="post" enctype='multipart/form-data'>
             {{csrf_field()}}   
 
-            <label for="">Langkah Inkubasi</label>
-            <select name="step" class="form-control">
+            <label for="f-step">Langkah Inkubasi</label>
+            <select id="f-step" name="step" class="form-control">
                 @foreach($masterstep as $step)
                 <option value="{{$step->id}}">{{$step->step_number}}. {{$step->nama_step}}</option>
                 @endforeach
             </select>
 
             <br>
-            <label for="">Link File Penilaian</label>
-            <input type="text" class="form-control" name="nilai">
+            <label for="f-nilai">Link File Penilaian</label>
+            <input id="f-nilai" type="text" class="form-control" name="nilai">
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Simpan</button>
                 <button type="button"  class="btn btn-danger text-white" data-bs-dismiss="modal">Batalkan</button>
@@ -138,7 +129,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="ed-pertanyaan">Feedback</h3>
+        <h3 class="modal-title" id="ed-pertanyaan-2">Feedback</h3>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
          <div class="modal-body">

@@ -17,7 +17,7 @@ class QuizHasil extends Model
         'user_id',
         'mapel_id',
         'nilai',
-        'nilai_terakhir'
+        'nilai_terakhir',
     ];
 
     // Mendefinisikan hubungan dengan model Siswa

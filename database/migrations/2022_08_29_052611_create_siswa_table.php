@@ -12,18 +12,17 @@ return new class extends Migration
      * @return void
      */
     public function up()
-   
     {
-        
+
         Schema::create('siswa', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nomor_induk',20);
-            $table->string('password',225);
+            $table->string('nomor_induk', 20);
+            $table->string('password', 225);
             $table->date('tanggal_lahir');
             $table->string('nama');
             $table->timestamps();
         });
-        
+
     }
 
     /**

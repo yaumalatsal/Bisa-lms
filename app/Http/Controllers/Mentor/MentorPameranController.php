@@ -8,9 +8,7 @@ use App\Services\ProductDetailService;
 
 class MentorPameranController extends Controller
 {
-    public function __construct(private ProductDetailService $details)
-    {
-    }
+    public function __construct(private ProductDetailService $details) {}
 
     public function index()
     {

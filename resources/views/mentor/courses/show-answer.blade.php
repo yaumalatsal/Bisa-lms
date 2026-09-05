@@ -2,18 +2,6 @@
     Daftar Jawaban
 @endsection
 
-@section('css')
-    <style>
-        .card-step {
-            min-height: 350px;
-        }
-
-        .card-step .deskripsi-step {
-            height: 90px;
-        }
-    </style>
-@endsection
-
 @extends('mentor/template/index')
 @section('content')
     <div class="container-fluid">

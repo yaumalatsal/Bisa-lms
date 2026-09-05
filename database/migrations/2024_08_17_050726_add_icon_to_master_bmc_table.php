@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::table('master_bmc', function (Blueprint $table) {
-            if (!Schema::hasColumn('master_bmc','icon')) {
-                $table->string('icon',50)->after('route');
-            } 
+            if (! Schema::hasColumn('master_bmc', 'icon')) {
+                $table->string('icon', 50)->after('route');
+            }
         });
     }
 

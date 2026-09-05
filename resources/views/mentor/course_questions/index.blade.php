@@ -2,18 +2,6 @@
     Dashboard Mentor
 @endsection
 
-@section('css')
-    <style>
-        .card-step {
-            min-height: 350px;
-        }
-
-        .card-step .deskripsi-step {
-            height: 90px;
-        }
-    </style>
-@endsection
-
 @extends('mentor/template/index')
 @section('content')
     <div class="container-fluid">
@@ -82,7 +70,7 @@
                             <div class="modal-body">
                                 <div class="form-group">
                                     <label for="question_text">Question Text</label>
-                                    <textarea name="question_text" class="form-control" required>{{ old('question_text') }}</textarea>
+                                    <textarea id="question_text" name="question_text" class="form-control" required>{{ old('question_text') }}</textarea>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -112,8 +100,9 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="form-group">
-                                        <label for="question_text">Question Text</label>
-                                        <textarea name="question_text" class="form-control" required>{{ $question->question_text }}</textarea>
+                                        <label for="question_text-{{ $question->id }}">Question Text</label>
+                                        <textarea id="question_text-{{ $question->id }}" name="question_text"
+                                            class="form-control" required>{{ $question->question_text }}</textarea>
                                     </div>
                                 </div>
                                 <div class="modal-footer">

@@ -26,7 +26,7 @@
                                 </p>
                             </div>
                             <div class="col-md-6">
-                                <center>
+                                <div class="text-center">
                                     @if($data->logo_produk == NULL)
                                         <h2 class="mt-5 text-warning">
                                             <i class="fas fa-file-image"></i>
@@ -35,7 +35,7 @@
                                     @else
                                     <img src="{{asset('logo_produk/'.$data->logo_produk)}}" class="mt-5" style="width:200px;" alt="">
                                     @endif
-                                </center>
+                                </div>
                             </div>
                         </div>
                         @endforeach
@@ -109,18 +109,18 @@
         </div>
         <form action="{{url('/mentor/inputNilai')}}" method="post" enctype='multipart/form-data'>
             {{csrf_field()}}   
-            <label for="">Langkah Inkubasi</label>
-            <select name="step" class="form-control">
+            <label for="f-step">Langkah Inkubasi</label>
+            <select id="f-step" name="step" class="form-control">
                 @foreach($masterstep as $step)
                 <option value="{{$step->id}}">{{$step->step_number}}. {{$step->nama_step}}</option>
                 @endforeach
             </select>
 
             <br>
-            <label for="">Masukkan Nilai <strong>(1-100)</strong></label>
-            <input type="number" class="form-control" name="nilai">
-            <label for="">Keterangan Nilai</label>
-            <input type="text" class="form-control" name="keterangan">
+            <label for="f-nilai">Masukkan Nilai <strong>(1-100)</strong></label>
+            <input id="f-nilai" type="number" class="form-control" name="nilai">
+            <label for="f-keterangan">Keterangan Nilai</label>
+            <input id="f-keterangan" type="text" class="form-control" name="keterangan">
 
             <input type="hidden" name="id_produk" value="{{$data->product_id}}">
             
@@ -138,22 +138,22 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="ed-pertanyaan">Penilaian</h3>
+        <h3 class="modal-title" id="ed-pertanyaan-2">Penilaian</h3>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form action="{{url('/mentor/editNilai')}}" method="post" enctype='multipart/form-data'>
             {{csrf_field()}}   
-            <label for="">Langkah Inkubasi</label>
-            <input type="text" readonly value="" class="form-control" id="ed-nama-step" >
+            <label class="form-label" for="ed-nama-step">Langkah Inkubasi</label>
+            <input type="text" readonly value="" class="form-control" id="ed-nama-step">
             <input type="hidden" value=""  name="id_step" id="ed-id-step">
             <input type="hidden" value="" name="id_penilaian" id="ed-id-penilaian">
 
             <br>
-            <label for="">Edit Penilaian (1-100)</label>
+            <label for="ed-nilai">Edit Penilaian (1-100)</label>
             <input type="text" class="form-control" id="ed-nilai" name="nilai">
 
-            <label for="">Edit Keterangan Penilaian</label>
+            <label for="ed-keterangan">Edit Keterangan Penilaian</label>
             <input type="text" class="form-control" id="ed-keterangan" name="keterangan">
             <input type="hidden" name="id_produk" value="{{$data->product_id}}">
 

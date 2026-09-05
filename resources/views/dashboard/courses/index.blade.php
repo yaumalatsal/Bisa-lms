@@ -6,31 +6,6 @@
 
 @section('css')
     <style>
-        .container-fluid {
-            background: linear-gradient(to right, #f0f2f5, #ffffff);
-            padding: 2rem;
-        }
-
-        .card-step {
-            min-height: 350px;
-        }
-
-        .card-step .deskripsi-step {
-            height: 90px;
-        }
-
-        .card {
-            border: none;
-            border-radius: 15px;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-        }
-
-        .card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
 
         .card-img-top {
             height: 14rem;
@@ -40,14 +15,6 @@
 
         .card-img-top:hover {
             opacity: 0.8;
-        }
-
-        .card-body {
-            background-color: #ffffff;
-            padding: 1.5rem;
-            border-top: 3px solid #ff0000;
-            position: relative;
-            overflow: hidden;
         }
 
         .card-body::before {
@@ -68,26 +35,6 @@
             transform-origin: bottom left;
         }
 
-        .card-title {
-            margin-bottom: 1rem;
-            font-size: 1.25rem;
-            color: #333;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .btn-primary {
-            background-color: #ff0000;
-            border-color: #007bff;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            background-color: #b30000;
-            border-color: #004085;
-        }
-
         .completed-tag {
             background-color: #00d084;
             color: #fff;
@@ -102,15 +49,6 @@
 
         .animate__fadeIn {
             animation-name: fadeIn;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
         }
     </style>
 @endsection

@@ -2,18 +2,6 @@
     Dashboard Siswa
 @endsection
 
-@section('css')
-    <style>
-        .card-step {
-            min-height: 350px;
-        }
-
-        .card-step .deskripsi-step {
-            height: 90px;
-        }
-    </style>
-@endsection
-
 @extends('dashboard_template/index')
 @section('content')
     <div class="container-fluid">
@@ -39,7 +27,7 @@
                                 </h4>
                             </div>
 
-                            <div id="card" class="card">
+                            <div class="card">
                                 <div class="card-body pb-0">
                                     @if ($material->is_read)
                                         <p><small>Dibaca Pada {{ $material->read_at }}</small></p>
@@ -65,7 +53,7 @@
                             <span>Score: {{ $answer->score ?? '' }}</span>
                         </div>
 
-                        <div id="card" class="card">
+                        <div class="card">
                             <div class="card-body pb-0">
                                 <textarea id="question{{ $index }}" class="form-control"  readonly>{{ $answer->answer_text ?? 'Belum Dijawab' }}</textarea>
                             </div>
