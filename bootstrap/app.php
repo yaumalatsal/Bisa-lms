@@ -1,5 +1,8 @@
 <?php
 
+// Suppress deprecation notices from underlying vendor libraries on PHP 8.5+
+error_reporting(E_ALL & ~E_DEPRECATED);
+
 /*
 |--------------------------------------------------------------------------
 | Create The Application

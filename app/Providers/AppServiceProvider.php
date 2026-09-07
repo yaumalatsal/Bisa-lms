@@ -30,5 +30,33 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->environment('production')) {
             URL::forceScheme('https');
         }
+        // Ensure Windows environment variables and Herd PHP 8.5 scan dir are passed to the serve process
+        if (class_exists(\Illuminate\Foundation\Console\ServeCommand::class)) {
+            \Illuminate\Foundation\Console\ServeCommand::$passthroughVariables = array_unique(array_merge(
+                \Illuminate\Foundation\Console\ServeCommand::$passthroughVariables,
+                array_keys($_ENV),
+                array_keys($_SERVER),
+                [
+                    'SystemRoot',
+                    'SYSTEMROOT',
+                    'windir',
+                    'WINDIR',
+                    'SystemDrive',
+                    'SYSTEMDRIVE',
+                    'TEMP',
+                    'TMP',
+                    'LOCALAPPDATA',
+                    'APPDATA',
+                    'ComSpec',
+                    'COMSPEC',
+                    'OS',
+                    'PATHEXT',
+                    'USERPROFILE',
+                    'HOMEDRIVE',
+                    'HOMEPATH',
+                    'HERD_PHP_85_INI_SCAN_DIR',
+                ]
+            ));
+        }
     }
 }
