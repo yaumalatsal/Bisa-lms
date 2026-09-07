@@ -110,23 +110,11 @@
 </script>
 
 <style>
-    .container {
-        background-color: #fafafa;
-        border-radius: 15px;
-        padding: 20px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    }
-
-    .ranking-header h2 {
+.ranking-header h2 {
         color: #333;
         font-weight: 700;
         border-bottom: 3px solid #fd1a1a;
         padding-bottom: 10px;
-    }
-
-    .form-group label {
-        font-size: 1.2rem;
-        color: #333;
     }
 
     .custom-select {
@@ -172,7 +160,7 @@
         margin-left: 10px;
         display: flex;
         justify-content: space-between;
-        /* align-items: center; */
+        
     }
 
     .ranking-name {
@@ -188,7 +176,7 @@
         align-items: center;
         width: 150px;
         position: relative;
-        padding-left: 10px; /* Adjust padding to move the score to the left */
+        padding-left: 10px; 
     }
 
     .ranking-score-bar {
@@ -206,11 +194,11 @@
         font-size: 1.2rem;
         color: #333;
         margin-left: 70%;
-        /* z-index: 1; */
+        
         position: relative;
     }
 
-    /* Podium Colors */
+    
     .gold {
         border-left: 5px solid #ffd700;
     }

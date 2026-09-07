@@ -4,25 +4,14 @@
 
 @section('css')
 <style>
-    /* Gaya untuk modal */
-    .modal-dialog{
-        max-width: 75%;
-    }
-
-    /* Gaya untuk kartu langkah */
-    .card-step {
+.card-step {
         min-height: 350px;
         border-radius: 15px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     }
 
-    /* Gaya untuk tabel */
-    .table thead {
-        background-color: #f8f9fa;
-    }
-
-    /* Gaya animasi untuk judul */
+    
     h3 {
         font-size: 24px;
         font-weight: 700;

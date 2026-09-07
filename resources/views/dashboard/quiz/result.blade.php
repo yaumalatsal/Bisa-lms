@@ -30,7 +30,7 @@
                 <a href="{{ route('dashboard.quiz.index') }}" class="btn btn-outline-primary">
                     <i class="fas fa-arrow-left"></i> Kembali ke Beranda
                 </a>
-                <a href="{{ route('dashboard.quiz.show', ['mapel_id' => $mapel->id]) }}" class="btn btn-success">
+                <a href="{{ route('dashboard.quiz.show', ['mapel_id' => $mapel->id]) }}" class="btn btn-primary">
                     <i class="fas fa-redo"></i> Kerjakan Lagi Kuis
                 </a>
             </div>

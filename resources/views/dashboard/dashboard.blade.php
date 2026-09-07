@@ -6,14 +6,13 @@
 
 @section('css')
 <style>
-
-    h4 {
+h4 {
         color: #ff0000;
         font-weight: bold;
         margin-bottom: 20px;
     }
     
-    /* Add animation for slide-up effect */
+    
     .slide-up {
         animation: slideUp 0.8s ease-out;
     }
@@ -29,11 +28,7 @@
         }
     }
 
-    .table-responsive {
-        margin-top: 20px;
-    }
-
-    /* Custom styling for DataTables */
+    
     .dataTables_wrapper .dataTables_paginate .paginate_button {
         padding: 5px 10px;
         margin: 0;

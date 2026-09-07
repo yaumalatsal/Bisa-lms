@@ -6,19 +6,13 @@
 
 @section('css')
 <style>
-    /* General Container */
-    .container-fluid {
-        animation: fadeIn 1s ease-in;
-    }
-
-    /* Ranking Card Animation */
-    .ranking-card {
+.ranking-card {
         background-color: #f8f9fa;
         border-left: 5px solid #ff0000;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
         border-radius: 10px;
         animation: slideIn 1s ease-out;
-        position: relative; /* To position the level progress bar */
+        position: relative; 
         overflow: hidden;
     }
 
@@ -27,7 +21,7 @@
         box-shadow: 0 8px 16px rgba(0,0,0,0.3);
     }
 
-    /* Ranking Number Styles */
+    
     .ranking-number {
         width: 60px;
         height: 60px;
@@ -40,7 +34,7 @@
         animation: bounce 1s infinite;
     }
 
-    /* Gold, Silver, Bronze Effects */
+    
     .ranking-card.gold .ranking-number {
         background: radial-gradient(circle, #ffd700 50%, #e5a400 100%);
         border: 2px solid #d4af37;
@@ -56,13 +50,13 @@
         border: 2px solid #a45b35;
     }
 
-    /* Blue for Rank 4 and Below */
+    
     .ranking-card.blue .ranking-number {
         background: #007bff;
         border: 2px solid #0056b3;
     }
 
-    /* Student Info Animation */
+    
     .student-info h4, .student-info p {
         transition: color 0.3s ease;
     }
@@ -75,7 +69,7 @@
         color: #343a40;
     }
 
-    /* Level and Progress Bar Styles */
+    
     .student-info .level-container {
         display: flex;
         flex-direction: column;
@@ -94,7 +88,7 @@
     .student-info .progress-bar {
         height: 100%;
         background-color: #28a745;
-        width: 0; /* Set dynamically via inline style */
+        width: 0; 
         border-radius: 5px;
         transition: width 0.3s ease, background-color 0.3s ease;
         position: absolute;
@@ -119,7 +113,7 @@
         font-size: 12px;
     }
 
-    /* Animated Progress Bar */
+    
     @keyframes pulse {
         0% { background-color: #28a745; }
         50% { background-color: #ff5733; }
@@ -130,7 +124,7 @@
         animation: pulse 1.5s infinite;
     }
 
-    /* Fade-In Animation */
+    
     @keyframes fadeIn {
         from {
             opacity: 0;
@@ -140,7 +134,7 @@
         }
     }
 
-    /* Slide-In Animation for Card */
+    
     @keyframes slideIn {
         from {
             transform: translateY(20px);
@@ -152,7 +146,7 @@
         }
     }
 
-    /* Bounce Animation for Ranking Number */
+    
     @keyframes bounce {
         0%, 20%, 50%, 80%, 100% {
             transform: translateY(0);
@@ -165,7 +159,7 @@
         }
     }
 
-    /* Confetti Animation */
+    
     @keyframes confetti {
         0% {
             transform: translateY(-100%) rotate(0deg);
@@ -204,7 +198,7 @@
     }
 
     .celebration-gif {
-    width: 50px; /* Adjust size as needed */
+    width: 50px; 
     height: 50px;
     margin-bottom: 10px;
     display: inline-block;
@@ -213,7 +207,6 @@
 .dor{
     color: red !important;
 }
-
 </style>
 @endsection
 

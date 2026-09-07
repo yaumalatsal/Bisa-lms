@@ -6,63 +6,7 @@
 
 @section('css')
 <style>
-    /* General Styles */
-    body {
-        font-family: 'Poppins', sans-serif;
-        background-color: #f4f7f6;
-    }
-
-    /* Button Styles */
-    .btn-primary {
-        background: #ff5722;
-        border: none;
-        box-shadow: 0 4px 12px rgba(255, 87, 34, 0.4);
-        transition: all 0.3s ease;
-        border-radius: 20px;
-    }
-
-    /* Alert Styles */
-    .alert {
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        animation: fadeIn 0.5s ease;
-    }
-
-    /* Table Styles */
-    .table {
-        border-collapse: separate;
-        border-spacing: 0 10px;
-    }
-
-    /* Status Badges */
-    .badge {
-        border-radius: 20px;
-        padding: 5px 10px;
-        font-size: 0.9rem;
-        color: #fff;
-    }
-    .badge-success {
-        background: linear-gradient(135deg, #56d798, #56dfb6);
-        box-shadow: 0 4px 12px rgba(86, 215, 152, 0.4);
-    }
-    .badge-danger {
-        background: linear-gradient(135deg, #ff6a6a, #ff8f8f);
-        box-shadow: 0 4px 12px rgba(255, 106, 106, 0.4);
-    }
-    .badge-warning {
-        background: linear-gradient(135deg, #f9ca24, #f4e285);
-        box-shadow: 0 4px 12px rgba(249, 202, 36, 0.4);
-    }
-
-    /* Modal Animation */
-    .modal-content {
-        border-radius: 15px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        animation: slideIn 0.6s ease;
-    }
-
-    /* Keyframes for Animations */
-    @keyframes fadeIn {
+@keyframes fadeIn {
         from {
             opacity: 0;
             transform: scale(0.9);
@@ -124,12 +68,18 @@
                         <td>{{ $report->report_date->format('d-m-Y') }}</td>
                         <td>{{ $report->formatted_revenue }}</td>
                         <td>{{ $report->formatted_spending }}</td>
-                        <td>{!! $report->formatted_profit !!}</td>
+                        <td class="text-end bisa-numeric">
+                            @php($p = $report->profit)
+                            <span class="bisa-stat__delta {{ $p >= 0 ? 'bisa-stat__delta--up' : 'bisa-stat__delta--down' }}">
+                                <i class="mdi {{ $p >= 0 ? 'mdi-arrow-up' : 'mdi-arrow-down' }}" aria-hidden="true"></i>
+                                {{ $report->formatted_profit }}
+                            </span>
+                        </td>
                         
                         <!-- File Preview -->
                         <td>
                             @if($report->file_path)
-                                <a href="{{ asset('storage/' . $report->file_path) }}" target="_blank" class="btn btn-info btn-sm">
+                                <a href="{{ asset('storage/' . $report->file_path) }}" target="_blank" class="btn btn-secondary btn-sm">
                                     Preview PDF
                                 </a>
                             @else
@@ -149,7 +99,7 @@
                         </td>
                         
                         <td>
-                            <a href="{{ route('dashboard.laporan.edit', $report->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="{{ route('dashboard.laporan.edit', $report->id) }}" class="btn btn-secondary btn-sm">Edit</a>
                             <form action="{{ route('dashboard.laporan.destroy', $report->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')

@@ -41,7 +41,7 @@
                         <td><a href="{{ $item->link }}" target="_blank">Lihat Link</a></td>
                         <td><img src="{{ asset('storage/' . $item->thumbnail) }}" width="100" alt="Thumbnail"></td>
                         <td>
-                            <a href="{{ route('admin.materi.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="{{ route('admin.materi.edit', $item->id) }}" class="btn btn-secondary btn-sm">Edit</a>
                             <form action="{{ route('admin.materi.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus materi ini?');">
                                 @csrf
                                 @method('DELETE')

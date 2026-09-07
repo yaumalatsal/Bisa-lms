@@ -1,6 +1,6 @@
 # BISa — Platform Inkubasi & Monitoring Bisnis Mahasiswa
 
-Aplikasi Laravel 9 untuk mendampingi mahasiswa Universitas Negeri Malang menyusun
+Aplikasi Laravel 11 untuk mendampingi mahasiswa Universitas Negeri Malang menyusun
 konsep bisnis, melaporkan perkembangan penjualan, dan mempertemukannya dengan
 mentor serta investor.
 
@@ -62,9 +62,8 @@ Unggahan logo dan poster ditulis ke `public/logo_produk` dan
 
 ## Pengujian
 
-Suite memakai MySQL karena beberapa migrasi memakai perubahan kolom
-doctrine/dbal yang tidak bisa dijalankan SQLite. Buat database kosong lalu
-jalankan:
+Suite memakai MySQL karena beberapa migrasi mengandalkan perilaku MySQL
+(perubahan kolom dan fungsi tanggal). Buat database kosong lalu jalankan:
 
 ```bash
 mysql -e "CREATE DATABASE bisa_test;"    # nama diatur di phpunit.xml
@@ -80,6 +79,7 @@ php vendor/bin/phpunit
 | `tests/Feature/AuthorizationTest.php` | Batas antar-tim dan antar-mentor. |
 | `tests/Feature/MonitoringStatsTest.php` | Perhitungan statistik monitoring dan jumlah query-nya. |
 | `tests/Feature/ErrorPageTest.php` | Halaman 401–503. |
+| `tests/Feature/AssetIntegrityTest.php` | Setiap ikon punya glyph di font yang dibundel, dan setiap `asset()` menunjuk berkas yang ada. |
 | `tests/Unit/EmbedTest.php` | Penyaringan tautan video dan URL. |
 
 Gaya kode dijaga Laravel Pint:
@@ -138,6 +138,12 @@ pada login berhasil pertama. Akun baru selalu bcrypt.
 - Menu sidebar diubah lewat `config/navigation.php`, bukan dengan menyunting Blade.
 - Warna, jarak dan radius berasal dari custom property di `public/css/bisa.css`;
   ubah token di `:root` daripada menambah `<style>` per halaman.
+- Ikon memakai Material Design Icons yang sudah dibundel. Sebelum memakai nama
+  ikon baru, pastikan glyph-nya ada — `AssetIntegrityTest` akan gagal bila tidak.
+- Warna tombol mengikuti arti aksinya, bukan selera:
+  `btn-primary` untuk aksi utama, `btn-secondary` untuk aksi netral (edit,
+  kembali, tutup, batal, pratinjau), `btn-danger` hanya untuk yang merusak
+  (hapus, tolak), dan `btn-success` hanya untuk persetujuan.
 - Status laporan bulanan adalah enum `pending` / `disetujui` / `ditolak` — pakai
   konstanta `MonthlyReport::STATUS_*`, jangan string literal berkapital.
 - Tautan video dari pengguna tidak pernah dirender sebagai HTML; lewatkan melalui
@@ -145,6 +151,42 @@ pada login berhasil pertama. Akun baru selalu bcrypt.
 - Telescope hanya terpasang di `require-dev` dan hanya didaftarkan pada
   environment `local`/`testing` (lihat `AppServiceProvider::register`).
 - Sebelum rilis: `APP_ENV=production`, `APP_DEBUG=false`.
+
+## Tema
+
+Palet aplikasi adalah **oranye, kuning dan putih**, seluruhnya digerakkan token
+di `public/css/bisa.css`:
+
+| Token | Nilai | Catatan |
+|-------|-------|---------|
+| `--bisa-primary` | `#c2410c` | Langkah oranye paling terang yang masih lolos WCAG AA untuk teks putih di atasnya (5,18:1). |
+| `--bisa-primary-vivid` | `#ea580c` | Hanya untuk bidang warna, bukan alas teks (3,56:1). |
+| `--bisa-accent` | `#fbbf24` | Kuning. Tidak pernah dipakai sebagai warna teks — kuning di atas putih mentok di sekitar 1,9:1. |
+| `--bisa-brand-gradient` | oranye → kuning | Garis atas topbar, kartu statistik, garis bawah judul halaman, dan hero halaman masuk. |
+| `--bisa-bg` / `--bisa-surface` | `#fffaf4` / `#ffffff` | Kanvas krem hangat dengan kartu putih, supaya putih tidak terbaca kebiruan. |
+
+Sidebar dan topbar sengaja putih agar putih tetap menjadi warna tema; oranye
+yang menandai status aktif. Untuk sidebar oranye penuh, cukup ubah
+`--bisa-sidebar-bg`, `--bisa-sidebar-text` dan `--bisa-sidebar-text-active`.
+
+Mode gelap memakai langkah ramp yang berbeda (bukan pembalikan otomatis) di atas
+hitam kehangatan, dan ikut divalidasi kontrasnya.
+
+### Grafik
+
+Grafik penjualan membandingkan satu ukuran pada dua periode, jadi warnanya
+adalah pasangan *sequential* dari ramp yang sama — periode berjalan memakai
+langkah yang lebih gelap dan berkontras tinggi (`--bisa-chart-current`), periode
+sebelumnya langkah yang lebih terang (`--bisa-chart-previous`). Keduanya
+divalidasi untuk keterbacaan buta warna dan kontras terhadap permukaannya, dan
+tabel di bawah grafik memuat angka yang sama.
+
+### Ilustrasi
+
+Ilustrasi bawaan seluruhnya biru/ungu dan bertabrakan dengan tema. Semuanya
+di-*remap* ke rentang oranye–kuning (hanya piksel dalam pita hue biru/ungu yang
+digeser, sehingga warna kulit, hijau dan netral tidak berubah) sekaligus
+dikecilkan ke ukuran tampilnya: 17,7 MB menjadi 3,6 MB.
 
 ## Hal yang masih terbuka
 

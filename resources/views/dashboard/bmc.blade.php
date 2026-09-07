@@ -1,5 +1,5 @@
 @section('title-page')
-    Step 3 : Membuat Busines Model Cnvas
+    Step 3 : Membuat Business Model Canvas
 @endsection
 @section('css')
     <style>
@@ -28,7 +28,9 @@
                             <h3>Apa itu BMC  ?</h3>
                             <p>Business Model Canvas (BMC) adalah alat manajemen strategis untuk mendefinisikan dan mengomunikasikan ide atau konsep bisnis dengan cepat dan mudah.
                                 Ini adalah dokumen satu halaman yang bekerja melalui elemen dasar bisnis atau produk, menyusun ide dengan cara yang efektif.</p>
-                            <button class="btn btn-success text-white" data-bs-toggle="modal" data-bs-target="#modalBMC"> <i class="fas fa-play"></i> &nbsp;Klik Untuk Melihat Video Penjelasan BMC  </button>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalBMC">
+                                <i class="fas fa-play" aria-hidden="true"></i> Lihat Video Penjelasan BMC
+                            </button>
                         </div>    
                     </div>         
                 </div>
@@ -37,15 +39,16 @@
             <h4>Business Model Canvas di bagi menjadi 9 poin, yaitu : </h4>
             <div class="row">
                 @foreach($bmc as $data)
-                <div class="col-md-3">
-                    <div class="card">
+                <div class="col-xl-3 col-md-4 col-sm-6 mb-4">
+                    <div class="card card-step h-100">
                         <div class="card-body">
-                            <div class="text-center">
-                            <img src="{{asset('assets/images/'.$data->icon)}}" alt="" class="w-50 mt-2">
-                            <h4 class="mt-3" >{{$data->judul}}</h4>
-                            <br>
-                            <a href="{{url('detail_bmc/'.$data->id)}}" class="btn btn-primary w-100">Lengkapi Data <i class="fas fa-arrow-right"></i> </a>
-                            </div>
+                            <img src="{{ asset('assets/images/' . $data->icon) }}"
+                                alt="Ilustrasi {{ $data->judul }}">
+                            <h4 class="card-step__title">{{ $data->judul }}</h4>
+                            <a href="{{ url('detail_bmc/' . $data->id) }}"
+                                class="btn btn-primary w-100 card-step__action">
+                                Lengkapi Data <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -64,7 +67,7 @@
                             untuk segera di review oleh mentor </h5>
                         </div>
                         <div class="col-md-2">
-                            <x-action-form :action="url('/submit_bmc')" class="btn btn-md btn-danger text-white"
+                            <x-action-form :action="url('/submit_bmc')" class="btn btn-md btn-primary text-white"
                                 confirm="Kirim BMC untuk ditinjau mentor?">Submit BMC <i class="fas fa-arrow-circle-right"></i></x-action-form>
                         </div>
                     </div>
@@ -85,7 +88,7 @@
         <iframe width="100%" height="500" src="https://www.youtube.com/embed/didsTfkv_0g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
         <div class="modal-footer">
-            <button type="button"  class="btn btn-danger text-white" data-bs-dismiss="modal">Tutup</button>
+            <button type="button"  class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
       </div>
     </div>
   </div>

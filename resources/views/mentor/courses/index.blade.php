@@ -45,7 +45,7 @@
                                             
                                         </div>
                                         <a href="{{ route('courses.edit', $course->id) }}"
-                                            class="btn btn-warning btn-sm">Edit</a>
+                                            class="btn btn-secondary btn-sm">Edit</a>
                                         <a href="#" class="btn btn-danger btn-sm"
                                             onclick="confirmDeleteCourse({{ $course->id }})">
                                             Delete

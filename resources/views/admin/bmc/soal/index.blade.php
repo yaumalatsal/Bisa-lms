@@ -30,7 +30,7 @@
                     <td>{{ $soal->pertanyaan }}</td>
                     <td>{{ $soal->keterangan }}</td>
                     <td>
-                        <a href="{{ route('admin.bmc.soal.edit', [$bmc->id, $soal->id]) }}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{{ route('admin.bmc.soal.edit', [$bmc->id, $soal->id]) }}" class="btn btn-secondary btn-sm">Edit</a>
                         <button class="btn btn-danger btn-sm" onclick="confirmDelete('{{ route('admin.bmc.soal.destroy', [$bmc->id, $soal->id]) }}')">Hapus</button>
                     </td>
                 </tr>

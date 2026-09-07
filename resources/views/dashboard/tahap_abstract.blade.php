@@ -4,13 +4,7 @@
 
 @section('css')
     <style>
-
-        .table-result{
-            background-color:#fff;
-            font-size:14px;
-        }
-
-        .member-area{
+.member-area{
             padding:10px;
             background-color:#ededed; 
         }
@@ -28,7 +22,7 @@
                 max-width:100%;
             }         
         }
-    </style>
+</style>
 @endsection
 
 @extends('dashboard_template/index')

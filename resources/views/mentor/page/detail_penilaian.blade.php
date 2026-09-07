@@ -7,7 +7,7 @@
             <div class="card-body">
                 <div class="row p-4">
                     <div class="col-md-12">
-                        <a href="{{url('mentor/penilaian')}}" class="btn btn-warning">
+                        <a href="{{url('mentor/penilaian')}}" class="btn btn-secondary">
                             <i class="fas fa-chevron-left"></i>
                             &nbsp;
                             Kembali ke Daftar Produk
@@ -44,7 +44,7 @@
                         <br><br>
                         <p>
                             Riwayat Penilaian : 
-                            <button class="btn btn-success text-white" data-bs-toggle="modal" data-bs-target="#modalNilai">
+                            <button class="btn btn-primary text-white" data-bs-toggle="modal" data-bs-target="#modalNilai">
                                 <i class="fas fa-plus"></i>&nbsp; Tambah Penilaian
                             </button>
                         </p>
@@ -72,7 +72,7 @@
                                         </td>
                                         <td>{{ $datanilai->keterangan }}</td>
                                         <td>
-                                            <button class="btn btn-warning editNilai" data-bs-toggle="modal" data-bs-target="#modalEditNilai" data-file="{{$datanilai->file_nilai}}" data-langkah="{{$datanilai->nama_step}}" data-idpenilaian="{{$datanilai->penilaian_id}}" data-idstep="{{$datanilai->id_step}} " data-keterangan="{{$datanilai->keterangan}} "> <i class="fas fa-edit"> </i></button>
+                                            <button class="btn btn-secondary editNilai" data-bs-toggle="modal" data-bs-target="#modalEditNilai" data-file="{{$datanilai->file_nilai}}" data-langkah="{{$datanilai->nama_step}}" data-idpenilaian="{{$datanilai->penilaian_id}}" data-idstep="{{$datanilai->id_step}} " data-keterangan="{{$datanilai->keterangan}} "> <i class="fas fa-edit"> </i></button>
                                             
                                                 <button class="btn btn-danger deleteNilai" data-idpenilaian="{{$datanilai->penilaian_id}}"> <i class="fas fa-trash"> </i></button>
                                             
@@ -126,7 +126,7 @@
             
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Simpan</button>
-                <button type="button"  class="btn btn-danger text-white" data-bs-dismiss="modal">Batalkan</button>
+                <button type="button"  class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
             </div>
         </form>
         </div>
@@ -160,7 +160,7 @@
 
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Simpan</button>
-                <button type="button"  class="btn btn-danger text-white" data-bs-dismiss="modal">Batalkan</button>
+                <button type="button"  class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
             </div>
         </form>
         </div>

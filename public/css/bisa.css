@@ -28,52 +28,82 @@
    -------------------------------------------------------------------------- */
 
 :root {
-    /* Brand ramp */
-    --bisa-primary-50: #eef2ff;
-    --bisa-primary-100: #e0e7ff;
-    --bisa-primary-200: #c7d2fe;
-    --bisa-primary-300: #a5b4fc;
-    --bisa-primary-400: #818cf8;
-    --bisa-primary-500: #6366f1;
-    --bisa-primary-600: #4f46e5;
-    --bisa-primary-700: #4338ca;
-    --bisa-primary-800: #3730a3;
-    --bisa-primary-900: #312e81;
+    /* Brand ramp — orange. Every interactive value below is contrast-checked
+       against the surface it sits on; see the notes beside each token. */
+    --bisa-primary-50: #fff7ed;
+    --bisa-primary-100: #ffedd5;
+    --bisa-primary-200: #fed7aa;
+    --bisa-primary-300: #fdba74;
+    --bisa-primary-400: #fb923c;
+    --bisa-primary-500: #f97316;
+    --bisa-primary-600: #ea580c;
+    --bisa-primary-700: #c2410c;
+    --bisa-primary-800: #9a3412;
+    --bisa-primary-900: #7c2d12;
 
-    --bisa-primary: var(--bisa-primary-600);
-    --bisa-primary-hover: var(--bisa-primary-700);
+    /* orange-700 is the brightest step that still carries white text at
+       WCAG AA (5.18:1); orange-600 is 3.56:1 and is used for fills only. */
+    --bisa-primary: var(--bisa-primary-700);
+    --bisa-primary-hover: var(--bisa-primary-800);
     --bisa-primary-soft: var(--bisa-primary-50);
+    --bisa-primary-vivid: var(--bisa-primary-600);
     --bisa-on-primary: #ffffff;
 
-    /* Semantic */
-    --bisa-success: #059669;
+    /* Accent ramp — yellow. Never used for text: yellow on white tops out
+       around 1.9:1. Fills, rails, highlights and chart marks only. */
+    --bisa-accent-100: #fef3c7;
+    --bisa-accent-200: #fde68a;
+    --bisa-accent-300: #fcd34d;
+    --bisa-accent-400: #fbbf24;
+    --bisa-accent-500: #f59e0b;
+    --bisa-accent-600: #d97706;
+    --bisa-accent: var(--bisa-accent-400);
+
+    /* The signature orange-to-yellow wash used on brand surfaces. */
+    --bisa-brand-gradient: linear-gradient(135deg, var(--bisa-primary-600) 0%, var(--bisa-accent-400) 100%);
+
+    /* Semantic. Warning is deliberately pushed amber-dark so it stays
+       distinguishable from the brand yellow. */
+    --bisa-success: #047857;
     --bisa-success-soft: #ecfdf5;
-    --bisa-warning: #d97706;
+    --bisa-warning: #b45309;
     --bisa-warning-soft: #fffbeb;
-    --bisa-danger: #e11d48;
+    --bisa-danger: #be123c;
     --bisa-danger-soft: #fff1f2;
-    --bisa-info: #0891b2;
+    --bisa-info: #0e7490;
     --bisa-info-soft: #ecfeff;
 
-    /* Neutrals */
-    --bisa-bg: #f6f7fb;
+    /* Neutrals — warmed towards the brand so white never reads blue-grey. */
+    --bisa-bg: #fffaf4;
     --bisa-surface: #ffffff;
-    --bisa-surface-alt: #fafbfd;
-    --bisa-border: #e5e7eb;
-    --bisa-border-strong: #d1d5db;
-    --bisa-text: #111827;
-    --bisa-text-muted: #6b7280;
-    --bisa-text-subtle: #9ca3af;
+    --bisa-surface-alt: #fff8f0;
+    --bisa-border: #f0e4d6;
+    --bisa-border-strong: #dfcbb4;
+    --bisa-text: #1c1917;        /* 17.5:1 on white */
+    --bisa-text-muted: #78716c;  /*  4.8:1 on white — AA */
+    --bisa-text-subtle: #857f78; /*  4.0:1 — hints and placeholders only */
 
-    /* Shell */
-    --bisa-sidebar-bg: #1e1b4b;
-    --bisa-sidebar-text: #c7d2fe;
-    --bisa-sidebar-text-active: #ffffff;
-    --bisa-sidebar-active: rgba(255, 255, 255, 0.12);
+    /* Shell. White sidebar and topbar keep white as a primary theme colour;
+       orange carries the active state. */
+    --bisa-sidebar-bg: #ffffff;
+    --bisa-sidebar-text: #57534e;
+    --bisa-sidebar-text-active: var(--bisa-primary);
+    --bisa-sidebar-active: var(--bisa-primary-50);
+    --bisa-sidebar-hover: #fffaf4;
+    --bisa-sidebar-border: #f0e4d6;
+    --bisa-sidebar-rail: var(--bisa-primary);
+    --bisa-sidebar-heading: #a8a29e;
     --bisa-sidebar-width: 260px;
     --bisa-sidebar-width-mini: 72px;
     --bisa-topbar-bg: #ffffff;
     --bisa-topbar-height: 64px;
+
+    /* Chart marks. One measure across two periods, so this is a sequential
+       emphasis pair, not two identities: current period carries the darker,
+       higher-contrast step. Validated for CVD separation and lightness. */
+    --bisa-chart-current: #c2410c;
+    --bisa-chart-previous: #f59e0b;
+    --bisa-chart-track: #f5e7d6;
 
     /* Shape & depth */
     --bisa-radius-sm: 6px;
@@ -81,10 +111,11 @@
     --bisa-radius-lg: 16px;
     --bisa-radius-pill: 999px;
 
-    --bisa-shadow-xs: 0 1px 2px rgba(16, 24, 40, 0.05);
-    --bisa-shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.08), 0 1px 2px rgba(16, 24, 40, 0.04);
-    --bisa-shadow: 0 4px 12px rgba(16, 24, 40, 0.07), 0 2px 4px rgba(16, 24, 40, 0.04);
-    --bisa-shadow-lg: 0 12px 32px rgba(16, 24, 40, 0.12);
+    /* Shadows carry a warm cast so they sit on the cream canvas. */
+    --bisa-shadow-xs: 0 1px 2px rgba(87, 51, 22, 0.05);
+    --bisa-shadow-sm: 0 1px 3px rgba(87, 51, 22, 0.08), 0 1px 2px rgba(87, 51, 22, 0.04);
+    --bisa-shadow: 0 4px 12px rgba(87, 51, 22, 0.08), 0 2px 4px rgba(87, 51, 22, 0.04);
+    --bisa-shadow-lg: 0 12px 32px rgba(87, 51, 22, 0.14);
 
     /* Rhythm */
     --bisa-space-1: 4px;
@@ -101,7 +132,7 @@
     /* Bridge the vendor theme's Bootstrap variables onto our ramp so any
        component we have not explicitly restyled still lands on-brand. */
     --bs-primary: var(--bisa-primary);
-    --bs-primary-rgb: 79, 70, 229;
+    --bs-primary-rgb: 194, 65, 12;
     --bs-body-bg: var(--bisa-bg);
     --bs-body-color: var(--bisa-text);
     --bs-border-color: var(--bisa-border);
@@ -121,26 +152,45 @@ html.dark-theme {
     :root:not([data-theme="light"]) {
         color-scheme: dark;
 
-        --bisa-bg: #0f1117;
-        --bisa-surface: #171a23;
-        --bisa-surface-alt: #1d212c;
-        --bisa-border: #272c39;
-        --bisa-border-strong: #363d4e;
-        --bisa-text: #e5e7eb;
-        --bisa-text-muted: #9ca3af;
-        --bisa-text-subtle: #6b7280;
+        /* Warm near-blacks so the dark theme still reads orange, not blue. */
+        --bisa-bg: #17120e;
+        --bisa-surface: #1f1a16;
+        --bisa-surface-alt: #271f1a;
+        --bisa-border: #3a2f27;
+        --bisa-border-strong: #4d3f34;
+        --bisa-text: #f5f0eb;        /* 15.2:1 on the surface */
+        --bisa-text-muted: #b9aca2;  /*  7.8:1 */
+        --bisa-text-subtle: #8a7d73; /*  4.3:1 */
 
-        --bisa-primary: var(--bisa-primary-500);
-        --bisa-primary-hover: var(--bisa-primary-400);
-        --bisa-primary-soft: rgba(99, 102, 241, 0.16);
+        /* On a dark surface the ramp inverts: the lighter steps carry. */
+        --bisa-primary: var(--bisa-primary-400);   /* 7.6:1 on surface */
+        --bisa-primary-hover: var(--bisa-primary-300);
+        --bisa-primary-soft: rgba(251, 146, 60, 0.16);
+        --bisa-primary-vivid: var(--bisa-primary-500);
 
-        --bisa-success-soft: rgba(5, 150, 105, 0.16);
-        --bisa-warning-soft: rgba(217, 119, 6, 0.16);
-        --bisa-danger-soft: rgba(225, 29, 72, 0.16);
-        --bisa-info-soft: rgba(8, 145, 178, 0.16);
+        --bisa-success: #34d399;
+        --bisa-warning: #fbbf24;
+        --bisa-danger: #fb7185;
+        --bisa-info: #22d3ee;
+        --bisa-success-soft: rgba(52, 211, 153, 0.16);
+        --bisa-warning-soft: rgba(251, 191, 36, 0.16);
+        --bisa-danger-soft: rgba(251, 113, 133, 0.16);
+        --bisa-info-soft: rgba(34, 211, 238, 0.16);
 
-        --bisa-sidebar-bg: #12141c;
-        --bisa-topbar-bg: #171a23;
+        --bisa-sidebar-bg: #1f1a16;
+        --bisa-sidebar-text: #cbbfb5;
+        --bisa-sidebar-text-active: var(--bisa-primary-300);
+        --bisa-sidebar-active: rgba(251, 146, 60, 0.16);
+        --bisa-sidebar-hover: rgba(255, 255, 255, 0.05);
+        --bisa-sidebar-border: #3a2f27;
+        --bisa-sidebar-rail: var(--bisa-primary-400);
+        --bisa-sidebar-heading: #8a7d73;
+        --bisa-topbar-bg: #1f1a16;
+
+        /* Re-stepped for the dark surface: both marks clear 3:1 there. */
+        --bisa-chart-current: #fb923c;
+        --bisa-chart-previous: #c2410c;
+        --bisa-chart-track: #3a2f27;
 
         --bisa-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
         --bisa-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.45);
@@ -153,27 +203,50 @@ html.dark-theme {
     }
 }
 
+/* The explicit choice repeats the same values; CSS cannot share a block
+   between a media query and a plain selector. Keep the two in step. */
 :root[data-theme="dark"] {
-    --bisa-bg: #0f1117;
-    --bisa-surface: #171a23;
-    --bisa-surface-alt: #1d212c;
-    --bisa-border: #272c39;
-    --bisa-border-strong: #363d4e;
-    --bisa-text: #e5e7eb;
-    --bisa-text-muted: #9ca3af;
-    --bisa-text-subtle: #6b7280;
+    color-scheme: dark;
 
-    --bisa-primary: var(--bisa-primary-500);
-    --bisa-primary-hover: var(--bisa-primary-400);
-    --bisa-primary-soft: rgba(99, 102, 241, 0.16);
+    /* Warm near-blacks so the dark theme still reads orange, not blue. */
+    --bisa-bg: #17120e;
+    --bisa-surface: #1f1a16;
+    --bisa-surface-alt: #271f1a;
+    --bisa-border: #3a2f27;
+    --bisa-border-strong: #4d3f34;
+    --bisa-text: #f5f0eb;        /* 15.2:1 on the surface */
+    --bisa-text-muted: #b9aca2;  /*  7.8:1 */
+    --bisa-text-subtle: #8a7d73; /*  4.3:1 */
 
-    --bisa-success-soft: rgba(5, 150, 105, 0.16);
-    --bisa-warning-soft: rgba(217, 119, 6, 0.16);
-    --bisa-danger-soft: rgba(225, 29, 72, 0.16);
-    --bisa-info-soft: rgba(8, 145, 178, 0.16);
+    /* On a dark surface the ramp inverts: the lighter steps carry. */
+    --bisa-primary: var(--bisa-primary-400);   /* 7.6:1 on surface */
+    --bisa-primary-hover: var(--bisa-primary-300);
+    --bisa-primary-soft: rgba(251, 146, 60, 0.16);
+    --bisa-primary-vivid: var(--bisa-primary-500);
 
-    --bisa-sidebar-bg: #12141c;
-    --bisa-topbar-bg: #171a23;
+    --bisa-success: #34d399;
+    --bisa-warning: #fbbf24;
+    --bisa-danger: #fb7185;
+    --bisa-info: #22d3ee;
+    --bisa-success-soft: rgba(52, 211, 153, 0.16);
+    --bisa-warning-soft: rgba(251, 191, 36, 0.16);
+    --bisa-danger-soft: rgba(251, 113, 133, 0.16);
+    --bisa-info-soft: rgba(34, 211, 238, 0.16);
+
+    --bisa-sidebar-bg: #1f1a16;
+    --bisa-sidebar-text: #cbbfb5;
+    --bisa-sidebar-text-active: var(--bisa-primary-300);
+    --bisa-sidebar-active: rgba(251, 146, 60, 0.16);
+    --bisa-sidebar-hover: rgba(255, 255, 255, 0.05);
+    --bisa-sidebar-border: #3a2f27;
+    --bisa-sidebar-rail: var(--bisa-primary-400);
+    --bisa-sidebar-heading: #8a7d73;
+    --bisa-topbar-bg: #1f1a16;
+
+    /* Re-stepped for the dark surface: both marks clear 3:1 there. */
+    --bisa-chart-current: #fb923c;
+    --bisa-chart-previous: #c2410c;
+    --bisa-chart-track: #3a2f27;
 
     --bisa-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
     --bisa-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.45);
@@ -280,6 +353,16 @@ code, kbd, pre, samp {
     position: sticky;
     top: 0;
     z-index: 50;
+}
+
+/* Signature orange-to-yellow rule across the top of the app. With a white
+   sidebar and a white topbar this is what makes the brand read at a glance. */
+.topbar::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 3px;
+    background: var(--bisa-brand-gradient);
 }
 
 .topbar .top-navbar .navbar-collapse { margin-left: var(--bisa-sidebar-width); }
@@ -392,7 +475,7 @@ code, kbd, pre, samp {
     z-index: 40;
     width: var(--bisa-sidebar-width);
     padding-top: var(--bisa-topbar-height);
-    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    border-right: 1px solid var(--bisa-sidebar-border);
     box-shadow: none;
     transition: width var(--bisa-transition), left var(--bisa-transition);
 }
@@ -404,7 +487,7 @@ code, kbd, pre, samp {
 
 .left-sidebar .scroll-sidebar {
     scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+    scrollbar-color: var(--bisa-border-strong) transparent;
 }
 
 .sidebar-nav ul#sidebarnav {
@@ -412,7 +495,7 @@ code, kbd, pre, samp {
 }
 
 .sidebar-nav .nav-small-cap {
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--bisa-sidebar-heading);
     font-size: 0.6875rem;
     font-weight: 700;
     letter-spacing: 0.08em;
@@ -439,15 +522,19 @@ code, kbd, pre, samp {
 }
 
 .sidebar-nav ul#sidebarnav li.sidebar-item .sidebar-link i {
+    /* The vendor theme ships `color: red` on these icons; without this they
+       stay red while their labels follow the palette. */
+    color: inherit;
     font-size: 1.125rem;
     width: 22px;
+    line-height: 1;
     text-align: center;
     flex-shrink: 0;
 }
 
 .sidebar-nav ul#sidebarnav li.sidebar-item .sidebar-link:hover,
 .sidebar-nav ul#sidebarnav li.sidebar-item .sidebar-link:focus-visible {
-    background-color: rgba(255, 255, 255, 0.07);
+    background-color: var(--bisa-sidebar-hover);
     color: var(--bisa-sidebar-text-active);
 }
 
@@ -471,7 +558,7 @@ code, kbd, pre, samp {
     width: 3px;
     height: 22px;
     border-radius: 0 3px 3px 0;
-    background: var(--bisa-primary-300);
+    background: var(--bisa-sidebar-rail);
 }
 
 /* Collapsed ("mini") sidebar */
@@ -831,7 +918,19 @@ textarea.form-control {
     font-weight: 700;
     letter-spacing: 0.02em;
     padding: 4px 10px;
+    white-space: nowrap;
 }
+
+/* Bootstrap 5 dropped the .badge-* colour classes in favour of .bg-*, and the
+   vendor theme never replaced them, so these rendered as unstyled text — the
+   only colour came from a hardcoded gradient in one page's <style> block.
+   Bridge them onto the status tokens. */
+.badge-success { background: var(--bisa-success-soft); color: var(--bisa-success); }
+.badge-danger  { background: var(--bisa-danger-soft);  color: var(--bisa-danger); }
+.badge-warning { background: var(--bisa-warning-soft); color: var(--bisa-warning); }
+.badge-info    { background: var(--bisa-info-soft);    color: var(--bisa-info); }
+.badge-primary { background: var(--bisa-primary-soft); color: var(--bisa-primary); }
+.badge-secondary { background: var(--bisa-surface-alt); color: var(--bisa-text-muted); }
 
 /* Status pills used by laporan / track screens. */
 .bisa-status {
@@ -884,6 +983,9 @@ textarea.form-control {
 }
 
 .nav-tabs .nav-link {
+    /* These tabs are <button> elements, so without this they pick up the
+       browser's default grey button face. */
+    background: transparent;
     border: 0;
     border-bottom: 2px solid transparent;
     border-radius: 0;
@@ -949,6 +1051,16 @@ textarea.form-control {
     margin: 0 0 var(--bisa-space-1);
 }
 
+.bisa-page-header__title::after {
+    content: "";
+    display: block;
+    width: 44px;
+    height: 3px;
+    margin-top: var(--bisa-space-2);
+    border-radius: var(--bisa-radius-pill);
+    background: var(--bisa-brand-gradient);
+}
+
 .bisa-page-header__subtitle {
     color: var(--bisa-text-muted);
     font-size: 0.9375rem;
@@ -976,6 +1088,8 @@ textarea.form-control {
 }
 
 .bisa-stat {
+    position: relative;
+    overflow: hidden;
     background: var(--bisa-surface);
     border: 1px solid var(--bisa-border);
     border-radius: var(--bisa-radius-lg);
@@ -984,6 +1098,14 @@ textarea.form-control {
     display: flex;
     flex-direction: column;
     gap: var(--bisa-space-2);
+}
+
+.bisa-stat::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 3px;
+    background: var(--bisa-brand-gradient);
 }
 
 .bisa-stat__label {
@@ -1024,11 +1146,45 @@ textarea.form-control {
     gap: 4px;
     font-size: 0.8125rem;
     font-weight: 600;
+    white-space: nowrap;
 }
 
 .bisa-stat__delta--up { color: var(--bisa-success); }
 .bisa-stat__delta--down { color: var(--bisa-danger); }
 .bisa-stat__delta--flat { color: var(--bisa-text-subtle); }
+
+/* Hero number & meter -----------------------------------------------------
+   A single headline figure is a stat, not a chart. The meter beside it gives
+   the same value a proportional read without pretending to be a gauge. */
+
+.bisa-hero-number {
+    font-feature-settings: "tnum" 1;
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin: 0 0 var(--bisa-space-2);
+    display: flex;
+    align-items: center;
+    gap: var(--bisa-space-2);
+}
+
+.bisa-hero-number i { font-size: 0.7em; }
+
+.bisa-meter {
+    margin-top: var(--bisa-space-4);
+    height: 8px;
+    border-radius: var(--bisa-radius-pill);
+    background: var(--bisa-chart-track);
+    overflow: hidden;
+}
+
+.bisa-meter__fill {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--bisa-brand-gradient);
+}
 
 /* Empty state ------------------------------------------------------------- */
 

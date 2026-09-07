@@ -3,20 +3,7 @@
 
 @section('css')
 <style>
-    /* General Styles */
-    body {
-        font-family: 'Poppins', sans-serif;
-        background-color: #f4f7f6;
-    }
-    .container {
-        padding: 20px;
-        max-width: 800px;
-        background: #ffffff;
-        border-radius: 10px;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-        margin-top: 40px;
-    }
-    h3 {
+h3 {
         font-weight: 600;
         color: #4e4e4e;
         margin-bottom: 20px;
@@ -26,23 +13,7 @@
         margin-bottom: 30px;
     }
 
-    /* Form Styles */
-    .form-group {
-        margin-bottom: 20px;
-    }
-
-    /* Button Styles */
-    .btn-primary {
-        background: linear-gradient(135deg, #6e8efb, #a777e3);
-        border: none;
-        box-shadow: 0 4px 12px rgba(110, 142, 251, 0.4);
-        transition: all 0.3s ease;
-        padding: 12px 20px;
-        font-size: 16px;
-        border-radius: 5px;
-    }
-
-    /* File Input */
+    
     .form-control-file {
         border: 2px dashed #ddd;
         padding: 10px;
@@ -53,15 +24,7 @@
         border-color: #6e8efb;
     }
 
-    /* Alert Styles */
-    .alert {
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        animation: fadeIn 0.5s ease;
-        padding: 15px;
-    }
-
-    /* Keyframes for Animations */
+    
     @keyframes fadeIn {
         from {
             opacity: 0;

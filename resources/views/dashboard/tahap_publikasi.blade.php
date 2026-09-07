@@ -34,7 +34,7 @@
                                 semua kalangan. Dalam pembuatan video dan poster dapat memanfaatkan bahan dari busines model canvas 
                                 dan UI Design yang pernah dibuat di tahap sebelumnya.
                                 <br> <br>
-                                <a class="btn btn-warning">Materi Publikasi Produk <i class="fas fa-book"></i> </a>
+                                <a class="btn btn-secondary">Materi Publikasi Produk <i class="fas fa-book"></i> </a>
                                 <x-action-form :action="url('/submitPublikasi')" class="btn btn-primary"
                                     confirm="Kirim progress publikasi?">Submit Progress <i class="fas fa-arrow-alt-circle-right"></i></x-action-form>
                             </p>                         
@@ -62,7 +62,7 @@
                         <p>
                             <ol>
                                 <li>Buat video produkmu semaksimal mungkin</li>
-                                <li>Apabula hipster masih kesulitan dalam membutanya. Dapat mempelajari dengan mengikuti link ini <a class="btn btn-xs btn-warning"><i class="fas fa-play"></i>&nbsp;Materi Pembelajaran UI Design dan Protoyping  </a></li>
+                                <li>Apabula hipster masih kesulitan dalam membutanya. Dapat mempelajari dengan mengikuti link ini <a class="btn btn-xs btn-secondary"><i class="fas fa-play"></i>&nbsp;Materi Pembelajaran UI Design dan Protoyping  </a></li>
                                 <li>Upload video yang telah kamu buat pada platform YouTube</li>
                                 <li>Upload <strong>Embed Link</strong> pada form di bawah ini</li>
                             </ol>
@@ -85,7 +85,7 @@
 
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <strong>Video Sudah Terupload.</strong> Kamu harus submit progress agar mentor dapat mereview videomu. Klik <strong>Edit Link</strong> apabila ingin mengganti Embed Code Video <br><br>
-                            <button data-video="{{ $datas->link_video }}" class="btn btn-warning" id="btn-editVideo" data-bs-toggle="modal" data-bs-target="#modalEditVideo">Edit Link Video <span class="fas fa-edit"></span></button>
+                            <button data-video="{{ $datas->link_video }}" class="btn btn-secondary" id="btn-editVideo" data-bs-toggle="modal" data-bs-target="#modalEditVideo">Edit Link Video <span class="fas fa-edit"></span></button>
                             </div>
 
                             <p>Berikut adalah video produkmu :</p>
@@ -126,7 +126,7 @@
                             <ol>
                                 <li>Buat video produkmu sekreatif mungkin</li>
                                 <li>Tools yang digunakan bebas (Adobe Ilustration, Adobe Photshop, Corel Draw, Figma, dll)</li>
-                                <li>Apabila hipster masih kesulitan dalam membuatnya. Dapat mempelajari dengan mengikuti link ini <a class="btn btn-xs btn-success text-white"><i class="fas fa-play"></i>&nbsp;Materi Pembelajaran Video dan Poster Produk</a></li>
+                                <li>Apabila hipster masih kesulitan dalam membuatnya. Dapat mempelajari dengan mengikuti link ini <a class="btn btn-xs btn-secondary"><i class="fas fa-play"></i>&nbsp;Materi Pembelajaran Video dan Poster Produk</a></li>
                                 <li>Ekspor poster dengan ukuran A3 dalam format JPG                </li>
                                 <li>Upload file poster pada form di bawah ini ( maksimal ukuran poster adalah 500kb )</li>
                                 <li><strong>PENGINGAT : </strong> Pastikan hipster tetap menyimpan file project dari poster yang telah dibuat</li>
@@ -147,7 +147,7 @@
                             <h3> Tugas Poster Produk</h3>
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <strong>Video Sudah Terupload.</strong> Kamu harus submit progress agar mentor dapat mereview videomu. Klik <strong>Edit Link</strong> apabila ingin mengganti Embed Code Video <br><br>
-                            <button data-poster="{{ $poster->poster_produk }}" class="btn btn-warning" id="btn-editPoster" data-bs-toggle="modal" data-bs-target="#modalEditPoster">Edit Poster <span class="fas fa-edit"></span></button>
+                            <button data-poster="{{ $poster->poster_produk }}" class="btn btn-secondary" id="btn-editPoster" data-bs-toggle="modal" data-bs-target="#modalEditPoster">Edit Poster <span class="fas fa-edit"></span></button>
                             </div>
                             <br>
                             <img src="{{asset('poster_produk/'.$poster->poster_produk)}}" alt="">
@@ -178,7 +178,7 @@
             <br>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Simpan</button>
-                <button type="button"  class="btn btn-danger text-white" data-bs-dismiss="modal">Batalkan</button>
+                <button type="button"  class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
             </div>
         </form>
         </div>
@@ -203,7 +203,7 @@
             <br>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Simpan</button>
-                <button type="button"  class="btn btn-danger text-white" data-bs-dismiss="modal">Batalkan</button>
+                <button type="button"  class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
             </div>
         </form>
         </div>

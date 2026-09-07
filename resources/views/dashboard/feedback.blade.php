@@ -4,31 +4,19 @@
 
 @section('css')
 <style>
-    /* Gaya untuk modal */
-    .modal-dialog{
-        max-width: 75%;
-    }
-
-    /* Gaya hover pada kartu */
-    .card-step:hover {
+.card-step:hover {
         transform: translateY(-10px);
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     }
 
-    /* Responsivitas untuk perangkat kecil */
+    
     @media (max-width: 420px) {
         .modal-dialog {
             max-width: 100%;
         }
     }
 
-    /* Gaya untuk tabel */
-    .table thead {
-        background-color: #f8f9fa;
-        text-transform: uppercase;
-    }
-
-    /* Animasi untuk judul dan konten */
+    
     h3 {
         font-size: 24px;
         font-weight: 700;
@@ -39,11 +27,6 @@
 
     p {
         animation: fadeInUp 1s ease-in-out;
-    }
-
-    /* Gaya untuk tombol aksi */
-    .btn-warning {
-        transition: background-color 0.3s ease;
     }
 </style>
 @endsection
@@ -70,7 +53,7 @@
                             <br><br>
                             <p>
                                 Feedback:
-                                <!-- <button class="btn btn-success text-white" data-bs-toggle="modal" data-bs-target="#modalNilai">
+                                <!-- <button class="btn btn-primary text-white" data-bs-toggle="modal" data-bs-target="#modalNilai">
                                     <i class="fas fa-plus"></i>&nbsp; Tambah Feedback
                                 </button> -->
                             </p>
@@ -102,7 +85,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <button class="btn btn-warning detailFeed" data-bs-toggle="modal" data-bs-target="#modalDetailFeed" data-judulfeed="{{$feedback->judul}}" data-komentarfeed="{{$feedback->komentar}}" data-idfeedback="{{$feedback->id_feedback}}">
+                                                <button class="btn btn-secondary detailFeed" data-bs-toggle="modal" data-bs-target="#modalDetailFeed" data-judulfeed="{{$feedback->judul}}" data-komentarfeed="{{$feedback->komentar}}" data-idfeedback="{{$feedback->id_feedback}}">
                                                     Detail &nbsp;<i class="fas fa-eye"></i>
                                                 </button>
                                             </td>
@@ -137,7 +120,7 @@
                 <form action="{{url('konfirmFeed')}}" method="post">
                     {{csrf_field()}}
                     <input type="hidden" id="ed-idfeedback" name="id_feed">
-                    <button class="btn btn-success" type="submit">Konfirmasi</button>
+                    <button class="btn btn-primary" type="submit">Konfirmasi</button>
                     <button class="btn btn-danger" data-bs-dismiss="modal" type="button">Batal</button>
             </div>
         </form>

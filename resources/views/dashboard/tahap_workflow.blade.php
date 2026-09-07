@@ -55,8 +55,8 @@
                                 <li>Arahkan cursor ke menu  <strong>Draft</strong> di sidebar menu kiri, hingga muncul tanda <strong>'+'</strong>. Dan klik tranda 
                                 <strong>+</strong> , lalu pilih <strong>New Design File</strong> untuk membuat project design baru di figma</li>
                                 <li>Pelajari Video dan Referensi berikut untuk mengawali design dan prototyping
-                                <button class="btn  btn-warning" data-bs-toggle="modal" data-bs-target="#modalMateriProto"><i class="fas fa-play"></i> Pembelajaran UI Design dan protoyping  </button>                         
-                                <a href="https://dribbble.com/search/ui" target="_blank" class="btn  btn-success text-white" ><i class="fas fa-book"></i> Referensi UI Design</a>                         
+                                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalMateriProto"><i class="fas fa-play"></i> Pembelajaran UI Design dan protoyping  </button>                         
+                                <a href="https://dribbble.com/search/ui" target="_blank" class="btn btn-secondary" ><i class="fas fa-book"></i> Referensi UI Design</a>                         
                                 </li>        
                                 @foreach($dataMentor as $mentor)                
                                 <li> Invite email mentormu, pada project figma, Adapun email mentormu adalah <br><h3 class="badge rounded-pill bg-secondary">{{$mentor->email}}</h3></li>
@@ -81,7 +81,7 @@
                             <br>
                             @foreach($dataFigma as $figma )
                             <h3>Berikut Link Prototype Figma dari produkmu : 
-                            <button data-bs-target="#modalEditLink" id="bt-edit" data-bs-toggle="modal" class="btn btn-success text-white" 
+                            <button data-bs-target="#modalEditLink" id="bt-edit" data-bs-toggle="modal" class="btn btn-secondary" 
                             data-figma=" {{$figma->link_figma}}"> 
                                 Edit Link <i class="fas fa-edit"></i> 
                             </button></h3>
@@ -107,8 +107,8 @@
                         yang dapat digunakan untuk memuat logo yang menarik. Mulai dari Adobbe Ilustrator, Figma, Coreldraw, dan sejenisnya.
                         Untuk memudahkan mengawali pembuatan logo, <strong>Hipster</strong> dalam tim mu dapat mengakses
                         referensi ini <br>
-                        <button data-bs-toggle="modal" data-bs-target="#modalMateri" class="btn btn-success text-white"><i class="fas fa-play"></i> Video Pembelajaran Logo Produk</button>
-                        <a href="https://id.pinterest.com/fangchichang/company-logo-reference/" target="_blank" class="btn btn-warning"><i class="fas fa-book"></i>&nbsp; Referensi Logo Produk </a>
+                        <button data-bs-toggle="modal" data-bs-target="#modalMateri" class="btn btn-secondary"><i class="fas fa-play"></i> Video Pembelajaran Logo Produk</button>
+                        <a href="https://id.pinterest.com/fangchichang/company-logo-reference/" target="_blank" class="btn btn-secondary"><i class="fas fa-book"></i>&nbsp; Referensi Logo Produk </a>
                         <br> <br>
                     </p>
 
@@ -137,7 +137,7 @@
                     <div class="mt-3">
                         @foreach($dataLogo as $logo)
                         <h4>Logo yang sudah terupload :  
-                            <button data-bs-target="#modalEditLogo" id="bt-edit-logo" data-bs-toggle="modal" class="btn btn-success text-white"                             
+                            <button data-bs-target="#modalEditLogo" id="bt-edit-logo" data-bs-toggle="modal" class="btn btn-secondary"                             
                             data-desc-logo="{{$logo->deskripsi}}"> 
                             Edit Logo &nbsp;<i class="fas fa-edit"></i>
                             </button>
@@ -179,7 +179,7 @@
             <br>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Simpan</button>
-                <button type="button"  class="btn btn-danger text-white" data-bs-dismiss="modal">Batalkan</button>
+                <button type="button"  class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
             </div>
         </form>
         </div>
@@ -209,7 +209,7 @@
 
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Simpan</button>
-                <button type="button"  class="btn btn-danger text-white" data-bs-dismiss="modal">Batalkan</button>
+                <button type="button"  class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
             </div>
         </form>
         </div>
@@ -229,7 +229,7 @@
       <div class="modal-body">
       <iframe width="100%" height="400px" src="https://www.youtube.com/embed/gIcSQOiUxXc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <div class="modal-footer">                
-                <button type="button"  class="btn btn-danger text-white" data-bs-dismiss="modal">Tutup</button>    
+                <button type="button"  class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>    
             </div>
         </div>
     </div>
@@ -248,7 +248,7 @@
       <div class="modal-body">
       <iframe width="100%" height="450px" src="https://www.youtube.com/embed/195RY7jCuZg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       <div class="modal-footer">                
-                <button type="button"  class="btn btn-danger text-white" data-bs-dismiss="modal">Tutup</button>    
+                <button type="button"  class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>    
             </div>
         </div>
     </div>

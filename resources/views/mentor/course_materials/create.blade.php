@@ -47,7 +47,7 @@
                         </option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-success">{{ isset($material) ? 'Update' : 'Add' }}</button>
+                <button type="submit" class="btn btn-primary">{{ isset($material) ? 'Update' : 'Add' }}</button>
             </form>
 
         </div>

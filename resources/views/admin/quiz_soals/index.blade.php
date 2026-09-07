@@ -29,7 +29,7 @@
                         <td>{{ $soal->option_d }}</td>
                         <td>{{ $soal->key }}</td>
                         <td>
-                            <a href="{{ route('admin.quiz_soals.edit', $soal->id) }}" class="btn btn-warning">Edit</a>
+                            <a href="{{ route('admin.quiz_soals.edit', $soal->id) }}" class="btn btn-secondary">Edit</a>
                             <form action="{{ route('admin.quiz_soals.destroy', $soal->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')

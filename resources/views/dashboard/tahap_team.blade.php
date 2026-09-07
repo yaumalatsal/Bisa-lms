@@ -3,13 +3,7 @@
 @endsection
 @section('css')
     <style>
-
-        .table-result{
-            background-color:#ffff;
-            font-size:14px
-        }
-
-        .member-area{
+.member-area{
             padding:10px;
             background-color:#ededed; 
         }
@@ -25,7 +19,7 @@
                 max-width:100%;
             }         
         }
-    </style>
+</style>
 @endsection
 @extends('dashboard_template/index')
 @section('content')
@@ -74,7 +68,7 @@
                                     <div class="input-group mb-3">
                                         <input type="number" id="cari-nis" name="nis" class="form-control"
                                             placeholder="Masukkan NIS anggota">
-                                        <button class="btn btn-warning" type="submit">
+                                        <button class="btn btn-secondary" type="submit">
                                             <span class="fa fa-search" aria-hidden="true"></span> Cari Anggota
                                         </button>
                                     </div>
@@ -89,7 +83,7 @@
                                                 <td width="40%">{{$member->nama}}</td>
                                                 <td width="40%">{{$member->nomor_induk}}</td>
                                                 <td>
-                                                    <button type="button" class="btn-tambah-member btn btn-success"
+                                                    <button type="button" class="btn-tambah-member btn btn-primary"
                                                         data-nama="{{$member->nama}}"
                                                         data-nis="{{$member->nomor_induk}}"
                                                         data-id="{{$member->id}}"
@@ -129,7 +123,7 @@
                             <input type="hidden" value="{{$dataproduk->id}}" name="id_produk">                                
                             @endforeach
 
-                                <button type="submit" class="btn btn-lg btn-info text-white">Lanjutkan ke Pembuatan Profil Bisnis &nbsp;<span class="fas chevron-right"></span></button>
+                                <button type="submit" class="btn btn-lg btn-primary text-white">Lanjutkan ke Pembuatan Profil Bisnis &nbsp;<span class="fas chevron-right"></span></button>
                             </form>
                         </div>
                     @endif
@@ -259,7 +253,7 @@
                 <form id="form-delete-member" action="" method="POST" class="d-inline">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-success btn-lg text-white clr-white">Ya</button>
+                    <button type="submit" class="btn btn-danger btn-lg">Ya, hapus</button>
                 </form>
                 <button type="button" class="btn btn-danger btn-lg text-white" data-bs-dismiss="modal">Tidak</button>
             </div>

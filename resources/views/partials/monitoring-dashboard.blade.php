@@ -71,13 +71,30 @@
             <div class="card-header">
                 <h2 class="card-title">Pertumbuhan Penjualan</h2>
             </div>
-            <div class="card-body text-center">
-                <div id="bisaGrowthChart" style="min-height:200px"></div>
-                <p class="bisa-stat__value mb-1">{{ number_format($salesGrowth) }}%</p>
-                <p class="text-muted mb-0">
-                    {{ number_format((float) $thisYearSales, 0, ',', '.') }} produk tahun ini,
-                    {{ number_format((float) $lastYearSales, 0, ',', '.') }} tahun lalu.
+            {{-- A single percentage is a hero number, not a chart. The radial
+                 gauge that used to sit here was clamped to +/-100, so once growth
+                 passed 100% the ring was permanently full and carried no
+                 information — while printing a number that disagreed with the
+                 one beneath it. --}}
+            <div class="card-body">
+                @php([$growthClass, $growthIcon] = $delta($salesGrowth))
+                <p class="bisa-hero-number {{ $growthClass }}">
+                    <i class="mdi {{ $growthIcon }}" aria-hidden="true"></i>{{ number_format($salesGrowth) }}%
                 </p>
+                <p class="text-muted mb-0">
+                    Dibanding tahun lalu, dari
+                    <strong class="bisa-numeric">{{ number_format((float) $lastYearSales, 0, ',', '.') }}</strong>
+                    menjadi
+                    <strong class="bisa-numeric">{{ number_format((float) $thisYearSales, 0, ',', '.') }}</strong>
+                    produk terjual.
+                </p>
+
+                {{-- The same figure as a proportion, capped so a very large
+                     growth still draws a sensible bar. --}}
+                <div class="bisa-meter" role="img"
+                    aria-label="Pertumbuhan penjualan {{ number_format($salesGrowth) }} persen dibanding tahun lalu">
+                    <span class="bisa-meter__fill" style="width: {{ max(0, min(100, abs($salesGrowth))) }}%"></span>
+                </div>
             </div>
         </div>
 
@@ -161,19 +178,27 @@
                 return (styles.getPropertyValue(name) || fallback).trim();
             };
 
+            var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            var animate = { enabled: !reduceMotion, speed: 400 };
+
             var months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
             var thisYear = @json(array_values($monthlySalesThisYear));
             // Disimpan sebagai nilai negatif agar tergambar ke bawah sumbu.
             var lastYear = @json(array_values($monthlySalesLastYear));
 
             new ApexCharts(document.querySelector('#bisaSalesChart'), {
-                chart: { type: 'bar', height: 320, stacked: true, toolbar: { show: false }, fontFamily: 'inherit' },
+                chart: { type: 'bar', height: 320, stacked: true, toolbar: { show: false }, fontFamily: 'inherit', animations: animate },
                 series: [
                     { name: '{{ $currentYear }}', data: thisYear },
                     { name: '{{ $previousYear }}', data: lastYear }
                 ],
-                colors: [token('--bisa-primary', '#4f46e5'), token('--bisa-primary-200', '#c7d2fe')],
-                plotOptions: { bar: { borderRadius: 6, columnWidth: '45%' } },
+                // One measure across two periods: a sequential emphasis pair from
+                // the brand ramp, re-stepped per theme so both marks clear 3:1
+                // against their surface. The table below carries the values.
+                colors: [token('--bisa-chart-current', '#c2410c'), token('--bisa-chart-previous', '#f59e0b')],
+                plotOptions: { bar: { borderRadius: 4, borderRadiusApplication: 'end', columnWidth: '52%' } },
+                // A 2px surface gap keeps adjacent bars from fusing.
+                stroke: { show: true, width: 2, colors: [token('--bisa-surface', '#ffffff')] },
                 dataLabels: { enabled: false },
                 legend: { position: 'top', horizontalAlign: 'right', labels: { colors: token('--bisa-text-muted', '#6b7280') } },
                 grid: { borderColor: token('--bisa-border', '#e5e7eb'), strokeDashArray: 4 },
@@ -195,26 +220,6 @@
                 }
             }).render();
 
-            new ApexCharts(document.querySelector('#bisaGrowthChart'), {
-                chart: { type: 'radialBar', height: 200, sparkline: { enabled: true }, fontFamily: 'inherit' },
-                series: [Math.max(-100, Math.min(100, {{ (int) $salesGrowth }}))],
-                colors: [token('--bisa-primary', '#4f46e5')],
-                plotOptions: {
-                    radialBar: {
-                        hollow: { size: '60%' },
-                        track: { background: token('--bisa-border', '#e5e7eb') },
-                        dataLabels: {
-                            name: { show: false },
-                            value: {
-                                offsetY: 8,
-                                fontSize: '20px',
-                                color: token('--bisa-text', '#111827'),
-                                formatter: function (value) { return value + '%'; }
-                            }
-                        }
-                    }
-                }
-            }).render();
         })();
     </script>
 @endpush

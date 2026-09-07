@@ -45,7 +45,7 @@
                                                 </a>
                                             </td>
                                             <td>
-                                                <a href="{{ route('mentor.page.groupchat',$data->product_id ) }}" class="btn btn-success">
+                                                <a href="{{ route('mentor.page.groupchat',$data->product_id ) }}" class="btn btn-secondary">
                                                     Grup Chat &nbsp;
                                                     <i class="fas fa-comments"></i>
                                                 </a>

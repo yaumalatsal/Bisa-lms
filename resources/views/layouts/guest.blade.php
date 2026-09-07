@@ -39,8 +39,9 @@
             gap: var(--bisa-space-5);
             padding: var(--bisa-space-7);
             color: #fff;
+            /* Brand wash: deep orange into yellow, over the campus photo. */
             background:
-                linear-gradient(140deg, rgba(49, 46, 129, 0.94), rgba(79, 70, 229, 0.88)),
+                linear-gradient(140deg, rgba(124, 45, 18, 0.95) 0%, rgba(194, 65, 12, 0.90) 55%, rgba(217, 119, 6, 0.88) 100%),
                 url('{{ asset('assets/images/bg_new.jpg') }}') center / cover no-repeat;
         }
 
@@ -58,7 +59,18 @@
             margin: 0;
         }
 
-        .auth__logo { height: 44px; width: auto; }
+        .auth__logo { height: 40px; width: auto; display: block; }
+
+        /* The BISa mark is red, which disappears against the orange wash, so it
+           sits on a white chip rather than being recoloured. */
+        .auth__brand {
+            display: inline-flex;
+            align-self: flex-start;
+            background: #fff;
+            padding: 10px 18px;
+            border-radius: var(--bisa-radius);
+            box-shadow: 0 6px 20px rgba(87, 30, 8, 0.25);
+        }
 
         .auth__points { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--bisa-space-3); }
 
@@ -69,7 +81,10 @@
             color: rgba(255, 255, 255, 0.9);
         }
 
-        .auth__points i { margin-top: 3px; }
+        .auth__points i {
+            margin-top: 3px;
+            color: var(--bisa-accent-300);
+        }
 
         .auth__panel {
             display: flex;
@@ -86,6 +101,9 @@
             border-radius: var(--bisa-radius-lg);
             box-shadow: var(--bisa-shadow);
             padding: var(--bisa-space-6);
+            border-top: 3px solid transparent;
+            border-image: var(--bisa-brand-gradient) 1;
+            border-image-width: 3px 0 0 0;
         }
 
         .auth__eyebrow {
@@ -130,7 +148,9 @@
 <body>
     <div class="auth">
         <section class="auth__hero">
-            <img class="auth__logo" src="{{ asset('assets/images/logo_fix.png') }}" alt="BISa">
+            <span class="auth__brand">
+                <img class="auth__logo" src="{{ asset('assets/images/logo_fix.png') }}" alt="BISa">
+            </span>
             <h1>Inkubasi bisnis, dari ide sampai pameran.</h1>
             <p>BISa mendampingi mahasiswa Universitas Negeri Malang menyusun model bisnis,
                 melaporkan perkembangan, dan mempertemukannya dengan mentor serta investor.</p>

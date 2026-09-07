@@ -22,13 +22,13 @@
                         <td>{{ $mapel->name }}</td>
                         <td>{{ $mapel->durasi }}</td>
                         <td>
-                            <a href="{{ route('admin.mapels.edit', $mapel->id) }}" class="btn btn-warning">Edit</a>
+                            <a href="{{ route('admin.mapels.edit', $mapel->id) }}" class="btn btn-secondary">Edit</a>
                             <form action="{{ route('admin.mapels.destroy', $mapel->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">Hapus</button>
                             </form>
-                            <a href="{{ route('admin.quiz_soals.index', ['mapel_id' => $mapel->id]) }}" class="btn btn-info">Kelola Soal</a>
+                            <a href="{{ route('admin.quiz_soals.index', ['mapel_id' => $mapel->id]) }}" class="btn btn-secondary">Kelola Soal</a>
                         </td>
                     </tr>
                 @endforeach

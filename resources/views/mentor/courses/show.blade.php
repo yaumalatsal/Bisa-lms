@@ -36,7 +36,7 @@
                                 <td>{{ $material->status ? 'Active' : 'Inactive' }}</td>
                                 <td>
                                     <a href="{{ route('materials.edit', [$course->id, $material->id]) }}"
-                                        class="btn btn-warning">Edit</a>
+                                        class="btn btn-secondary">Edit</a>
                                     <a href="#" class="btn btn-danger"
                                         onclick="confirmDeleteMaterial({{ $material->id }})">
                                         Delete

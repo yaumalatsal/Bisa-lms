@@ -61,7 +61,7 @@ return [
         'items' => [
             ['label' => 'Dashboard', 'icon' => 'mdi-view-dashboard', 'url' => '/mentor', 'active' => 'mentor'],
             ['label' => 'Produk Bimbingan', 'icon' => 'mdi-buffer', 'url' => '/mentor/produk', 'active' => 'mentor/produk*'],
-            ['label' => 'Pameran', 'icon' => 'mdi-storefront', 'url' => '/mentor/pameran', 'active' => 'mentor/pameran*'],
+            ['label' => 'Pameran', 'icon' => 'mdi-store', 'url' => '/mentor/pameran', 'active' => 'mentor/pameran*'],
             ['label' => 'Course', 'icon' => 'mdi-book', 'url' => '/mentor/courses', 'active' => 'mentor/courses*'],
             ['label' => 'Penilaian', 'icon' => 'mdi-star', 'url' => '/mentor/penilaian', 'active' => ['mentor/penilaian', 'mentor/detail_penilaian*']],
             ['label' => 'Feedback', 'icon' => 'mdi-comment-check', 'url' => '/mentor/feedback', 'active' => 'mentor/feedback'],
@@ -81,7 +81,7 @@ return [
             ['label' => 'Siswa', 'icon' => 'mdi-account-multiple', 'route' => 'admin.siswa', 'active' => 'admin/siswa*'],
             ['label' => 'Daftar Materi', 'icon' => 'mdi-book-open-variant', 'route' => 'admin.materi.index', 'active' => 'admin/materi*'],
             ['label' => 'Soal Quiz', 'icon' => 'mdi-help-circle-outline', 'route' => 'admin.mapels.index', 'active' => 'admin/mapel*'],
-            ['label' => 'Pertanyaan BMC', 'icon' => 'mdi-view-grid-plus', 'route' => 'admin.bmc.index', 'active' => 'admin/bmc*'],
+            ['label' => 'Pertanyaan BMC', 'icon' => 'mdi-view-grid', 'route' => 'admin.bmc.index', 'active' => 'admin/bmc*'],
         ],
     ],
 

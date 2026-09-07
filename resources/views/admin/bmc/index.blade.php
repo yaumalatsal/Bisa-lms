@@ -16,7 +16,7 @@
 
     <!-- Tombol Tambah BMC -->
     <div class="d-flex justify-content-end mb-3">
-        <a href="{{ route('admin.bmc.create') }}" class="btn btn-success">Tambah BMC</a>
+        <a href="{{ route('admin.bmc.create') }}" class="btn btn-primary">Tambah BMC</a>
     </div>
     
     <table class="table table-hover table-bordered">
@@ -41,8 +41,8 @@
                     <td>{{ $bmc->icon }}</td>
                     <td>{{ $bmc->video }}</td>
                     <td>
-                        <a href="{{ route('admin.bmc.edit', $bmc->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                        <a href="{{ route('admin.bmc.soal.index', $bmc->id) }}" class="btn btn-info btn-sm">Kelola Sub Soal</a>
+                        <a href="{{ route('admin.bmc.edit', $bmc->id) }}" class="btn btn-secondary btn-sm">Edit</a>
+                        <a href="{{ route('admin.bmc.soal.index', $bmc->id) }}" class="btn btn-secondary btn-sm">Kelola Sub Soal</a>
                         <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ $bmc->id }}">Hapus</button>
                     </td>
                 </tr>

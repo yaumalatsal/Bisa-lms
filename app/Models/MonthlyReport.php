@@ -40,7 +40,9 @@ class MonthlyReport extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    protected $dates = ['report_date'];
+    protected $casts = [
+        'report_date' => 'date',
+    ];
 
     public function product()
     {
@@ -62,19 +64,15 @@ class MonthlyReport extends Model
         return $this->revenue - $this->spending; // Assuming spending is stored in total_sales
     }
 
-    public function getFormattedProfitAttribute()
+    /**
+     * Profit as Indonesian rupiah.
+     *
+     * This used to return an HTML <span> with US grouping ("Rp.  5,700,000.00"),
+     * which both disagreed with every other amount in the app and forced the
+     * views to render it unescaped. The colour and arrow are the view's job.
+     */
+    public function getFormattedProfitAttribute(): string
     {
-        $profit = $this->profit;
-        if ($profit > 0) {
-            return '<span class="text-success">
-                    <i class="fas fa-arrow-up"></i> Rp.  '.number_format($profit, 2).
-                '</span>';
-        } elseif ($profit < 0) {
-            return '<span class="text-danger">
-                    <i class="fas fa-arrow-down"></i> Rp.  '.number_format($profit, 2).
-                '</span>';
-        } else {
-            return number_format($profit, 2);
-        }
+        return 'Rp '.number_format($this->profit, 0, ',', '.');
     }
 }

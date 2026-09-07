@@ -39,8 +39,8 @@
                             <h2 class="mt-5"> <strong>{{$dataz->judul}} </strong></h2>
                             <h5>Apa itu {{$dataz->judul}}  ?</h5>
                             <p>{{$dataz->deskripsi}}</p>
-                            <a href="{{url('/bmc')}}" class="btn btn-warning text-white"> <i class="fas fa-chevron-left"></i> &nbsp; Kembali ke BMC </a>
-                            <button class="btn btn-success text-white" data-bs-toggle="modal" data-bs-target="#materiModal"> <i class="fas fa-play"></i> &nbsp;Video Penjelasan {{$dataz->judul}}  </button>
+                            <a href="{{url('/bmc')}}" class="btn btn-secondary"> <i class="fas fa-chevron-left"></i> &nbsp; Kembali ke BMC </a>
+                            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#materiModal"> <i class="fas fa-play"></i> &nbsp;Video Penjelasan {{$dataz->judul}}  </button>
                         </div>    
                     </div>         
                 </div>
@@ -57,7 +57,7 @@
                         <div class="card-body">
                             <h4><strong> {{$no++}}.&nbsp; {{$bmc->pertanyaan}} </strong>
                                 &nbsp;&nbsp;
-                                <button class="btn btn-info jawab"  data-bs-toggle="modal" data-bs-target="#modalJawaban"
+                                <button class="btn btn-primary jawab"  data-bs-toggle="modal" data-bs-target="#modalJawaban"
                                      data-pertanyaan="{{$bmc->pertanyaan}}"
                                     data-jawaban="{{$bmc->jawaban}}"
                                     data-idpertanyaan="{{$bmc->id_pertanyaan_bmc}}"
@@ -134,7 +134,7 @@
             @endif
         </div>
         <div class="modal-footer">
-            <button type="button"  class="pauseYt btn btn-danger text-white" data-bs-dismiss="modal">Tutup</button>
+            <button type="button"  class="pauseYt btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
       </div>
     </div>
   </div>

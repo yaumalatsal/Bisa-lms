@@ -30,7 +30,13 @@
                     <td>{{ $report->report_date->format('d-m-Y') }}</td>
                     <td>{{ $report->formatted_revenue }}</td>
                     <td>{{ $report->formatted_spending }}</td>
-                    <td>{!! $report->formatted_profit !!}</td>
+                    <td class="text-end bisa-numeric">
+                        @php($p = $report->profit)
+                        <span class="bisa-stat__delta {{ $p >= 0 ? 'bisa-stat__delta--up' : 'bisa-stat__delta--down' }}">
+                            <i class="mdi {{ $p >= 0 ? 'mdi-arrow-up' : 'mdi-arrow-down' }}" aria-hidden="true"></i>
+                            {{ $report->formatted_profit }}
+                        </span>
+                    </td>
                     <td>
                         @if($report->file_path)
                             <a href="{{ asset('storage/' . $report->file_path) }}" target="_blank">Lihat Laporan</a>

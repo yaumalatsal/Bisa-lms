@@ -36,7 +36,7 @@
             <input type="text" class="form-control" id="video" name="video" value="{{ $bmc->video }}">
         </div>
 
-        <button type="submit" class="btn btn-success">Update</button>
+        <button type="submit" class="btn btn-primary">Update</button>
         <a href="{{ route('admin.bmc.index') }}" class="btn btn-secondary">Kembali</a>
     </form>
 </div>

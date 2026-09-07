@@ -72,7 +72,7 @@
                             alt="Logo {{ $produkUtama->nama_produk }}" style="max-width:200px">
                     @else
                         <div class="bisa-empty py-4">
-                            <i class="mdi mdi-image-outline bisa-empty__icon" aria-hidden="true"></i>
+                            <i class="mdi mdi-image bisa-empty__icon" aria-hidden="true"></i>
                             <p class="mb-0">Belum ada logo</p>
                         </div>
                     @endif

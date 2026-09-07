@@ -23,7 +23,7 @@
             </div>
         @empty
             <div class="bisa-empty">
-                <i class="mdi mdi-clipboard-text-outline bisa-empty__icon" aria-hidden="true"></i>
+                <i class="mdi mdi-clipboard-text bisa-empty__icon" aria-hidden="true"></i>
                 <p class="bisa-empty__title">Belum ada jawaban</p>
                 <p class="bisa-empty__body">Tim belum mengisi poin BMC ini.</p>
             </div>

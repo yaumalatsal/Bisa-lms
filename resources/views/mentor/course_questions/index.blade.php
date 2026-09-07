@@ -35,7 +35,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $question->question_text }}</td>
                                 <td>
-                                    <button class="btn btn-warning" data-bs-toggle="modal"
+                                    <button class="btn btn-secondary" data-bs-toggle="modal"
                                         data-bs-target="#editQuestionModal-{{ $question->id }}">Edit</button>
 
                                     <a href="#" class="btn btn-danger"

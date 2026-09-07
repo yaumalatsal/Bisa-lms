@@ -36,7 +36,7 @@
                             <br><br>
                             <p>
                                 Feedback : 
-                                <!-- <button class="btn btn-success text-white" data-bs-toggle="modal" data-bs-target="#modalNilai">
+                                <!-- <button class="btn btn-primary text-white" data-bs-toggle="modal" data-bs-target="#modalNilai">
                                     <i class="fas fa-plus"></i>&nbsp; Tambah Feeedback
                                 </button> -->
                             </p>
@@ -70,7 +70,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <button class="btn btn-warning detailFeed" data-bs-toggle="modal" data-bs-target="#modalDetailFeed" data-judulfeed="{{$feedback->judul}}" data-komentarfeed="{{$feedback->komentar}}"> Detail &nbsp;<i class="fas fa-eye"> </i></button>
+                                                <button class="btn btn-secondary detailFeed" data-bs-toggle="modal" data-bs-target="#modalDetailFeed" data-judulfeed="{{$feedback->judul}}" data-komentarfeed="{{$feedback->komentar}}"> Detail &nbsp;<i class="fas fa-eye"> </i></button>
                                             </td>
                                         </tr>
                                         @endforeach
@@ -117,7 +117,7 @@
             <input id="f-nilai" type="text" class="form-control" name="nilai">
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Simpan</button>
-                <button type="button"  class="btn btn-danger text-white" data-bs-dismiss="modal">Batalkan</button>
+                <button type="button"  class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
             </div>
         </form>
         </div>

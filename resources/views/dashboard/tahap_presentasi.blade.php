@@ -60,7 +60,7 @@
 
                             </ol>
                         </strong>
-                        <a href="#" class="btn btn-success">Materi dan Contoh Pitch Deck &nbsp;<i class="fas fa-book"></i> </a>
+                        <a href="#" class="btn btn-secondary">Materi dan Contoh Pitch Deck &nbsp;<i class="fas fa-book"></i> </a>
                     </p>
                 </div>
             </div>
@@ -73,7 +73,7 @@
                 <div class="card-body">
                     <h3>File Presentasi</h3>
                     <p>Kamu sudah memgupload link Pitch Deckk dari Produk mu <br>
-                        <button data-bs-target="#modalDeck" data-deck="{{$data->deck}}" id="editDeck" data-bs-toggle="modal"  class="btn btn-warning">Edit Link &nbsp;<i class="fas fa-edit"></i></button>
+                        <button data-bs-target="#modalDeck" data-deck="{{$data->deck}}" id="editDeck" data-bs-toggle="modal"  class="btn btn-secondary">Edit Link &nbsp;<i class="fas fa-edit"></i></button>
                     </p>
                     <p>Link :</p>
                     <div class="alert alert-success">
@@ -126,7 +126,7 @@
             <br>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Simpan</button>
-                <button type="button"  class="btn btn-danger text-white" data-bs-dismiss="modal">Batalkan</button>
+                <button type="button"  class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
             </div>
         </form>
         </div>

@@ -35,7 +35,7 @@
             <input type="text" class="form-control" id="video" name="video" placeholder="Masukkan URL Video">
         </div>
 
-        <button type="submit" class="btn btn-success">Simpan</button>
+        <button type="submit" class="btn btn-primary">Simpan</button>
         <a href="{{ route('admin.bmc.index') }}" class="btn btn-secondary">Kembali</a>
     </form>
 </div>
