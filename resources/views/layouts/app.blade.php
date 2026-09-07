@@ -38,7 +38,7 @@
     <link href="{{ asset('matrix/dist/css/style.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.css">
     {{-- BISa design system: everything visual above the vendor substrate. --}}
-    <link href="{{ asset('css/bisa.css') }}" rel="stylesheet">
+    <link href="{{ \App\Support\Asset::versioned('css/bisa.css') }}" rel="stylesheet">
 
     @stack('styles')
     @yield('css')
@@ -82,7 +82,7 @@
     <script src="{{ asset('matrix/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
     <script src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="{{ asset('js/bisa.js') }}"></script>
+    <script src="{{ \App\Support\Asset::versioned('js/bisa.js') }}"></script>
 
     @stack('scripts')
     @yield('js')

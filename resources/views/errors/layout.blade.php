@@ -26,7 +26,7 @@
 
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/logo_bisa.png') }}">
     <link href="{{ asset('matrix/dist/css/style.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/bisa.css') }}" rel="stylesheet">
+    <link href="{{ \App\Support\Asset::versioned('css/bisa.css') }}" rel="stylesheet">
 
     <style>
         .error {
