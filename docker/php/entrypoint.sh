@@ -12,17 +12,13 @@ cd /var/www
 # built into Alpine — nothing extra to install) is enough of a backstop and,
 # unlike an artisan command, does not care whether a migrations table exists
 # yet, so it behaves the same on the very first deploy as on every one after.
-db_host=$(php -r '
-    foreach (file(".env") as $line) {
-        if (preg_match("/^DB_HOST=(.*)$/", trim($line), $m)) { echo $m[1]; break; }
-    }
-')
-db_port=$(php -r '
-    foreach (file(".env") as $line) {
-        if (preg_match("/^DB_PORT=(.*)$/", trim($line), $m)) { echo $m[1]; break; }
-    }
-')
-db_port="${db_port:-3306}"
+#
+# DB_HOST/DB_PORT arrive as real process environment variables (this app's
+# `env_file: .env` in docker-compose.yml, not a bind-mounted file) — read them
+# directly rather than trying to re-parse a .env file that does not exist
+# inside this container.
+db_host="${DB_HOST:-db}"
+db_port="${DB_PORT:-3306}"
 
 echo "[entrypoint] waiting for ${db_host:-db}:${db_port}..."
 tries=0
@@ -47,10 +43,14 @@ echo "[entrypoint] seeding reference data (idempotent)..."
 php artisan db:seed --force
 
 echo "[entrypoint] linking storage..."
-php artisan storage:link || true
+php artisan storage:link > /dev/null 2>&1 || true
 
-echo "[entrypoint] caching config/routes/views..."
-php artisan config:cache
+# No config:cache: config/navigation.php stores real Closures (the sidebar's
+# per-item `when` visibility checks), and config:cache works by var_export-ing
+# the merged config array — which cannot represent a Closure and hard-fails
+# the whole cache with "Your configuration files are not serializable."
+# Route and view caching have no such value in them and are safe.
+echo "[entrypoint] caching routes/views..."
 php artisan route:cache
 php artisan view:cache
 
