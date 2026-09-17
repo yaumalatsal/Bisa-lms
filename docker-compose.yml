@@ -1,0 +1,77 @@
+# Production stack for this app, one of several sharing a single small VPS.
+# A host-level nginx (outside this file) terminates TLS for the public
+# hostname and reverse-proxies to the `web` service's published port; see
+# docs/deploy.md for that half.
+#
+# Every memory limit here is deliberate — the host has under 2GB of RAM
+# shared across every app it runs. Raise them only alongside a real look at
+# `free -h` on the host.
+
+services:
+    app:
+        build:
+            context: .
+            target: app
+        container_name: bisa-lms-app
+        restart: unless-stopped
+        mem_limit: 256m
+        env_file: .env
+        volumes:
+            - laravel-storage:/var/www/storage
+            - logo-produk:/var/www/public/logo_produk
+            - poster-produk:/var/www/public/poster_produk
+        depends_on:
+            db:
+                condition: service_healthy
+        healthcheck:
+            # A real HTTP health check needs to go through nginx (php-fpm only
+            # speaks FastCGI, not HTTP) — that check is /api/health, polled
+            # from outside. This is just "did the master process survive",
+            # cheap enough to run every few seconds on a small box.
+            test: ["CMD", "pgrep", "-f", "php-fpm: master process"]
+            interval: 30s
+            timeout: 5s
+            retries: 3
+            start_period: 40s
+
+    web:
+        build:
+            context: .
+            target: web
+        container_name: bisa-lms-web
+        restart: unless-stopped
+        mem_limit: 48m
+        ports:
+            # Loopback only: the host nginx is what the internet reaches.
+            - "127.0.0.1:8084:80"
+        volumes:
+            - laravel-storage:/var/www/storage:ro
+            - logo-produk:/var/www/public/logo_produk:ro
+            - poster-produk:/var/www/public/poster_produk:ro
+        depends_on:
+            - app
+
+    db:
+        image: mysql:8.4
+        container_name: bisa-lms-db
+        restart: unless-stopped
+        mem_limit: 320m
+        environment:
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_USER: ${DB_USERNAME}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+        volumes:
+            - mysql-data:/var/lib/mysql
+            - ./docker/mysql/my.cnf:/etc/mysql/conf.d/memory.cnf:ro
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+            interval: 5s
+            timeout: 5s
+            retries: 20
+
+volumes:
+    mysql-data:
+    laravel-storage:
+    logo-produk:
+    poster-produk:
